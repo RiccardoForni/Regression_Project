@@ -1,4 +1,4 @@
-Check 1- Done ( to check)
+Check 1- Done
 Check 2- Not completed
 Check 3- Not completed
 Check 4- Not completed
