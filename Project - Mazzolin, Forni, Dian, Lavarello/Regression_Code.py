@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.ticker import PercentFormatter
 """import scipy as sp"""
 Data = []
 t=pd . date_range ( start ='15-09-2013 ',end ='15-09-2023 ', freq ='M') #Date series
@@ -54,7 +55,8 @@ i=0
 for e in np.array(Subset_Clear).T:
     str=Subset_Clear.columns[i].replace(" - TOT RETURN IND","")
     plt.figure()
-    plt.plot(t , e[1:n])
+    plt.plot(t , (e[1:n]/e[1]))
+    plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
     plt . xlabel ('Time - Monthly - 30-09-2013 - 30-09-2023 ')
     plt . ylabel (str+' Monthly Total Ret')
     plt.savefig("img/Total_Return/TR-"+str+".png")
