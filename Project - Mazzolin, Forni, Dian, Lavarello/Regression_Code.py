@@ -13,7 +13,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
         os.mkdir(folder)
         
     myint=iter(Subset.columns)
-    for e in sety.T:
+    for e in sety:
         str=next(myint)
         plt.figure()
         plt.scatter(setx,e)
@@ -30,7 +30,7 @@ def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
     P = {}
     X = np . column_stack (( np . ones_like ( Market ) , Market ))
     myint=iter(Subset.columns)
-    for e in Stock_Risk_Free.T:
+    for e in Stock_Risk_Free:
         Res.append(sm . OLS ( e[1:] , X[1:]  ). fit ())
         P[next(myint)]=Res[-1].pvalues[0]
         """
@@ -71,8 +71,8 @@ Calculate for each equity: Equity-interest rate
 
 The result is a matrix [Number of equity][Value calculated]
 """
-rStock = np.subtract(Equities,RFREE) #Subtract operation filled inside an array 
-rStock_Bond =np.subtract(Equities,BUNDRISK)
+rStock = np.subtract(Equities,RFREE).T #Subtract operation filled inside an array 
+rStock_Bond =np.subtract(Equities,BUNDRISK).T
 
 rMarket =np.subtract(Market,RFREE)
 rMarket_Bond =np.subtract(Market,BUNDRISK)
@@ -93,11 +93,7 @@ plotscatter(Market,rStock_Bond,"Excess Returns vs Eurostoxx - 3M BUND",
 
 
 Res,D_sort = OLS_Pvalue(rStock,rMarket,Subset_Stock_Selected)
+Res_bund,D_sort= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
 for e in D_sort:
     plt.bar(e[0],e[1])
 plt.savefig("TEST.png")
-"""
-Res_bund,P_Value_bund= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
-for e,j in zip(P_Value,P_Value_bund):
-    print(e[1]==j[1])
-"""
