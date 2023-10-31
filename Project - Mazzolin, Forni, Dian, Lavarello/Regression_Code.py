@@ -5,7 +5,7 @@ from matplotlib.ticker import PercentFormatter
 import statsmodels . api as sm
 import os
 
-def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save,string_to_cancel):
+def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
     cwd = os.getcwd()
     folder = cwd + "/img/"+string_to_save+"/" 
 
@@ -13,7 +13,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save,string
         os.mkdir(folder)
     myint=iter(Subset.columns)
     for e in sety.T:
-        str=next(myint).replace(string_to_cancel,"")
+        str=next(myint)
         plt.figure()
         plt.scatter(setx,e)
         plt.title(title)
@@ -32,7 +32,7 @@ def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
     myint=iter(Subset.columns)
     for e in Stock_Risk_Free.T:
         Res.append(sm . OLS ( e[1:] , X[1:]  ). fit ())
-        P.update({Res[-1].pvalues[0]:next(myint).replace("- TOT RETURN IND","")})
+        P.update({Res[-1].pvalues[0]:next(myint)})
         P_sort.append(Res[-1].pvalues[0])
         """
         with open('summary'+str(i)+'.txt', 'w') as fh:
@@ -59,7 +59,7 @@ EuroStoxx = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EUROSTOXX
 Subset_Stock_Selected= pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="Subset")
 Interest = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EURIBOR_3_M")
 Interest_BUND = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="BUND")
-
+Subset_Stock_Selected.columns = Subset_Stock_Selected.columns.str.replace("- TOT RETURN IND","")
 EuroStoxx = EuroStoxx.loc[:, EuroStoxx.columns != 'Name']#Delete column of date
 Subset_Stock_Selected=Subset_Stock_Selected.loc[:, Subset_Stock_Selected.columns != 'Name'] #Delete column of date
 
@@ -88,20 +88,20 @@ N_stock= rStock.shape[1]
 plotscatter(Market,rStock,"Excess Returns vs Eurostoxx - 3M Euribor",
             "Time - Monthly - 30-09-2013 - 30-09-2023",
             "","ER",Subset_Stock_Selected,
-            "Excess_return"," - TOT RETURN IND"
+            "Excess_return"
             )
 
 plotscatter(Market,rStock_Bond,"Excess Returns vs Eurostoxx - 3M BUND",
             "Time - Monthly - 30-09-2013 - 30-09-2023",
             "","ERB",Subset_Stock_Selected,
-            "Excess_return"," - TOT RETURN IND"
+            "Excess_return"
             )
 
 
 Res,P_Value = OLS_Pvalue(rStock,rMarket,Subset_Stock_Selected)
 Res_bund,P_Value_bund= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
 
-
+"""
 for e,j in zip(P_Value,P_Value_bund):
     print(e[1]==j[1])
-
+"""
