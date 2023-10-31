@@ -11,9 +11,9 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save,string
 
     if not os.path.exists(folder):
         os.mkdir(folder)
-    i=0
+    myint=iter(Subset.columns)
     for e in sety.T:
-        str=Subset.columns[i].replace(string_to_cancel,"")
+        str=next(myint).replace(string_to_cancel,"")
         plt.figure()
         plt.scatter(setx,e)
         plt.title(title)
@@ -21,7 +21,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save,string
         plt . ylabel (str+ylabel)
         plt.savefig(folder+sigla+"-"+str+".png")
         plt.close()
-        i+=1
+      
 
 
 def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
@@ -29,12 +29,11 @@ def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
     P = {}
     P_sort=[]
     X = np . column_stack (( np . ones_like ( Market ) , Market ))
-    i=0
+    myint=iter(Subset.columns)
     for e in Stock_Risk_Free.T:
         Res.append(sm . OLS ( e[1:] , X[1:]  ). fit ())
-        P.update({Res[-1].pvalues[0]:Subset.columns[i]})
+        P.update({Res[-1].pvalues[0]:next(myint).replace("- TOT RETURN IND","")})
         P_sort.append(Res[-1].pvalues[0])
-        i+=1
         """
         with open('summary'+str(i)+'.txt', 'w') as fh:
             fh.write(Res1[-1].summary().as_text())
