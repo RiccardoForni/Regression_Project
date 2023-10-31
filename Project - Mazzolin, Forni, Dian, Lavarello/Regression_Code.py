@@ -7,10 +7,11 @@ import os
 
 def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
     cwd = os.getcwd()
-    folder = cwd + "/img/"+string_to_save+"/" 
+    folder = cwd + "/"+string_to_save
 
     if not os.path.exists(folder):
         os.mkdir(folder)
+        
     myint=iter(Subset.columns)
     for e in sety.T:
         str=next(myint)
@@ -19,7 +20,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
         plt.title(title)
         plt . xlabel (xlabel)
         plt . ylabel (str+ylabel)
-        plt.savefig(folder+sigla+"-"+str+".png")
+        plt.savefig(folder+"/"+sigla+"-"+str+".png")
         plt.close()
       
 
@@ -27,26 +28,19 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
 def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
     Res = []
     P = {}
-    P_sort=[]
     X = np . column_stack (( np . ones_like ( Market ) , Market ))
     myint=iter(Subset.columns)
     for e in Stock_Risk_Free.T:
         Res.append(sm . OLS ( e[1:] , X[1:]  ). fit ())
-        P.update({Res[-1].pvalues[0]:next(myint)})
-        P_sort.append(Res[-1].pvalues[0])
+        P[next(myint)]=Res[-1].pvalues[0]
         """
         with open('summary'+str(i)+'.txt', 'w') as fh:
             fh.write(Res1[-1].summary().as_text())
         
         i+=1
         """
-    P_sort=np.sort(np.array(P_sort))
-    P_value_ordered = []
-    for e in P_sort:
-        P_value_ordered.append([e,P[e]])
-
-
-    return Res,P_value_ordered
+     
+    return Res,sorted(P.items(), key=lambda x:x[1])
 
 
 
@@ -98,10 +92,12 @@ plotscatter(Market,rStock_Bond,"Excess Returns vs Eurostoxx - 3M BUND",
             )
 
 
-Res,P_Value = OLS_Pvalue(rStock,rMarket,Subset_Stock_Selected)
-Res_bund,P_Value_bund= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
-
+Res,D_sort = OLS_Pvalue(rStock,rMarket,Subset_Stock_Selected)
+for e in D_sort:
+    plt.bar(e[0],e[1])
+plt.savefig("TEST.png")
 """
+Res_bund,P_Value_bund= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
 for e,j in zip(P_Value,P_Value_bund):
     print(e[1]==j[1])
 """
