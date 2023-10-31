@@ -53,6 +53,9 @@ EuroStoxx = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EUROSTOXX
 Subset_Stock_Selected= pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="Subset")
 Interest = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EURIBOR_3_M")
 Interest_BUND = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="BUND")
+
+
+
 Subset_Stock_Selected.columns = Subset_Stock_Selected.columns.str.replace("- TOT RETURN IND","")
 EuroStoxx = EuroStoxx.loc[:, EuroStoxx.columns != 'Name']#Delete column of date
 Subset_Stock_Selected=Subset_Stock_Selected.loc[:, Subset_Stock_Selected.columns != 'Name'] #Delete column of date
@@ -76,8 +79,6 @@ rStock_Bond =np.subtract(Equities,BUNDRISK).T
 
 rMarket =np.subtract(Market,RFREE)
 rMarket_Bond =np.subtract(Market,BUNDRISK)
-DIM_DATA=np . size ( Market.shape[0]) #Constant dimension
-N_stock= rStock.shape[1]
 
 plotscatter(Market,rStock,"Excess Returns vs Eurostoxx - 3M Euribor",
             "Time - Monthly - 30-09-2013 - 30-09-2023",
