@@ -25,24 +25,35 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,Subset,string_to_save):
       
 
 
-def OLS_Pvalue(Stock_Risk_Free,Market,Subset):
-    Res = []
-    P = {}
+def OLS(Stock_Risk_Free,Market):
+    Res= []
     X = np . column_stack (( np . ones_like ( Market ) , Market ))
-    myint=iter(Subset.columns)
     for e in Stock_Risk_Free:
-        Res.append(sm . OLS ( e[1:] , X[1:]  ). fit ())
-        P[next(myint)]=Res[-1].pvalues[0]
+        Res.append(pd.read_html(sm . OLS ( e[1:] , X[1:]  ). fit ().summary().tables[1].as_html(),header=0,index_col=0)[0])
+        
         """
+        
         with open('summary'+str(i)+'.txt', 'w') as fh:
-            fh.write(Res1[-1].summary().as_text())
+            fh.write(Res1[-1].summary().as_html())
         
         i+=1
         """
-     
-    return Res,sorted(P.items(), key=lambda x:x[1])
+    return Res
 
+def ReorderByOLSParam(Stocks,Subset,Row_interess,Coloum_interess):
+    """
+    Function return stock reorder by OLS result
+    Row_interess -> choose row of OLS Summary between
+    Const=0, X1=1
 
+    Coloum_interess-> choose coloum of OLS summary between
+    coef=0      std err=1    t=2     P>|t|=3     0.025=4   0.975=5  
+    """ 
+    P = {}
+    myint=iter(Subset.columns)
+    for e in Stocks:
+            P[next(myint)]=e.iloc[Row_interess][Coloum_interess]
+    return sorted(P.items(), key=lambda x:x[1])
 
 t=pd . date_range ( start ='15-09-2013 ',end ='15-09-2023 ', freq ='M') #Date series
 
@@ -79,7 +90,7 @@ rStock_Bond =np.subtract(Equities,BUNDRISK).T
 
 rMarket =np.subtract(Market,RFREE)
 rMarket_Bond =np.subtract(Market,BUNDRISK)
-
+"""
 plotscatter(Market,rStock,"Excess Returns vs Eurostoxx - 3M Euribor",
             "Time - Monthly - 30-09-2013 - 30-09-2023",
             "","ER",Subset_Stock_Selected,
@@ -92,9 +103,13 @@ plotscatter(Market,rStock_Bond,"Excess Returns vs Eurostoxx - 3M BUND",
             "Excess_return"
             )
 
+"""
+Res_Euribor= OLS(rStock,rMarket)
+Res_Bund= OLS(rStock_Bond,rMarket)
 
-Res,D_sort = OLS_Pvalue(rStock,rMarket,Subset_Stock_Selected)
-Res_bund,D_sort= OLS_Pvalue(rStock_Bond,rMarket,Subset_Stock_Selected)
-for e in D_sort:
+P_sort=ReorderByOLSParam(Res_Euribor,Subset_Stock_Selected,0,3)
+
+for e in P_sort:
     plt.bar(e[0],e[1])
+    plt.xticks(rotation=90)
 plt.savefig("TEST.png")
