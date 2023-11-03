@@ -13,7 +13,7 @@ Retrieve Subset equity and Interest rate
 sheet=-1
 col=""
 while sheet < 0 or sheet>1:
-    sheet=int(input("che tasso di Risk-Free vuoi? premi 0 per Euribor o 1 per Bund"))
+    sheet=int(input("Which Risk Free rate you want? press 0 for Euribor or 1 for Bund "))
 
 match sheet:
     case 0:
