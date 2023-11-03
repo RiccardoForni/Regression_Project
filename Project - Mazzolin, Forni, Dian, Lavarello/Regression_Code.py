@@ -55,7 +55,7 @@ rf.plotscatter(Market,rStock,"Excess Returns vs Eurostoxx -"+sheet,
             "Excess_return"
             )
 
-Res_Euribor= rf.OLS(rStock,rMarket,True)
+Res_Euribor= rf.OLS(rStock,rMarket,False)
 P_sort=rf.ReorderByOLSParam(Res_Euribor,Subset_Stock_Selected,0,3)
 rf.plotbar(P_sort,sheet)
 rf.plotCAPM(rStock,rMarket,Res_Euribor,Subset_Stock_Selected,sheet)
