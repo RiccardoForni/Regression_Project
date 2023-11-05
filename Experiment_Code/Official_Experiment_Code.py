@@ -112,7 +112,7 @@ rf.m_scatter(CAPM_summary, df_factors, df_stocks,
 """
 P-values analysis
 """
-
+CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 rf.plotbar(CAPM_summary['p-value_alpha'])
 
 rf.plotbar(CAPM_summary['p-value_beta: Market'])
