@@ -17,7 +17,8 @@ def folder_definer(folder):
     return PATH
     
     
-def plotbar(P,SavePath):
+def plotbar(P,SavePath, one_value = 0.01, five_value = 0.05, 
+            ten_value = 0.1):
     
     """/3_p_value_plots/"""
     variable = P.name
@@ -34,17 +35,13 @@ def plotbar(P,SavePath):
         elif value <= five_value:
             return 'orange'
         elif value <= ten_value:
-            return 'yellow'
+            return 'gold'
         elif value == mean:
             return 'black'
         else:
             return 'grey'
-    fig, ax = plt.subplots()
-    
-    one_value = 0.01
-    five_value = 0.05
-    ten_value = 0.1
-    
+    fig, ax = plt.subplots()   
+   
     P['colors'] = P[variable].apply(bar_highlight, args = (one_value, 
                           five_value,
                           ten_value,

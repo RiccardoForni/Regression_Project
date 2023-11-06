@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import experiment_function_6nov as rf
+import experiment_function_6nov_2 as rf
 import warnings
 
 """Pre_config"""
@@ -113,8 +113,8 @@ P-values analysis
 """
 CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 rf.plotbar(CAPM_summary['p-value_alpha'],("3_p_value_plots"))
-CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 
+CAPM_summary = CAPM_summary.sort_values('p-value_beta: Market')
 rf.plotbar(CAPM_summary['p-value_beta: Market'],("3_p_value_plots"))
 
 
@@ -187,7 +187,14 @@ RESET TEST
 a = rf.RESET_test(CAPM_list)
 b = rf.RESET_test(CAPM_EW_Portfolio)
 diag_CAPM_RESET = pd.concat([a,b], axis = 0)
+
+diag_CAPM_RESET.loc['Mean'] = diag_CAPM_RESET.mean()
+diag_CAPM_RESET = diag_CAPM_RESET.sort_values('p-value')
+
 diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
+rf.plotbar(diag_CAPM_RESET['p-value'],("4_p_value_RESET"))
+
+
 
 """
 WHITE TEST
@@ -196,8 +203,13 @@ WHITE TEST
 a = rf.h_test(CAPM_list)
 b = rf.h_test(CAPM_EW_Portfolio)
 diag_CAPM_het_WHITE = pd.concat([a,b], axis = 0)
-diag_CAPM_het_WHITE = diag_het_WHITE.sort_values('p-value')
+
+diag_CAPM_het_WHITE.loc['Mean'] = diag_CAPM_het_WHITE.mean()
+diag_CAPM_het_WHITE = diag_CAPM_het_WHITE.sort_values('p-value')
+
 diag_CAPM_het_WHITE.to_excel("4_WHITE_test.xlsx")
+rf.plotbar(diag_CAPM_het_WHITE['p-value'],("4_p_value_WHITE"))
+
 
 """
 DURBIN-WATSON TEST
@@ -205,8 +217,14 @@ DURBIN-WATSON TEST
 
 a = rf.Durbin_Watson_test(CAPM_list)
 b = rf.Durbin_Watson_test(CAPM_EW_Portfolio)
-diag_serialcor_DW = pd.concat([a,b], axis = 0)
-diag_CAPM_serialcol_DW.to_excel("4_WHITE_test.xlsx")
+diag_CAPM_serialcor_DW = pd.concat([a,b], axis = 0)
+
+diag_CAPM_serialcor_DW.loc['Mean'] = diag_CAPM_serialcor_DW.mean()
+diag_CAPM_serialcor_DW = diag_CAPM_serialcor_DW.sort_values('Test-statistic')
+
+diag_CAPM_serialcor_DW.to_excel("4_DW_test.xlsx")
+rf.plotbar(diag_CAPM_serialcor_DW['Test-statistic'],("4_p_value_DW"),
+           ten_value = 1.8)
 
 
 if allow_clean:
