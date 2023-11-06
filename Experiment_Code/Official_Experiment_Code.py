@@ -181,3 +181,12 @@ rf.comparison_scatter(df_stocks,df_portfolios['Portfolio - EW'],
 comparison_stocks_EW_portfolio =comparison_stocks_EW_portfolio.T
 
 comparison_stocks_EW_portfolio.to_excel("3_Comparison.xlsx")
+
+"""
+RESET TEST
+"""
+
+a = rf.RESET_test(CAPM_list)
+b = rf.RESET_test(CAPM_EW_Portfolio)
+diag_CAPM_RESET = pd.concat([a,b], axis = 0)
+diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
