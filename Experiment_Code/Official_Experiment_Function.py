@@ -258,3 +258,17 @@ def m_scatter(CAPM_summary, df_factors, df_stocks,
     plt.savefig(folder+"/"+string_to_save+".png")
 
     plt.show()
+
+def RESET_test(l):
+    df = pd.DataFrame(columns= ['F-Value', 'p-value'])
+    results = []
+    for i in range(len(l)):
+        l_val = []
+        x = l[i]
+        x.fittedvalues = np.array(x.fittedvalues)
+        f = smd.linear_reset(res = x , power = 3, test_type = "fitted", use_f = True)
+        l_val.append(f.fvalue)
+        l_val.append(f.pvalue)
+        df.loc[l[i].model.endog_names,:] = l_val
+        results.append(f)
+    return df
