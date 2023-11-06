@@ -2,12 +2,25 @@ import numpy as np
 import pandas as pd
 import Official_Experiment_Function as rf
 import warnings
+
+"""Pre_config"""
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
+allow_clean=False
+if 'SPY_PYTHONPATH' in rf.os.environ:
+    allow_clean = True
+    """
+    Check Last line for clean variables
+    """
+
+"""Pre_config END"""
+
+
 
 """
 Creating time-series of relevant dates
 """
-t=pd . date_range ( start ='15-09-2013 ',end ='15-09-2023 ', freq ='M') #Date series
+time_series=pd . date_range ( start ='30-09-2013 ',end ='29-09-2023 ', freq ='M') #Date series
 
 """
 Retrieve Subset equity and Interest rate
@@ -26,21 +39,16 @@ match sheet:
         col="RF GERMANY GVT BMK BID YLD 3M - RED. YIELD"      
 
 
-EuroStoxx = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EUROSTOXX600")
-Subset_Stock_Selected= pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="Subset")
+EuroStoxx = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="EUROSTOXX600").iloc[: , 1:]
+Subset_Stock_Selected= pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name="Subset").iloc[: , 1:]
 Interest = pd . read_excel('DataEuroStock_Tecnology.xlsx',sheet_name=sheet)
 
 """
 Clean the data 
 Obtain monthly rates from annualized interest rates time-series
 """
-
 Subset_Stock_Selected.columns = Subset_Stock_Selected.columns.str.replace(" - TOT RETURN IND","")
-EuroStoxx = EuroStoxx.loc[:, EuroStoxx.columns != 'Name']#Delete column of date
-Subset_Stock_Selected=Subset_Stock_Selected.loc[:, Subset_Stock_Selected.columns != 'Name'] #Delete column of date
-0
 RFREE=np.array(Interest[[col]]/12)
-
 
 """
 a) Computing the logarithmic excess returns for:
@@ -50,28 +58,21 @@ a) Computing the logarithmic excess returns for:
 b) Inserting them in a dataframe
 """
 stock_names = list(Subset_Stock_Selected.columns)
-print(type(np.subtract(100*np.log(EuroStoxx) - np . log ( EuroStoxx . shift (1) ),RFREE)) )
 
-df_factors = pd.DataFrame(data = 
+df_factors = pd.DataFrame(data=
                          np.subtract(np.array(100 *( np . log ( EuroStoxx ) 
                                      -np . log ( EuroStoxx . shift (1) )) ),
                                    RFREE),
-                      columns = ['Market'])
-df_factors = df_factors.iloc[1:,]
-df_factors.index = t
+                      columns = ['Market']).iloc[1:,]
 
-del EuroStoxx
-
-
-df_stocks = pd.DataFrame(data = 
+df_stocks = pd.DataFrame( 
                          np.subtract(np.array(100 *( np . log ( Subset_Stock_Selected ) 
                                      -np . log ( Subset_Stock_Selected . shift (1) )) ),
                                    RFREE),
                       columns = stock_names)
 df_stocks = df_stocks.iloc[1:,]
-df_stocks.index = t
+df_stocks.index = df_factors.index = time_series
 
-del Subset_Stock_Selected, RFREE,Interest,col
 
 """
 Here in the argument title the content of the string: "sheet" is added
@@ -91,7 +92,6 @@ Here we estimate the CAPM model for each stock.
 """
 
 CAPM_summary, CAPM_list = rf.OLS(df_stocks,df_factors)
-
 CAPM_summary.loc['Mean'] = CAPM_summary.mean()
 CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 
@@ -106,16 +106,16 @@ Here we create a (2,3) plot with:
 CAPM_summary = CAPM_summary.sort_values('R-Squared')
 
 rf.m_scatter(CAPM_summary, df_factors, df_stocks,
-             sheet,
-             "2_scatter_comparison")
+             ("2_scatter_comparison","2_scatter_comparison"))
 
 """
 P-values analysis
 """
 CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
-rf.plotbar(CAPM_summary['p-value_alpha'])
+rf.plotbar(CAPM_summary['p-value_alpha'],("3_p_value_plots"))
+CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 
-rf.plotbar(CAPM_summary['p-value_beta: Market'])
+rf.plotbar(CAPM_summary['p-value_beta: Market'],("3_p_value_plots"))
 
 
 
@@ -128,7 +128,7 @@ rf.plotCAPM(df_stocks,
             df_factors,
             stock_names,
             CAPM_summary.loc[CAPM_summary.index != 'Mean'],
-            sheet)
+            ("2_testCAPM","CAPM",sheet))
 
 """
 Computes excess returns of a equally-weighted portfolio for each month
@@ -138,16 +138,16 @@ Excess_equi_valued = np.array(sum(array_stocks)/len(array_stocks)).reshape(-1,1)
 
 df_portfolios = pd.DataFrame(data = Excess_equi_valued, 
                             columns = ['Portfolio - EW'],
-                            index = t)
-del Excess_equi_valued
+                            index = time_series)
+
 
 """
 Runs a CAPM using as independent variable the excess return of said portfolio
 """
 
 CAPM_EW_Portfolio_Summary, CAPM_EW_Portfolio = rf.OLS(
-                             df_portfolios['Portfolio - EW'],
-                             df_factors['Market'])
+                             df_portfolios,
+                             df_factors)
 
 """
 Comparison between:
@@ -160,33 +160,25 @@ comparison_stocks_EW_portfolio = pd.concat([CAPM_summary.loc['Mean',:],
                        axis = 1).T
 
 
-rf.comparison_scatter_2(df_stocks,df_portfolios['Portfolio - EW'],
+rf.comparison_scatter(df_stocks,df_portfolios['Portfolio - EW'],
             df_factors['Market'],
-            CAPM_EW_Portfolio_Summary,
             "Excess Returns vs Eurostoxx -"+sheet,
             "Market Excess Returns",
-            "Excess Returns",sheet,
-            "3_Comparison_Scatter"
+            "Excess Returns",
+            ("3_Comparison_Scatter",sheet),
+            CAPM_EW_Portfolio_Summary
             )
 
 rf.comparison_scatter(df_stocks,df_portfolios['Portfolio - EW'],
             df_factors['Market'],
             "Comparison between the scatter plots",
             "Market Excess Returns(" +sheet+")",
-            "Excess Returns(" +sheet+")",sheet,
-            "3_Comparison_Scatter"
+            "Excess Returns(" +sheet+")",
+            ("3_Comparison_Scatter",sheet)
             )
 
+comparison_stocks_EW_portfolio.T.to_excel("3_Comparison.xlsx")
 
-comparison_stocks_EW_portfolio =comparison_stocks_EW_portfolio.T
 
-comparison_stocks_EW_portfolio.to_excel("3_Comparison.xlsx")
-
-"""
-RESET TEST
-"""
-
-a = rf.RESET_test(CAPM_list)
-b = rf.RESET_test(CAPM_EW_Portfolio)
-diag_CAPM_RESET = pd.concat([a,b], axis = 0)
-diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
+if allow_clean:
+    del Subset_Stock_Selected, RFREE,Interest,col,EuroStoxx, Excess_equi_valued
