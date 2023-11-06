@@ -117,7 +117,19 @@ rf.plotbar(CAPM_summary['p-value_alpha'],("3_p_value_plots"))
 CAPM_summary = CAPM_summary.sort_values('p-value_beta: Market')
 rf.plotbar(CAPM_summary['p-value_beta: Market'],"3_p_value_plots")
 
+"""
+F-TEST Comparison
+"""
 
+F_test_critical_alphas = f_test_retrieval_2(CAPM_list)
+        
+F_test_p_values = f_test_retrieval(CAPM_list)
+
+F_test_p_values.loc['Mean'] = F_test_p_values.mean()
+F_test_p_values = F_test_p_values.sort_values('F-Test_p-value')
+
+rf.plotbar(F_test_p_values['F-Test_p-value'],"3_F_test_p_value_plots")
+    
 
 """
 THIS USES THE PREVIOUSLY DEFINED CODE TO PLOT THE OLS FITTED LINE IN THE 

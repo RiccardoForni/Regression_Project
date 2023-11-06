@@ -102,6 +102,41 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,SavePath):
         
     return l
 
+def f_test_retrieval(l):
+    
+
+    df = pd.DataFrame(columns = ['F-Test_Value','F-Test_p-value'])
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+        df.loc[name, 'F-Test_Value'] = l[i].fvalue
+        df.loc[name, 'F-Test_p-value'] = l[i].f_pvalue
+            
+    return df
+
+def f_test_retrieval_2(l):
+    
+    critical_alpha = l[l.iloc[:,1] < 0.05].iloc[:,1]
+
+    l = CAPM_list
+
+    df = pd.DataFrame(columns = [critical_alpha.name, 'F-Test_p-value'],
+                      index = critical_alpha.index)
+    
+    df.loc[:,critical_alpha.name] = critical_alpha
+    r = list(critical_alpha.index)
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+
+        if name in r:
+            
+            df.loc[name, 'F-Test_p-value'] = l[i].f_pvalue
+            
+    return df
+
 def OLS(y, *x):
 
     intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
