@@ -36,7 +36,7 @@ def plotbar(P,SavePath, one_value = 0.01, five_value = 0.05,
             return 'orange'
         elif value <= ten_value:
             return 'gold'
-        elif value == mean:
+        if value == mean:
             return 'black'
         else:
             return 'grey'
@@ -51,8 +51,8 @@ def plotbar(P,SavePath, one_value = 0.01, five_value = 0.05,
     x_pos = range(P['stock_names'].shape[0])
     plt.xticks(x_pos, P['stock_names'], rotation=90)
     
-
-    plt.savefig(folder_definer(SavePath[0])+"/"+variable+".png")
+    variable = variable.replace(":","_")
+    plt.savefig(folder_definer(SavePath)+"/"+variable+".png")
     plt.show()
     
     plt.close()
@@ -96,7 +96,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,SavePath):
         plt.title(title)
         plt . xlabel (xlabel)
         plt . ylabel (e+ylabel)
-        plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+"-"+e+".png")
+        plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+"-"+e+"_"+sigla+".png")
         l.loc[e,'Plot'] = plt.figure()
         plt.close()
         
@@ -243,6 +243,20 @@ def Durbin_Watson_test(l):
         
     return df
 
+def Breusch_Godfrey_test(l):
+    
+    df = pd.DataFrame(columns= ['F-Value', 'p-value'])
+    
+    for i in range(len(l)):
+        
+        l_val = []
 
-
+        f = smd.acorr_breusch_godfrey(l[i], nlags = 3)
+        
+        l_val.append(f[2])
+        l_val.append(f[3])
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
     

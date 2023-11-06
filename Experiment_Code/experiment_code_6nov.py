@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import experiment_function_6nov_2 as rf
+import experiment_function_6nov as rf
 import warnings
 
 """Pre_config"""
@@ -81,7 +81,7 @@ Here in the argument title the content of the string: "sheet" is added
 l = rf.plotscatter(df_factors,df_stocks,"Excess Returns vs Eurostoxx -"+sheet,
             "Market Excess Returns",
             "",sheet,
-            "2_Excess_return"
+            ("2_Excess_return", "Excess_return")
             )
 
 """
@@ -115,7 +115,7 @@ CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 rf.plotbar(CAPM_summary['p-value_alpha'],("3_p_value_plots"))
 
 CAPM_summary = CAPM_summary.sort_values('p-value_beta: Market')
-rf.plotbar(CAPM_summary['p-value_beta: Market'],("3_p_value_plots"))
+rf.plotbar(CAPM_summary['p-value_beta: Market'],"3_p_value_plots")
 
 
 
@@ -192,7 +192,7 @@ diag_CAPM_RESET.loc['Mean'] = diag_CAPM_RESET.mean()
 diag_CAPM_RESET = diag_CAPM_RESET.sort_values('p-value')
 
 diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
-rf.plotbar(diag_CAPM_RESET['p-value'],("4_p_value_RESET"))
+rf.plotbar(diag_CAPM_RESET['p-value'],"4_p_value_RESET")
 
 
 
@@ -208,7 +208,7 @@ diag_CAPM_het_WHITE.loc['Mean'] = diag_CAPM_het_WHITE.mean()
 diag_CAPM_het_WHITE = diag_CAPM_het_WHITE.sort_values('p-value')
 
 diag_CAPM_het_WHITE.to_excel("4_WHITE_test.xlsx")
-rf.plotbar(diag_CAPM_het_WHITE['p-value'],("4_p_value_WHITE"))
+rf.plotbar(diag_CAPM_het_WHITE['p-value'],"4_p_value_WHITE")
 
 
 """
@@ -223,8 +223,23 @@ diag_CAPM_serialcor_DW.loc['Mean'] = diag_CAPM_serialcor_DW.mean()
 diag_CAPM_serialcor_DW = diag_CAPM_serialcor_DW.sort_values('Test-statistic')
 
 diag_CAPM_serialcor_DW.to_excel("4_DW_test.xlsx")
-rf.plotbar(diag_CAPM_serialcor_DW['Test-statistic'],("4_p_value_DW"),
+rf.plotbar(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
            ten_value = 1.8)
+
+"""
+BREUSCH-GODFREY TEST
+"""
+
+a = rf.Breusch_Godfrey_test(CAPM_list)
+b = rf.Breusch_Godfrey_test(CAPM_EW_Portfolio)
+diag_CAPM_serialcor_BG = pd.concat([a,b], axis = 0)
+
+diag_CAPM_serialcor_BG.loc['Mean'] = diag_CAPM_serialcor_BG.mean()
+diag_CAPM_serialcor_BG = diag_CAPM_serialcor_BG.sort_values('p-value')
+
+diag_CAPM_serialcor_BG.to_excel("4_DW_test.xlsx")
+rf.plotbar(diag_CAPM_serialcor_BG['p-value'],"4_p_value_BG")
+
 
 
 if allow_clean:
