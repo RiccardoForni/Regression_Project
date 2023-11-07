@@ -1,6 +1,8 @@
 from matplotlib.ticker import PercentFormatter
 import matplotlib.pyplot as plt
 import statsmodels . api as sm
+import statsmodels.stats.diagnostic as smd
+import statsmodels.stats.stattools as smt
 import pandas as pd
 import os
 import numpy as np
@@ -90,7 +92,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,SavePath):
     l = pd.DataFrame(index = sety.columns, columns= ['Plot'])
         
     for e in sety.columns:
-
+        
         ax1 = plt.figure().add_subplot()
         
         ax1.scatter(setx,sety[e])
@@ -100,6 +102,7 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,SavePath):
         plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+"-"+e+".png")
         l.loc[e,'Plot'] = plt.figure()
         plt.close()
+        
     return l
 
 def OLS(y, *x):
@@ -192,3 +195,57 @@ def m_scatter(CAPM_summary, df_factors, df_stocks,
     plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+".png")
 
     plt.show()
+    
+    
+    
+def RESET_test(l):
+    df = pd.DataFrame(columns= ['F-Value', 'p-value'])
+    results = []
+    for i in range(len(l)):
+        l_val = []
+        x = l[i]
+        x.fittedvalues = np.array(x.fittedvalues)
+        f = smd.linear_reset(res = x , power = 3, test_type = "fitted", use_f = True)
+        l_val.append(f.fvalue)
+        l_val.append(f.pvalue)
+        df.loc[l[i].model.endog_names,:] = l_val
+        results.append(f)
+    return df
+
+def h_test(l):
+    
+    df = pd.DataFrame(columns= ['F-Value', 'p-value'])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        residuals = l[i].resid
+        exogen = l[i].model.exog
+        f = smd.het_white(residuals, exogen)
+        l_val.append(f[2])
+        l_val.append(f[3])
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
+
+def Durbin_Watson_test(l):
+    
+    df = pd.DataFrame(columns= ["Test-statistic"])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        
+        residuals = l[i].resid.copy()
+        residuals = np.array(residuals)
+        
+        f = smt.durbin_watson(residuals)
+        l_val.append(f)
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
+
+
+
+    
