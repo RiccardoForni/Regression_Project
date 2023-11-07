@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import Official_Experiment_Function as rf
+import experiment_function_6nov as rf
 import warnings
 
 """Pre_config"""
