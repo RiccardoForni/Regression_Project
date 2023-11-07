@@ -281,4 +281,7 @@ df2 = df2.set_index('Time')
 
 FF5 = pd.concat([df1, df2],axis = 1)
 
-FF5 = FF5.loc[df_stocks.index,:]
+if allow_clean:
+    del Subset_Stock_Selected, RFREE,Interest,col,EuroStoxx, Excess_equi_valued
+
+
