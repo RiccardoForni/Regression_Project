@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import Official_Experiment_Function as rf
+import experiment_function_6nov as rf
 import warnings
 
 """Pre_config"""
@@ -178,6 +178,35 @@ rf.comparison_scatter(df_stocks,df_portfolios['Portfolio - EW'],
             )
 
 comparison_stocks_EW_portfolio.T.to_excel("3_Comparison.xlsx")
+
+
+"""
+RESET TEST
+"""
+
+a = rf.RESET_test(CAPM_list)
+b = rf.RESET_test(CAPM_EW_Portfolio)
+diag_CAPM_RESET = pd.concat([a,b], axis = 0)
+diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
+
+"""
+WHITE TEST
+"""
+
+a = rf.h_test(CAPM_list)
+b = rf.h_test(CAPM_EW_Portfolio)
+diag_het_WHITE = pd.concat([a,b], axis = 0)
+diag_het_WHITE = diag_het_WHITE.sort_values('p-value')
+diag_CAPM_RESET.to_excel("4_WHITE_test.xlsx")
+
+"""
+DURBIN-WATSON TEST
+"""
+
+a = rf.Durbin_Watson_test(CAPM_list)
+b = rf.Durbin_Watson_test(CAPM_EW_Portfolio)
+diag_serialcor_DW = pd.concat([a,b], axis = 0)
+
 
 
 if allow_clean:
