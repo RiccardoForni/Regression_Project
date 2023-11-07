@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import experiment_function_6nov as rf
+import Official_Experiment_Function as rf
 import warnings
 
 """Pre_config"""
@@ -81,7 +81,7 @@ Here in the argument title the content of the string: "sheet" is added
 l = rf.plotscatter(df_factors,df_stocks,"Excess Returns vs Eurostoxx -"+sheet,
             "Market Excess Returns",
             "",sheet,
-            "2_Excess_return"
+            ("2_Excess_return", "Excess_return")
             )
 
 """
@@ -113,11 +113,22 @@ P-values analysis
 """
 CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 rf.plotbar(CAPM_summary['p-value_alpha'],("3_p_value_plots"))
-CAPM_summary = CAPM_summary.sort_values('p-value_alpha')
 
-rf.plotbar(CAPM_summary['p-value_beta: Market'],("3_p_value_plots"))
+CAPM_summary = CAPM_summary.sort_values('p-value_beta: Market')
+rf.plotbar(CAPM_summary['p-value_beta: Market'],"3_p_value_plots")
 
+"""
+F-TEST Comparison
+"""
 
+        
+F_test_p_values = rf.f_test_retrieval(CAPM_list)
+
+F_test_p_values.loc['Mean'] = F_test_p_values.mean()
+F_test_p_values = F_test_p_values.sort_values('F-Test_p-value')
+
+rf.plotbar(F_test_p_values['F-Test_p-value'],"3_F_test_p_value_plots")
+    
 
 """
 THIS USES THE PREVIOUSLY DEFINED CODE TO PLOT THE OLS FITTED LINE IN THE 
@@ -187,7 +198,14 @@ RESET TEST
 a = rf.RESET_test(CAPM_list)
 b = rf.RESET_test(CAPM_EW_Portfolio)
 diag_CAPM_RESET = pd.concat([a,b], axis = 0)
+
+diag_CAPM_RESET.loc['Mean'] = diag_CAPM_RESET.mean()
+diag_CAPM_RESET = diag_CAPM_RESET.sort_values('p-value')
+
 diag_CAPM_RESET.to_excel("4_RESET_test.xlsx")
+rf.plotbar(diag_CAPM_RESET['p-value'],"4_p_value_RESET")
+
+
 
 """
 WHITE TEST
@@ -195,9 +213,14 @@ WHITE TEST
 
 a = rf.h_test(CAPM_list)
 b = rf.h_test(CAPM_EW_Portfolio)
-diag_het_WHITE = pd.concat([a,b], axis = 0)
-diag_het_WHITE = diag_het_WHITE.sort_values('p-value')
-diag_CAPM_RESET.to_excel("4_WHITE_test.xlsx")
+diag_CAPM_het_WHITE = pd.concat([a,b], axis = 0)
+
+diag_CAPM_het_WHITE.loc['Mean'] = diag_CAPM_het_WHITE.mean()
+diag_CAPM_het_WHITE = diag_CAPM_het_WHITE.sort_values('p-value')
+
+diag_CAPM_het_WHITE.to_excel("4_WHITE_test.xlsx")
+rf.plotbar(diag_CAPM_het_WHITE['p-value'],"4_p_value_WHITE")
+
 
 """
 DURBIN-WATSON TEST
@@ -205,9 +228,57 @@ DURBIN-WATSON TEST
 
 a = rf.Durbin_Watson_test(CAPM_list)
 b = rf.Durbin_Watson_test(CAPM_EW_Portfolio)
-diag_serialcor_DW = pd.concat([a,b], axis = 0)
+diag_CAPM_serialcor_DW = pd.concat([a,b], axis = 0)
+
+diag_CAPM_serialcor_DW.loc['Mean'] = diag_CAPM_serialcor_DW.mean()
+diag_CAPM_serialcor_DW = diag_CAPM_serialcor_DW.sort_values('Test-statistic')
+
+diag_CAPM_serialcor_DW.to_excel("4_DW_test.xlsx")
+rf.plotbar(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
+           ten_value = 1.8)
+
+"""
+BREUSCH-GODFREY TEST
+"""
+
+a = rf.Breusch_Godfrey_test(CAPM_list)
+b = rf.Breusch_Godfrey_test(CAPM_EW_Portfolio)
+diag_CAPM_serialcor_BG = pd.concat([a,b], axis = 0)
+
+diag_CAPM_serialcor_BG.loc['Mean'] = diag_CAPM_serialcor_BG.mean()
+diag_CAPM_serialcor_BG = diag_CAPM_serialcor_BG.sort_values('p-value')
+
+diag_CAPM_serialcor_BG.to_excel("4_DW_test.xlsx")
+rf.plotbar(diag_CAPM_serialcor_BG['p-value'],"4_p_value_BG")
+
+"""
+FAMA-FRENCH download and cleaning
+"""
+
+df1 = pd.read_csv('F-F_Research_Data_5_Factors_2x3.csv',
+                        skiprows = 2)
+df1 = df1.iloc[:722,:]
+
+df1['Unnamed: 0'] = pd.to_datetime(df1['Unnamed: 0'], format = "%Y%m")
+
+l = list(df1.columns)
+l[0] = 'Time'
+df1.columns = l
+
+df1 = df1.set_index('Time')
 
 
 
-if allow_clean:
-    del Subset_Stock_Selected, RFREE,Interest,col,EuroStoxx, Excess_equi_valued
+df2 = pd.read_csv('F-F_Momentum_Factor.csv',
+                 skiprows = 12)
+df2 = df2.iloc[:1160,:]
+
+df2['Unnamed: 0'] = pd.to_datetime(df2['Unnamed: 0'], format = "%Y%m")
+l = list(df2.columns)
+l[0] = 'Time'
+df2.columns = l
+df2 = df2.set_index('Time')
+
+FF5 = pd.concat([df1, df2],axis = 1)
+
+FF5 = FF5.loc[df_stocks.index,:]

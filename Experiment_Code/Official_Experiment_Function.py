@@ -17,7 +17,8 @@ def folder_definer(folder):
     return PATH
     
     
-def plotbar(P,SavePath):
+def plotbar(P,SavePath, one_value = 0.01, five_value = 0.05, 
+            ten_value = 0.1):
     
     """/3_p_value_plots/"""
     variable = P.name
@@ -34,17 +35,13 @@ def plotbar(P,SavePath):
         elif value <= five_value:
             return 'orange'
         elif value <= ten_value:
-            return 'yellow'
-        elif value == mean:
+            return 'gold'
+        if value == mean:
             return 'black'
         else:
             return 'grey'
-    fig, ax = plt.subplots()
-    
-    one_value = 0.01
-    five_value = 0.05
-    ten_value = 0.1
-    
+    fig, ax = plt.subplots()   
+   
     P['colors'] = P[variable].apply(bar_highlight, args = (one_value, 
                           five_value,
                           ten_value,
@@ -54,8 +51,8 @@ def plotbar(P,SavePath):
     x_pos = range(P['stock_names'].shape[0])
     plt.xticks(x_pos, P['stock_names'], rotation=90)
     
-
-    plt.savefig(folder_definer(SavePath[0])+"/"+variable+".png")
+    variable = variable.replace(":","_")
+    plt.savefig(folder_definer(SavePath)+"/"+variable+".png")
     plt.show()
     
     plt.close()
@@ -99,11 +96,46 @@ def plotscatter(setx,sety,title,xlabel,ylabel,sigla,SavePath):
         plt.title(title)
         plt . xlabel (xlabel)
         plt . ylabel (e+ylabel)
-        plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+"-"+e+".png")
+        plt.savefig(folder_definer(SavePath[0])+"/"+SavePath[1]+"-"+e+"_"+sigla+".png")
         l.loc[e,'Plot'] = plt.figure()
         plt.close()
         
     return l
+
+def f_test_retrieval(l):
+    
+
+    df = pd.DataFrame(columns = ['F-Test_Value','F-Test_p-value'])
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+        df.loc[name, 'F-Test_Value'] = l[i].fvalue
+        df.loc[name, 'F-Test_p-value'] = l[i].f_pvalue
+            
+    return df
+
+def f_test_retrieval_2(l):
+    
+    critical_alpha = l[l.iloc[:,1] < 0.05].iloc[:,1]
+
+    l = CAPM_list
+
+    df = pd.DataFrame(columns = [critical_alpha.name, 'F-Test_p-value'],
+                      index = critical_alpha.index)
+    
+    df.loc[:,critical_alpha.name] = critical_alpha
+    r = list(critical_alpha.index)
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+
+        if name in r:
+            
+            df.loc[name, 'F-Test_p-value'] = l[i].f_pvalue
+            
+    return df
 
 def OLS(y, *x):
 
@@ -246,6 +278,20 @@ def Durbin_Watson_test(l):
         
     return df
 
+def Breusch_Godfrey_test(l):
+    
+    df = pd.DataFrame(columns= ['F-Value', 'p-value'])
+    
+    for i in range(len(l)):
+        
+        l_val = []
 
-
+        f = smd.acorr_breusch_godfrey(l[i], nlags = 3)
+        
+        l_val.append(f[2])
+        l_val.append(f[3])
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
     
