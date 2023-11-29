@@ -780,23 +780,41 @@ PUNTO 7
 --------------------------------------------------------------------------------------
 """
 
+
 """
 CAPM
 """
 
+
 beg = int(0)
-end = int(59)
+end = int(21)
 
 stop = df_stocks.shape[0]
 
 d3 = {}
 
 l_col = []
-l_col = l_col + list(CAPM_summary.columns) + ['LBound', 'UBound'] + ['end_date']
+l_col = l_col + list(CAPM_summary.columns) 
+
+"""
+CREATING THE LIST OF PARAMETERS FOR WHICH WE WANT THE PLOT WITH CONFIDENCE INTERVAL
+"""
+
+l_conf = ['Alpha','Market']
+
+for i in l_conf:
+
+    l_col = l_col+ [i+ '_LBound', i+ '_UBound'] 
+
+l_col = l_col + ['end_date']
 
 for i in df_stocks.columns:
     
     d3[i] = pd.DataFrame(columns = l_col)
+
+"""
+ESTIMATING THE CAPM MODELS FOR EACH STOCK WITH A ROLLING WINDOW OF 5 YEARS
+"""
 
 j = 0
     
@@ -807,8 +825,9 @@ while end <= stop:
     roll_df_factors = df_factors.iloc[beg:end, :]
     
     
-    roll_CAPM_summary, roll_CAPM_list = rf.OLS(roll_df_stocks,roll_df_factors['Market'], hac = True,
-                                               conf_int = True)
+    roll_CAPM_summary, roll_CAPM_list = rf.OLS(roll_df_stocks,roll_df_factors['Market'], 
+                                               hac = True,
+                                               conf_int = [True, l_conf])
     
     for i in d3.keys():
         
@@ -824,58 +843,113 @@ while end <= stop:
 for i in d3.keys():
     
     d3[i] = d3[i].set_index('end_date')
-    
+
+"""
+CHECK TO SEE THAT THE CONFIDENCE INTERVALS ARE SYMMETRIC
+"""    
     
 for i in d3.keys():
-    t = (d3[i]['beta: Market'] - d3[i]['LBound']) + (d3[i]['beta: Market'] - d3[i]['UBound'])
-    check = sum(t)
-    if i == 'ASML HOLDING':
-        print('YOOOO')
-        check_2 = t
-    print(check)
     
+    for j in l_conf: 
+        t = (d3[i]['beta: Market'] - d3[i][j+ '_LBound']) + (d3[i]['beta: Market'] - d3[i][j+'_UBound'])
+        check = sum(t)
+        if i == 'ASML HOLDING':
+            print('YOOOO')
+            check_2 = t
+        print(check)
+        
     
-
+"""
+PLOT OF PARAMETERS THAT ADMIT CONFIDENCE INTERVALS
+"""
 
 df_bd_CAPM_2 = df_bd_CAPM.set_index('Name')
 
 list_to_plot = list(set(df_bd_CAPM_2.index))
 
+for m in l_conf:
 
-for i in list_to_plot:
-    
-    l = df_bd_CAPM_2.loc[i]
-
+    for i in list_to_plot:
         
-    plt.figure()
+        l = df_bd_CAPM_2.loc[i]
     
-    plt.plot(d3[i].index, d3[i]['UBound'], label = 'Upper bound')
-    plt.plot(d3[i].index, d3[i]['beta: Market'], label = 'Beta value')
-    plt.plot(d3[i].index, d3[i]['LBound'], label = 'Lower bound')
-    
-    if l.ndim > 1:
-        
-        for j in l['Date']:
             
-            plt.axvline(j, color = 'red', linestyle = '--',
-                        label = 'Break date')
-    
-    else:
+        plt.figure()
         
-        for j in l:
-
-            plt.axvline(j, color = 'red', linestyle = '--',
-                        label = 'Break date')
+        plt.plot(d3[i].index, d3[i][m+ '_UBound'], label = 'Upper bound')
         
-    plt.title(i +": {}".format('Value of beta market'))
+        if m != 'Alpha':
+        
+            plt.plot(d3[i].index, d3[i]['beta: ' + m], label = 'Beta value')
+            
+        else:
+            
+            plt.plot(d3[i].index, d3[i][m], label = 'Alpha value')
+        
+        plt.plot(d3[i].index, d3[i][m+'_LBound'], label = 'Lower bound')
+        
+        if l.ndim > 1:
+            
+            for j in l['Date']:
+                
+                plt.axvline(j, color = 'red', linestyle = '--',
+                            label = 'Break date')
+        
+        else:
+            
+            for j in l:
     
-    plt.legend()
-    
-    plt.show()
+                plt.axvline(j, color = 'red', linestyle = '--',
+                            label = 'Break date')
+                
+        if m != 'Alpha':        
+            
+            plt.title(i +": {}".format('Value of beta '+ m))
+            
+        else:
+            
+            plt.title(i +": {}".format('Value of alpha'))
+        
+        plt.legend()
+        
+        plt.show()
 
+"""
+Plot of values that do not have a confidence interval
+"""
 
-for i in d.keys():
+l_roll = ['R-Squared', 'bic']
+
+for m in l_roll:
+
+    for i in list_to_plot:
+        
+        l = df_bd_CAPM_2.loc[i]
     
-    print(i)
-    print(d[i].iloc[-1,:])
+            
+        plt.figure()
+        
+        plt.plot(d3[i].index, d3[i][m], label = m)
+            
     
+        
+        if l.ndim > 1:
+            
+            for j in l['Date']:
+                
+                plt.axvline(j, color = 'red', linestyle = '--',
+                            label = 'Break date')
+        
+        else:
+            
+            for j in l:
+    
+                plt.axvline(j, color = 'red', linestyle = '--',
+                            label = 'Break date')
+                
+            
+        plt.title(i +": {}".format('Value of '+m))
+        
+        plt.legend()
+        
+        plt.show()
