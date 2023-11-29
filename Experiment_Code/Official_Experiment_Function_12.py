@@ -1019,7 +1019,7 @@ def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
             reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
                                            df_factors[start_date:break_date], hac = True)
             """
-            Storing the model before the break 
+            Storing the model before the break after removing irrelevant variables
             """   
             
             final_res = ad_hoc_GETS(reg_summary, 

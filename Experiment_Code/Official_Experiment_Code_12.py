@@ -857,18 +857,25 @@ for i in list_to_plot:
         
         for j in l['Date']:
             
-            plt.axvline(j, color = 'red', linestyle = '--')
+            plt.axvline(j, color = 'red', linestyle = '--',
+                        label = 'Break date')
     
     else:
         
         for j in l:
 
-            plt.axvline(j, color = 'red', linestyle = '--')
+            plt.axvline(j, color = 'red', linestyle = '--',
+                        label = 'Break date')
         
-    plt.title(i)
+    plt.title(i +": {}".format('Value of beta market'))
     
     plt.legend()
     
     plt.show()
 
 
+for i in d.keys():
+    
+    print(i)
+    print(d[i].iloc[-1,:])
+    
