@@ -307,7 +307,7 @@ FF_summary = FF_summary.sort_index()
 """
 Comparison with barplot
 """
-
+print("GENERAL COMPARISON")
 rf.comparison_barplot(FF_summary, CAPM_summary)
 
 """
@@ -323,6 +323,7 @@ GETS Procedure using bic as a criterion to discriminate between models
 GETS_summary, bic_list = rf.GETS_BIC(FF_summary, df_factors, df_stocks)
 
 GETS_summary = GETS_summary.sort_index()
+print("COMPARISON WITH IRRELEVANT VARIABLES BEING DELETED USING AVERAGE BIC")
 rf.comparison_barplot(GETS_summary, CAPM_summary)
 
 """
@@ -339,6 +340,8 @@ FF_summary_2.loc['Mean'] = FF_summary_2.mean()
 GETS_summary2, bic_list2 = rf.GETS_BIC(FF_summary_2, df_factors_2, df_stocks)
 
 GETS_summary2 = GETS_summary2.sort_index()
+print("COMPARISON WITH IRRELEVANT VARIABLES BEING DELETED USING AVERAGE BIC\n")
+print("WE FIRST ELIMINATED CORRELATED COVARIATES")
 rf.comparison_barplot(GETS_summary2, CAPM_summary)
 
 """
@@ -373,6 +376,7 @@ FF_summary_port, FF_list_port = rf.OLS(df_portfolios,df_factors, hac = True)
 GETS_summary_port, bic_list = rf.GETS_BIC_p(FF_summary_port, df_factors, df_portfolios)
 GETS_summary_port = GETS_summary_port.sort_index()
 
+print("COMPARISON USING EQUALLY-WEIGTHED PORTFOLIO")
 rf.comparison_barplot(GETS_summary_port, CAPM_summary)
 
 """
@@ -389,6 +393,7 @@ GETS_ad_hoc_summary = pd.DataFrame( columns = FF_summary.columns)
 for i in range(len(res)):
     GETS_ad_hoc_summary = pd.concat([GETS_ad_hoc_summary, res[i]], axis = 0)
 
+print("COMPARISON WITH FAMA-FRENCH WITH IRRELEVANT VARIABLES REMOVED BASED ON THE RESULTS OF THE SINGLE STOCK")
 rf.comparison_barplot(GETS_ad_hoc_summary, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
           
@@ -683,7 +688,8 @@ for i in d.keys():
 df_final.sort_index(inplace=True)
 CAPM_summary.sort_index(inplace = True)
 
-        
+print("WRITE R-SQUARED: IT'S THE COMPARISON OF THE CAPM WITH AVERAGE VALUES OF R-SQUARED FOR FAMA-FRENCH\n")
+print("FOR EACH BREAK IRRELEVANT VARIABLES HAVE BEEN REMOVED BASED ON THE GETS PROCEDURE")        
 rf.comparison_barplot(df_final, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
 """
@@ -699,7 +705,8 @@ for i in d.keys():
 df_final2.sort_index(inplace=True)
 CAPM_summary.sort_index(inplace = True)
 
-
+print("WRITE R-SQUARED: IT'S THE COMPARISON OF THE CAPM WITH MAXIMUM VALUES OF R-SQUARED FOR FAMA-FRENCH\n")
+print("FOR EACH BREAK IRRELEVANT VARIABLES HAVE BEEN REMOVED BASED ON THE GETS PROCEDURE")
 rf.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
 """
@@ -714,7 +721,8 @@ for i in d.keys():
 df_final2.sort_index(inplace=True)
 CAPM_summary.sort_index(inplace = True)
 
-
+print("WRITE P-VALUE_ALPHA: IT'S THE COMPARISON OF THE CAPM WITH AVERAGE VALUES OF P-VALUE OF THE ALPHAS FOR FAMA-FRENCH\n")
+print("FOR EACH BREAK IRRELEVANT VARIABLES HAVE BEEN REMOVED BASED ON THE GETS PROCEDURE")
 rf.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
 
