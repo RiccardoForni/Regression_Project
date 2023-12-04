@@ -222,7 +222,7 @@ class Plotting:
         plt.show()
         plt.close()
     @controlla_permesso    
-    def shish(p_val_df):
+    def shish(self,p_val_df):
 
         for i in p_val_df.columns:
         
@@ -235,7 +235,7 @@ class Plotting:
             plt.close()
 
     @controlla_permesso
-    def shish1(df):
+    def shish1(self,df):
         for i in df.columns:
         
             plt.plot(df.loc[:, i])
