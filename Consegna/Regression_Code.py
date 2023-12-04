@@ -2,13 +2,9 @@ import numpy as np
 import pandas as pd
 import Regression_function as rf
 import Regression_Plotting as rz
-import sys
-from matplotlib.dates import date2num
-import matplotlib.pyplot as plt
 
 
-
-rp = rz.Plotting(True)
+rp = rz.Plotting(False)
 """
 Retrieve Subset equity
 """
@@ -372,26 +368,7 @@ for sheet,col in sheets.items():
     """    
     Plots
     """
-    
-    for i in p_val_df.columns:
-        
-        plt.figure()
-        plt.plot(p_val_df.loc[:, i])
-        plt.axhline(y= 0.05, color = 'red')
-        plt.title(i)
 
-        plt.show()
-
-
-    plt.figure()
-
-    for i in p_val_df.columns:
-        
-
-        
-        plt.plot(p_val_df.loc[:, i])
-
-    plt.show()
 
     
     d4 = rf.CAPM_break_dates(p_val_df, CAPM_summary ,df_stocks, df_factors)
@@ -430,26 +407,10 @@ for sheet,col in sheets.items():
 
 
     dates_CAPM, names = zip(*l)
-
-    
-    # Convert datetime objects to numerical values for plotting
-    x_values = date2num(df_bd_CAPM['Date'])
-
-    plt.figure()
-
-    # Set up the bar plot
-    plt.bar(x_values, height = 1, width = 25)
-
-
-    plt.xticks(df_bd_CAPM['Date'], df_bd_CAPM['Date'])
-    plt.xticks(rotation=90, ha='right')
-    plt.title('Break date distribution')
-
-    # Format the x-axis as dates_CAPM
-
-
-    # Display the plot
-    plt.show()
+    """
+    Plots
+    """
+    rp.fama_french_plotting(df_bd_CAPM)
     
         
 
@@ -463,26 +424,7 @@ for sheet,col in sheets.items():
     """    
     Plots
     """
-    
-    for i in p_val_df_FF.columns:
-        
-        plt.figure()
-        plt.plot(p_val_df_FF.loc[:, i])
-        plt.axhline(y= 0.05, color = 'red')
-        plt.title(i)
-
-        plt.show()
-
-
-
-
-    plt.figure()
-
-    for i in p_val_df_FF.columns:
-            
-        plt.plot(p_val_df_FF.loc[:, i])
-
-    plt.show()
+    rp.chow_test_plotting(p_val_df)
 
     
     """
@@ -567,7 +509,7 @@ for sheet,col in sheets.items():
         
                 l.append((dates.values[i][j], dates.columns[j]))
 
-    from matplotlib.dates import date2num
+
 
     df = pd.DataFrame(l, columns=['Date', 'Name'])
     df = df.sort_values('Date')
@@ -576,26 +518,7 @@ for sheet,col in sheets.items():
 
     dates, names = zip(*l)
 
-    
-    # Convert datetime objects to numerical values for plotting
-    x_values = date2num(df['Date'])
-
-    plt.figure()
-
-    # Set up the bar plot
-    plt.bar(x_values, height = 1, width = 25)
-
-
-    plt.xticks(df['Date'], df['Date'])
-    plt.xticks(rotation=90, ha='right')
-    plt.title('Break date distribution')
-
-    # Format the x-axis as dates
-
-
-    # Display the plot
-    plt.show()
-    
+    rp.fama_french_plotting(df)
 
 
     """
