@@ -42,6 +42,17 @@ def f_test_retrieval_2(l):
 
 
 def OLS(y, *x, hac =False, conf_int = False):
+    """_summary:_
+    Function to setup and run OLS algoritm. Support diffent type of input
+    Args:
+        y (lists): list for indipendence variables.
+        *x (multiple_args):indipendent variables.
+        hac (bool, optional): enable it for searching heteroskedasticity and autocorrelation errors  .Defaults to False.
+        conf_int (bool, optional): enable it for confidence interval Defaults to False.
+
+    Returns:
+        OLS summary,OLS list: Dataframe of sm.OLS summary and a list of OLS results 
+    """
 
     intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
                               columns = ["intercept"],
@@ -132,6 +143,14 @@ def OLS(y, *x, hac =False, conf_int = False):
 
 
 def RESET_test(l):
+    """_summary:_
+    test whether the relationship between the dependent variable and the independent variables should be linear or whether a non-linear form would be more appropriate
+    Args:
+        l (Pandas Dataframe): lists of CAPM
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.linear_reset results
+    """
     df = pd.DataFrame(columns= ['F-Value', 'p-value'])
     results = []
     for i in range(len(l)):
@@ -162,7 +181,14 @@ def h_test(l):
     return df
 
 def Durbin_Watson_test(l):
-    
+    """_summary:_
+    Test for autocorrelation in the residuals
+    Args:
+        l (Pandas Dataframe): list of CAPM
+
+    Returns:
+        Pandas Dataframe: One colum: Test statistic for each CAPM
+    """
     df = pd.DataFrame(columns= ["Test-statistic"])
     
     for i in range(len(l)):
@@ -180,7 +206,15 @@ def Durbin_Watson_test(l):
     return df
 
 def Breusch_Godfrey_test(l):
-    
+    """_Summary:_
+    Test to search autocorrelation in the errors in a Regression Model
+
+    Args:
+        l (Pandas Dataframe): Dataframe of CAPM results
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.acorr_breusch_godfrey results
+    """
     df = pd.DataFrame(columns= ['F-Value', 'p-value'])
     
     for i in range(len(l)):
@@ -361,6 +395,17 @@ def ad_hoc_GETS(FF_summary, df_factors, df_stocks):
         
 
 def CHOW_TEST(df_stocks, df_factors):
+    """_summary:_
+       The Chow test is a statistical test used to determine whether there are significant differences between the regression coefficients estimated in two subgroups of data. In other words, the Chow test is used to check whether there are structural changes in the data that justify splitting a sample into two or more subsets.
+
+    Args:
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+
+    Returns:
+        Pandas Dataframe: Dataframe of p value from Chow test
+    """
+
     sub = 0.2
     prop = int(sub*df_stocks.shape[0])
     
@@ -430,6 +475,9 @@ def CHOW_TEST(df_stocks, df_factors):
 
 
 def CHOW_TEST_FF(df_stocks, df_factors):
+    """
+    Same us CHOW_TEST function()
+    """
     sub = 0.2
     prop = int(sub*df_stocks.shape[0])
     
@@ -624,6 +672,9 @@ def CAPM_break_dates(p_val_df, CAPM_summary,
 
 
 def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
+
+
+
         """
         PROCEDURE TO FIND BREAK DATES
         """
