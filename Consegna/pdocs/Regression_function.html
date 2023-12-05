@@ -1,0 +1,2077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Regression_function API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Regression_function</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import statsmodels . api as sm
+import statsmodels.stats.diagnostic as smd
+import statsmodels.stats.stattools as smt
+import pandas as pd
+import numpy as np
+import scipy as sp
+
+
+def f_test_retrieval(l):
+    &#34;&#34;&#34;_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
+
+    Args:
+        l (pandas dataframe): dataframe with OLS summary organization 
+
+    Returns:
+        Pandas dataframe: two colums: F-Test_Value F-Test_p-value
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns = [&#39;F-Test_Value&#39;,&#39;F-Test_p-value&#39;])
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+        df.loc[name, &#39;F-Test_Value&#39;] = l[i].fvalue
+        df.loc[name, &#39;F-Test_p-value&#39;] = l[i].f_pvalue
+            
+    return df
+
+def f_test_retrieval_2(l):
+    &#34;&#34;&#34;_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
+
+    Args:
+        l (pandas dataframe): dataframe with OLS summary organization 
+
+    Returns:
+        Pandas dataframe: two colums: stocks name F-Test_Value
+    &#34;&#34;&#34;
+    critical_alpha = l[l.iloc[:,1] &lt; 0.05].iloc[:,1]
+
+
+    df = pd.DataFrame(columns = [critical_alpha.name, &#39;F-Test_p-value&#39;],
+                      index = critical_alpha.index)
+    
+    df.loc[:,critical_alpha.name] = critical_alpha
+    r = list(critical_alpha.index)
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+
+        if name in r:
+            
+            df.loc[name, &#39;F-Test_p-value&#39;] = l[i].f_pvalue
+            
+    return df
+
+
+def OLS(y, *x, hac =False, conf_int = False):
+    &#34;&#34;&#34;_summary:_
+    Function to setup and run OLS algoritm. Support diffent type of input
+    Args:
+        y (lists): list for indipendence variables.
+        *x (multiple_args):indipendent variables.
+        hac (bool, optional): enable it for searching heteroskedasticity and autocorrelation errors  .Defaults to False.
+        conf_int (bool, optional): enable it for confidence interval Defaults to False.
+
+    Returns:
+        OLS summary,OLS list: Dataframe of sm.OLS summary and a list of OLS results 
+    &#34;&#34;&#34;
+
+    intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
+                              columns = [&#34;intercept&#34;],
+                              index = y.index)
+    
+    X = pd.concat([intercept,*x],axis = 1)
+
+    exog_names = list(X.columns)
+    
+    l = [&#39;Alpha&#39;, &#39;p-value_alpha&#39;]
+    
+    for i in range(1, len(exog_names)):
+        
+        l.append(&#34;beta: &#34; + exog_names[i])
+        l.append(&#34;p-value_beta: &#34;+ exog_names[i])
+    
+    l.append(&#34;R-Squared&#34;)
+    l.append(&#39;bic&#39;)
+    l.append(&#39;aic&#39;)
+    
+    if conf_int:
+        
+        l.append(&#39;LBound&#39;)
+        l.append(&#39;UBound&#39;)
+
+    endog_names = list(y.columns)
+    result = pd.DataFrame(index = endog_names, columns = l)
+        
+    reg = [] 
+    
+    for i in endog_names:
+        
+        Res1 = sm . OLS ( y[i] ,X). fit ()
+        Res1.summary()
+        
+        if hac == True:
+
+            #Checking for heteroskedasticity
+            residuals = Res1.resid
+            exogen = Res1.model.exog
+            het = smd.het_white(residuals, exogen)
+            ind = smd.acorr_breusch_godfrey(Res1, nlags = 1)
+            
+            if (het[3] &lt; 0.05) and (ind[3] &lt;0.05):
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HAC&#39;,cov_kwds= {&#39;maxlags&#39;:1})
+                #print(&#39;HAAAAAAAAAAAC: {}&#39;.format(i))
+                
+            elif het[3] &lt; 0.05:
+                
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HC3&#39;)
+                #print(&#39;HETEROOOOOOO: {}&#39;.format(i) )
+                
+            elif ind[3] &lt; 0.05:
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HAC&#39;,cov_kwds= {&#39;maxlags&#39;:1})
+                #print(&#39;SERIAL CORRELAAAAATION: {}&#39;.format(i))
+                
+    
+        r2 = Res1.rsquared
+        bic = Res1.bic
+        aic = Res1.aic
+        param = Res1.params
+        pval = Res1.pvalues
+        reg.append(Res1)
+        
+        if conf_int:
+            
+            intervals = Res1.conf_int(alpha = 0.05)
+            intervals = intervals.loc[&#39;Market&#39;, :]
+        
+        l_val = []
+    
+        for j in range(len(param)):
+            
+            l_val.extend([param[j],pval[j]])
+        
+        l_val.append(r2)
+        l_val.append(bic)
+        l_val.append(aic)
+        
+        if conf_int:
+            
+            l_val.append(intervals[0])
+            l_val.append(intervals[1])
+        
+        result.loc[i] = l_val    
+    
+    return result, reg
+
+
+def RESET_test(l):
+    &#34;&#34;&#34;_summary:_
+    test whether the relationship between the dependent variable and the independent variables should be linear or whether a non-linear form would be more appropriate
+    Args:
+        l (Pandas Dataframe): lists of CAPM
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.linear_reset results
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    results = []
+    for i in range(len(l)):
+        l_val = []
+        x = l[i]
+        x.fittedvalues = np.array(x.fittedvalues)
+        f = smd.linear_reset(res = x , power = 3, test_type = &#34;fitted&#34;, use_f = True)
+        l_val.append(f.fvalue)
+        l_val.append(f.pvalue)
+        df.loc[l[i].model.endog_names,:] = l_val
+        results.append(f)
+    return df
+
+def h_test(l):
+    
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        residuals = l[i].resid
+        exogen = l[i].model.exog
+        f = smd.het_white(residuals, exogen)
+        l_val.append(f[2])
+        l_val.append(f[3])
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
+
+def Durbin_Watson_test(l):
+    &#34;&#34;&#34;_summary:_
+    Test for autocorrelation in the residuals
+    Args:
+        l (Pandas Dataframe): list of CAPM
+
+    Returns:
+        Pandas Dataframe: One colum: Test statistic for each CAPM
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#34;Test-statistic&#34;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        
+        residuals = l[i].resid.copy()
+        residuals = np.array(residuals)
+        
+        f = smt.durbin_watson(residuals)
+        l_val.append(f)
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
+
+def Breusch_Godfrey_test(l):
+    &#34;&#34;&#34;_Summary:_
+    Test to search autocorrelation in the errors in a Regression Model
+
+    Args:
+        l (Pandas Dataframe): Dataframe of CAPM results
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.acorr_breusch_godfrey results
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+
+        f = smd.acorr_breusch_godfrey(l[i], nlags = 3)
+        
+        l_val.append(f[2])
+        l_val.append(f[3])
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df
+
+def GETS_ABIC(FF_summary, df_factors, df_stocks,param):
+    loc=None
+    str=None
+    match param:
+        case &#39;a&#39;:
+            loc=&#39;Mean&#39;
+            str=&#39;aic&#39;
+        case &#39;b&#39;:
+            loc=FF_summary.index[0]
+            str=&#39;bic&#39;
+        case &#39;c&#39;:
+            loc=&#39;Mean&#39;
+            str=&#39;bic&#39;
+
+    elim = []
+    
+    summary = FF_summary.copy()
+    df_fac = df_factors.copy()
+    
+    ic = summary.loc[loc, str]
+    ic_list = [ic]
+    
+    results = []
+    
+    while True:
+    
+        p_v = [i for i in list(summary.columns) if (&#39;p-value&#39; in i)] 
+        
+        del p_v[0:2] 
+        names = [j[-3:] for j in p_v ] 
+        
+        temp_df = pd.DataFrame(index = names, columns = [&#39;p-values&#39;])  
+        
+        p_values = []
+        
+        for i in p_v: 
+            
+            p_values.append(summary.loc[loc, i])
+        
+        if p_values:         
+            
+            temp_df.iloc[:,0] = p_values
+            temp_df = temp_df.sort_values(&#39;p-values&#39;, ascending = False)
+            
+            if temp_df.iloc[0,0] &gt; 0.05:
+               
+                elim.append(temp_df.index[0])
+                df_fac = df_fac.drop(elim[-1], axis = 1)
+                
+                summary, FF_list_2 = OLS(df_stocks,df_fac)
+                if param == &#39;a&#39; or param == &#34;c&#34;:
+                    summary.loc[loc] = summary.mean()
+                results.append(summary)
+                
+                if summary.loc[loc, str] &lt; ic:
+                    ic = summary.loc[loc,str]
+                    ic_list.append(ic)
+                    
+                else:
+                    ic = summary.loc[loc, str]
+                    ic_list.append(ic)
+                    results.pop()
+                    break
+                
+            else:
+                break
+        
+        else:
+            break
+        
+    return results[-1],ic_list
+
+
+
+def GETS_BIC_p(FF_summary, df_factors, df_stocks):
+
+    elim = []
+    
+    summary = FF_summary.copy()
+    df_fac = df_factors.copy()
+    
+    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+    bic_list = [bic]
+    
+    results = []
+    
+    while True:
+    
+        p_v = [i for i in list(summary.columns) if (&#39;p-value&#39; in i)] 
+        
+        del p_v[0] 
+        names = [j[-3:] for j in p_v[1:] ] 
+        &#34;&#34;&#34;
+        ----------------------------------------- HARD-CODED
+        &#34;&#34;&#34;    
+        names.insert(0, &#39;Market&#39;)
+        
+        temp_df = pd.DataFrame(index = names, columns = [&#39;p-values&#39;])  
+        
+        p_values = []
+        
+        for i in p_v: 
+            
+            p_values.append(summary.loc[summary.index[0], i])
+        
+        if p_values:         
+            
+            temp_df.iloc[:,0] = p_values
+            temp_df = temp_df.sort_values(&#39;p-values&#39;, ascending = False)
+            
+            if temp_df.iloc[0,0] &gt; 0.05:
+               
+                elim.append(temp_df.index[0])
+                df_fac = df_fac.drop(elim[-1], axis = 1)
+                
+                summary, FF_list_2 = OLS(df_stocks,df_fac, hac = True)
+
+                results.append(summary)
+                
+                if summary.loc[summary.index[0], &#39;bic&#39;] &lt; bic:
+                    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+                    bic_list.append(bic)
+                    
+                else:
+                    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+                    bic_list.append(bic)
+                    results.pop()
+                    break
+                
+            else:
+                break
+        
+        else:
+            break
+        
+    return results[-1],bic_list
+
+
+def ad_hoc_GETS(FF_summary, df_factors, df_stocks):
+    
+    df = pd.DataFrame(index = FF_summary.index, columns = FF_summary.columns)
+    final_models = []
+    
+    for i in df.index:
+        
+        if i == &#39;Mean&#39;:
+            
+            continue
+        
+        #Create an object to be compatible with the function GETS_BIC_p
+        df_2 = pd.DataFrame( columns = FF_summary.columns)
+        df_2.loc[len(df_2)] = FF_summary.loc[i,:].values
+        
+        df_3 = pd.DataFrame(index = df_stocks.index)
+        df_3[i] = df_stocks.loc[:,i].values
+        
+        res, bic = GETS_BIC_p(df_2, df_factors,df_3)
+        final_models.append(res)
+
+        
+    return final_models
+        
+        
+
+def CHOW_TEST(df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+       The Chow test is a statistical test used to determine whether there are significant differences between the regression coefficients estimated in two subgroups of data. In other words, the Chow test is used to check whether there are structural changes in the data that justify splitting a sample into two or more subsets.
+
+    Args:
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+
+    Returns:
+        Pandas Dataframe: Dataframe of p value from Chow test
+    &#34;&#34;&#34;
+
+    sub = 0.2
+    prop = int(sub*df_stocks.shape[0])
+    
+    if prop &lt;= 20:
+        prop = 21
+    
+    
+    end = df_stocks.shape[0] - prop
+    
+    index = df_stocks.index[(prop-1):]
+    index = index[:-(prop)]
+    
+    p_val_df = pd.DataFrame(columns = df_stocks.columns, index = index)
+    
+    hac_check = True
+    
+    while prop &lt;= end:
+    
+        prop_df = df_stocks.iloc[:prop,:]
+        compl_df = df_stocks.iloc[prop:,:]
+        
+        
+        if df_factors.ndim == 1: 
+            
+            df_factors = df_factors.to_frame()
+            hac_check = False
+        
+        
+        prop_factors = df_factors.iloc[:prop, :]
+        prop_factors = prop_factors.loc[:,&#39;Market&#39;]       
+       
+        compl_factors = df_factors.iloc[prop:, :]
+        compl_factors = compl_factors.loc[:,&#39;Market&#39;]
+        
+        
+        prop_summary, prop_reg = OLS(prop_df, prop_factors, hac = hac_check)
+        
+        compl_summary, compl_reg = OLS(compl_df, compl_factors, hac = hac_check)
+        
+        total_summary, total_reg = OLS(df_stocks, df_factors.loc[:,&#39;Market&#39;], hac = hac_check)
+        
+    
+        
+        
+        for i in range(len(prop_reg)):
+            
+            if (prop_reg[i].model.endog_names == 
+                compl_reg[i].model.endog_names) and (prop_reg[i].model.endog_names == 
+                                                     total_reg[i].model.endog_names):
+            
+                RSS_prop = prop_reg[i].ssr
+                RSS_compl = compl_reg[i].ssr
+                RSS_tot = total_reg[i].ssr
+                
+                F = ((RSS_tot - RSS_prop - RSS_compl)/2)/ ((RSS_prop + RSS_compl)/(df_stocks.shape[0] - 2*2))
+                
+                p_value = 1 - sp.stats.f.cdf(F, 2, df_stocks.shape[0] - 2*2)
+                
+                p_val_df.loc[prop_df.index[-1], prop_reg[i].model.endog_names] = p_value
+            
+            else:
+                print(&#34;PROBLEM&#34;)
+        
+        prop += 1
+    
+    return p_val_df
+
+
+def CHOW_TEST_FF(df_stocks, df_factors):
+    &#34;&#34;&#34;
+    Same us CHOW_TEST function()
+    &#34;&#34;&#34;
+    sub = 0.2
+    prop = int(sub*df_stocks.shape[0])
+    
+    if prop &lt;= 20:
+        prop = 21
+    
+    end = df_stocks.shape[0] - prop
+    
+    index = df_stocks.index[(prop-1):]
+    index = index[:-(prop)]
+    
+    p_val_df = pd.DataFrame(columns = df_stocks.columns, index = index)
+    
+    while prop &lt;= end:
+    
+        prop_df = df_stocks.iloc[:prop,:]
+        
+        prop_factors = df_factors.iloc[:prop, :]
+
+        
+        
+        compl_df = df_stocks.iloc[prop:,:]
+        
+        compl_factors = df_factors.iloc[prop:, :]
+
+        
+        
+        prop_summary, prop_reg = OLS(prop_df, prop_factors, hac = True)
+        
+        compl_summary, compl_reg = OLS(compl_df, compl_factors, hac = True)
+        
+        total_summary, total_reg = OLS(df_stocks, df_factors, hac = True)
+        
+        k = len(prop_factors.columns) + 1
+        
+    
+        
+        
+        for i in range(len(prop_reg)):
+            
+            if (prop_reg[i].model.endog_names == 
+                compl_reg[i].model.endog_names) and (prop_reg[i].model.endog_names == 
+                                                     total_reg[i].model.endog_names):
+            
+                RSS_prop = prop_reg[i].ssr
+                RSS_compl = compl_reg[i].ssr
+                RSS_tot = total_reg[i].ssr
+                
+                F = ((RSS_tot - RSS_prop - RSS_compl)/k)/ ((RSS_prop + RSS_compl)/(df_stocks.shape[0] - 2*k))
+                
+                p_value = 1 - sp.stats.f.cdf(F, 2, df_stocks.shape[0] - 2*2)
+                
+                p_val_df.loc[prop_df.index[-1], prop_reg[i].model.endog_names] = p_value
+            
+            else:
+                print(&#34;PROBLEM&#34;)
+        
+        prop += 1
+    
+    return p_val_df
+
+
+def CAPM_break_dates(p_val_df, CAPM_summary,df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+        we create a dataframe that, for each stock, assign the min_pval of the
+        Chow test and the corresponding date that corresponds to that minimum value
+    Args:
+        p_val_df (Pandas Dataframe): Dataframe of p value
+        CAPM_summary (Pandas Dataframe): Dataframe of summary of OLS 
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+        
+    Returns:
+        Pandas Dataframe: two coloums: min_pval, date of breaks
+    &#34;&#34;&#34;
+    min_pval = []
+    index_min = []
+    
+    break_dates_df = pd.DataFrame(index = p_val_df.columns, columns = [&#39;min_pval&#39;, &#39;date&#39;])
+    
+    for i in p_val_df.columns:
+        
+        min_pval = min(p_val_df.loc[:,i])
+        index_min = p_val_df.loc[:,i].idxmin()
+        break_dates_df.loc[i,:] = [min_pval, index_min]
+        
+        
+        d2 = {}
+        
+        l_col = []
+        l_col = l_col + list(CAPM_summary.columns) + [&#39;beg_date&#39;, &#39;end_date&#39;]
+        
+        for i in df_stocks.columns:
+            
+            d2[i] = pd.DataFrame(columns = l_col)
+            
+        
+        no_break_stocks = []
+        
+        no_break_stocks = break_dates_df[break_dates_df[&#39;min_pval&#39;] &gt; 0.05].index.to_list()
+        
+        break_dates_df = break_dates_df[break_dates_df[&#39;min_pval&#39;] &lt; 0.05]
+        
+        
+        
+        for i in no_break_stocks:
+            
+            d2[i] = pd.concat([d2[i],CAPM_summary.loc[i].to_frame().T], 
+                                ignore_index = True)
+            d2[i][&#39;beg_date&#39;] = df_stocks.index[0]
+            d2[i][&#39;end_date&#39;] = df_stocks.index[-1]
+        
+        
+        for name in break_dates_df.index: 
+            break_date = 1
+            
+            d2[name] = pd.DataFrame(columns = l_col)
+            start_date = df_stocks.index[0]
+            
+            
+            
+        
+            break_date = break_dates_df.loc[name, &#39;date&#39;]
+            
+            i=0 
+            
+            while break_date != 0:
+                reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                            df_factors.loc[start_date:break_date, &#39;Market&#39;], 
+                                            hac = True)
+                &#34;&#34;&#34;
+                Storing the model before the break 
+                &#34;&#34;&#34;   
+                
+                final_res = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                        df_factors.loc[start_date:break_date, &#39;Market&#39;])
+                
+                
+                d2[name] = pd.concat([d2[name], final_res[0]], ignore_index = True)
+                
+                d2[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+                d2[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+                
+                &#34;&#34;&#34;
+                DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
+                &#34;&#34;&#34;
+                #p_val_df_2 = CHOW_TEST(df_stocks.loc[:break_date, name].to_frame(),
+                                            #df_factors.loc[:break_date, &#39;Market&#39;])
+                
+                &#34;&#34;&#34;
+                ----------------------------------------------------------------------------------------
+                ----------------------------------------------------------------------------------------
+                &#34;&#34;&#34;
+        
+                
+                &#34;&#34;&#34;
+                Checking for further breaks
+                &#34;&#34;&#34;
+                
+                p_val_df_2 = CHOW_TEST(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+                if p_val_df_2.empty:
+                    
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+        
+                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
+                    
+                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                
+                elif (min(p_val_df_2[name]) &gt; 0.05) :
+                
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+                
+                
+                    
+                    
+                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
+                    
+                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                    
+                else:
+                    start_date = break_date
+                    break_date = p_val_df_2[name].idxmin()
+                
+                
+                i = i+1
+        
+        return d2
+
+def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+        we create a dataframe that, for each stock, assign the min_pval of the
+        Chow test and the corresponding date that corresponds to that minimum value
+    Args:
+        p_val_df_FF (Pandas Dataframe): Dataframe of p value from fama french data
+        FF_summary (Pandas Dataframe): Dataframe of summary of OLS 
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+        
+    Returns:
+        Pandas Dataframe: two coloums: min_pval, date of breaks
+    &#34;&#34;&#34;
+    min_pval = []
+    index_min = []
+    
+    break_dates_df_FF = pd.DataFrame(index = p_val_df_FF.columns, columns = [&#39;min_pval&#39;, &#39;date&#39;])
+    
+    for i in p_val_df_FF.columns:
+        
+        min_pval = min(p_val_df_FF.loc[:,i])
+        index_min = p_val_df_FF.loc[:,i].idxmin()
+        break_dates_df_FF.loc[i,:] = [min_pval, index_min]
+    
+    
+    &#34;&#34;&#34;
+    -------------------------------------------------------------------------------
+    Estimating optimized models for which no structural break was detected
+    -------------------------------------------------------------------------------
+    &#34;&#34;&#34;
+    
+    &#34;&#34;&#34;
+    We create a dictionary in which we will store the results of the models 
+    estimated and optimized in each interval according to their break dates.
+    These results will be stored in dataframes.
+    If a stock doesn&#39;t have any break there will be a dataframe composed of a single
+    row.
+    If a stock show the presence of one or more breaks, it will have a number of rows
+    equal to the number of breaks detected plus one.
+    &#34;&#34;&#34;
+    d = {}
+    
+    l_col = []
+    l_col = l_col + list(FF_summary.columns) + [&#39;beg_date&#39;, &#39;end_date&#39;]
+    
+    for i in df_stocks.columns:
+        
+        d[i] = pd.DataFrame(columns = l_col)
+    
+    #Finding the stocks for which the FF model with all the factors didn&#39;t show breaks
+    list_to_GETS = break_dates_df_FF[break_dates_df_FF[&#39;min_pval&#39;] &gt; 0.05].index.to_list()
+    
+    &#34;&#34;&#34;
+    Removing those stocks from the dataframe in which we stored the date and p-value
+    of critical dates
+    &#34;&#34;&#34;
+    break_dates_df_FF = break_dates_df_FF[break_dates_df_FF[&#39;min_pval&#39;] &lt; 0.05]
+    
+    &#34;&#34;&#34;
+    Optimizing by removing irrelevant variables for the models of the stocks that 
+    didn&#39;t show any breaks
+    &#34;&#34;&#34;
+    final_res = ad_hoc_GETS(FF_summary.loc[list_to_GETS], 
+                            df_factors, df_stocks[list_to_GETS])
+    
+    
+    &#34;&#34;&#34;
+    Storing the results of these models in a dataframe 
+    &#34;&#34;&#34;
+    
+    final_res_df= pd.DataFrame( columns = l_col)
+    
+    for i in range(len(final_res)):
+        final_res_df = pd.concat([final_res_df, final_res[i]], axis = 0)
+        
+    final_res_df[&#39;beg_date&#39;] = df_stocks.index[0]
+    final_res_df[&#39;end_date&#39;] = df_stocks.index[-1]
+    
+    &#34;&#34;&#34;
+    Storing these dataframes in the dictionary
+    &#34;&#34;&#34;    
+    
+    for i in range(len(final_res)):   
+        
+        name = final_res[i].index[0]
+        d[name] = pd.concat([d[name],final_res_df.loc[name].to_frame().T], 
+                            ignore_index = True)
+        
+    &#34;&#34;&#34;
+    Stocks that have breaks
+    &#34;&#34;&#34;
+    
+    
+    for name in break_dates_df_FF.index: 
+        break_date = 1
+        
+        d[name] = pd.DataFrame(columns = l_col)
+        start_date = df_stocks.index[0]
+        
+        
+        
+    
+        break_date = break_dates_df_FF.loc[name, &#39;date&#39;]
+        
+        i=0 
+        
+        while break_date != 0:
+            reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                        df_factors[start_date:break_date], hac = True)
+            &#34;&#34;&#34;
+            Storing the model before the break after removing irrelevant variables
+            &#34;&#34;&#34;   
+            
+            final_res = ad_hoc_GETS(reg_summary, 
+                                    df_factors[start_date:break_date], 
+                                    df_stocks.loc[start_date:break_date, name].to_frame())
+            d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+            
+            d[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+            d[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+            
+            
+            
+            
+            
+            
+            &#34;&#34;&#34;
+            DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
+            &#34;&#34;&#34;
+            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[:break_date, name].to_frame(),
+                                        df_factors[:break_date])
+            
+            &#34;&#34;&#34;
+            Checking for further breaks
+            &#34;&#34;&#34;
+            
+            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[break_date:, name].to_frame(),
+                                        df_factors[break_date:])
+                
+            if p_val_df_2.empty:
+                
+                i = i + 1
+                reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors[break_date:], hac = True)
+                
+            
+            
+                final_res = ad_hoc_GETS(reg_summary, 
+                                        df_factors[break_date:], 
+                                        df_stocks.loc[break_date:, name].to_frame())
+                
+                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                
+                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                break_date = 0
+                
+            
+            elif (min(p_val_df_2[name]) &gt; 0.05) :
+            
+                i = i + 1
+                reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors[break_date:], hac = True)
+                
+            
+            
+                final_res = ad_hoc_GETS(reg_summary, 
+                                        df_factors[break_date:], 
+                                        df_stocks.loc[break_date:, name].to_frame())
+                
+                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                
+                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                break_date = 0
+                
+                
+            else:
+                start_date = break_date
+                break_date = p_val_df_2[name].idxmin()
+            
+            
+            i = i+1
+            
+    return d</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="Regression_function.Breusch_Godfrey_test"><code class="name flex">
+<span>def <span class="ident">Breusch_Godfrey_test</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>Summary:</em>
+Test to search autocorrelation in the errors in a Regression Model</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>l</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of CAPM results</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>two-columms: F-Value, p-value. Filled with smd.acorr_breusch_godfrey results</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Breusch_Godfrey_test(l):
+    &#34;&#34;&#34;_Summary:_
+    Test to search autocorrelation in the errors in a Regression Model
+
+    Args:
+        l (Pandas Dataframe): Dataframe of CAPM results
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.acorr_breusch_godfrey results
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+
+        f = smd.acorr_breusch_godfrey(l[i], nlags = 3)
+        
+        l_val.append(f[2])
+        l_val.append(f[3])
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.CAPM_break_dates"><code class="name flex">
+<span>def <span class="ident">CAPM_break_dates</span></span>(<span>p_val_df, CAPM_summary, df_stocks, df_factors)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+we create a dataframe that, for each stock, assign the min_pval of the
+Chow test and the corresponding date that corresponds to that minimum value</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>p_val_df</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of p value</dd>
+<dt><strong><code>CAPM_summary</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of summary of OLS </dd>
+<dt><strong><code>df_stocks</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of stocks</dd>
+<dt><strong><code>df_factors</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of factors</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>two coloums: min_pval, date of breaks</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def CAPM_break_dates(p_val_df, CAPM_summary,df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+        we create a dataframe that, for each stock, assign the min_pval of the
+        Chow test and the corresponding date that corresponds to that minimum value
+    Args:
+        p_val_df (Pandas Dataframe): Dataframe of p value
+        CAPM_summary (Pandas Dataframe): Dataframe of summary of OLS 
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+        
+    Returns:
+        Pandas Dataframe: two coloums: min_pval, date of breaks
+    &#34;&#34;&#34;
+    min_pval = []
+    index_min = []
+    
+    break_dates_df = pd.DataFrame(index = p_val_df.columns, columns = [&#39;min_pval&#39;, &#39;date&#39;])
+    
+    for i in p_val_df.columns:
+        
+        min_pval = min(p_val_df.loc[:,i])
+        index_min = p_val_df.loc[:,i].idxmin()
+        break_dates_df.loc[i,:] = [min_pval, index_min]
+        
+        
+        d2 = {}
+        
+        l_col = []
+        l_col = l_col + list(CAPM_summary.columns) + [&#39;beg_date&#39;, &#39;end_date&#39;]
+        
+        for i in df_stocks.columns:
+            
+            d2[i] = pd.DataFrame(columns = l_col)
+            
+        
+        no_break_stocks = []
+        
+        no_break_stocks = break_dates_df[break_dates_df[&#39;min_pval&#39;] &gt; 0.05].index.to_list()
+        
+        break_dates_df = break_dates_df[break_dates_df[&#39;min_pval&#39;] &lt; 0.05]
+        
+        
+        
+        for i in no_break_stocks:
+            
+            d2[i] = pd.concat([d2[i],CAPM_summary.loc[i].to_frame().T], 
+                                ignore_index = True)
+            d2[i][&#39;beg_date&#39;] = df_stocks.index[0]
+            d2[i][&#39;end_date&#39;] = df_stocks.index[-1]
+        
+        
+        for name in break_dates_df.index: 
+            break_date = 1
+            
+            d2[name] = pd.DataFrame(columns = l_col)
+            start_date = df_stocks.index[0]
+            
+            
+            
+        
+            break_date = break_dates_df.loc[name, &#39;date&#39;]
+            
+            i=0 
+            
+            while break_date != 0:
+                reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                            df_factors.loc[start_date:break_date, &#39;Market&#39;], 
+                                            hac = True)
+                &#34;&#34;&#34;
+                Storing the model before the break 
+                &#34;&#34;&#34;   
+                
+                final_res = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                        df_factors.loc[start_date:break_date, &#39;Market&#39;])
+                
+                
+                d2[name] = pd.concat([d2[name], final_res[0]], ignore_index = True)
+                
+                d2[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+                d2[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+                
+                &#34;&#34;&#34;
+                DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
+                &#34;&#34;&#34;
+                #p_val_df_2 = CHOW_TEST(df_stocks.loc[:break_date, name].to_frame(),
+                                            #df_factors.loc[:break_date, &#39;Market&#39;])
+                
+                &#34;&#34;&#34;
+                ----------------------------------------------------------------------------------------
+                ----------------------------------------------------------------------------------------
+                &#34;&#34;&#34;
+        
+                
+                &#34;&#34;&#34;
+                Checking for further breaks
+                &#34;&#34;&#34;
+                
+                p_val_df_2 = CHOW_TEST(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+                if p_val_df_2.empty:
+                    
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+        
+                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
+                    
+                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                
+                elif (min(p_val_df_2[name]) &gt; 0.05) :
+                
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors.loc[break_date:, &#39;Market&#39;])
+                    
+                
+                
+                    
+                    
+                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
+                    
+                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                    
+                else:
+                    start_date = break_date
+                    break_date = p_val_df_2[name].idxmin()
+                
+                
+                i = i+1
+        
+        return d2</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.CHOW_TEST"><code class="name flex">
+<span>def <span class="ident">CHOW_TEST</span></span>(<span>df_stocks, df_factors)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+The Chow test is a statistical test used to determine whether there are significant differences between the regression coefficients estimated in two subgroups of data. In other words, the Chow test is used to check whether there are structural changes in the data that justify splitting a sample into two or more subsets.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df_stocks</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of stocks</dd>
+<dt><strong><code>df_factors</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of factors</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>Dataframe of p value from Chow test</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def CHOW_TEST(df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+       The Chow test is a statistical test used to determine whether there are significant differences between the regression coefficients estimated in two subgroups of data. In other words, the Chow test is used to check whether there are structural changes in the data that justify splitting a sample into two or more subsets.
+
+    Args:
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+
+    Returns:
+        Pandas Dataframe: Dataframe of p value from Chow test
+    &#34;&#34;&#34;
+
+    sub = 0.2
+    prop = int(sub*df_stocks.shape[0])
+    
+    if prop &lt;= 20:
+        prop = 21
+    
+    
+    end = df_stocks.shape[0] - prop
+    
+    index = df_stocks.index[(prop-1):]
+    index = index[:-(prop)]
+    
+    p_val_df = pd.DataFrame(columns = df_stocks.columns, index = index)
+    
+    hac_check = True
+    
+    while prop &lt;= end:
+    
+        prop_df = df_stocks.iloc[:prop,:]
+        compl_df = df_stocks.iloc[prop:,:]
+        
+        
+        if df_factors.ndim == 1: 
+            
+            df_factors = df_factors.to_frame()
+            hac_check = False
+        
+        
+        prop_factors = df_factors.iloc[:prop, :]
+        prop_factors = prop_factors.loc[:,&#39;Market&#39;]       
+       
+        compl_factors = df_factors.iloc[prop:, :]
+        compl_factors = compl_factors.loc[:,&#39;Market&#39;]
+        
+        
+        prop_summary, prop_reg = OLS(prop_df, prop_factors, hac = hac_check)
+        
+        compl_summary, compl_reg = OLS(compl_df, compl_factors, hac = hac_check)
+        
+        total_summary, total_reg = OLS(df_stocks, df_factors.loc[:,&#39;Market&#39;], hac = hac_check)
+        
+    
+        
+        
+        for i in range(len(prop_reg)):
+            
+            if (prop_reg[i].model.endog_names == 
+                compl_reg[i].model.endog_names) and (prop_reg[i].model.endog_names == 
+                                                     total_reg[i].model.endog_names):
+            
+                RSS_prop = prop_reg[i].ssr
+                RSS_compl = compl_reg[i].ssr
+                RSS_tot = total_reg[i].ssr
+                
+                F = ((RSS_tot - RSS_prop - RSS_compl)/2)/ ((RSS_prop + RSS_compl)/(df_stocks.shape[0] - 2*2))
+                
+                p_value = 1 - sp.stats.f.cdf(F, 2, df_stocks.shape[0] - 2*2)
+                
+                p_val_df.loc[prop_df.index[-1], prop_reg[i].model.endog_names] = p_value
+            
+            else:
+                print(&#34;PROBLEM&#34;)
+        
+        prop += 1
+    
+    return p_val_df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.CHOW_TEST_FF"><code class="name flex">
+<span>def <span class="ident">CHOW_TEST_FF</span></span>(<span>df_stocks, df_factors)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Same us CHOW_TEST function()</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def CHOW_TEST_FF(df_stocks, df_factors):
+    &#34;&#34;&#34;
+    Same us CHOW_TEST function()
+    &#34;&#34;&#34;
+    sub = 0.2
+    prop = int(sub*df_stocks.shape[0])
+    
+    if prop &lt;= 20:
+        prop = 21
+    
+    end = df_stocks.shape[0] - prop
+    
+    index = df_stocks.index[(prop-1):]
+    index = index[:-(prop)]
+    
+    p_val_df = pd.DataFrame(columns = df_stocks.columns, index = index)
+    
+    while prop &lt;= end:
+    
+        prop_df = df_stocks.iloc[:prop,:]
+        
+        prop_factors = df_factors.iloc[:prop, :]
+
+        
+        
+        compl_df = df_stocks.iloc[prop:,:]
+        
+        compl_factors = df_factors.iloc[prop:, :]
+
+        
+        
+        prop_summary, prop_reg = OLS(prop_df, prop_factors, hac = True)
+        
+        compl_summary, compl_reg = OLS(compl_df, compl_factors, hac = True)
+        
+        total_summary, total_reg = OLS(df_stocks, df_factors, hac = True)
+        
+        k = len(prop_factors.columns) + 1
+        
+    
+        
+        
+        for i in range(len(prop_reg)):
+            
+            if (prop_reg[i].model.endog_names == 
+                compl_reg[i].model.endog_names) and (prop_reg[i].model.endog_names == 
+                                                     total_reg[i].model.endog_names):
+            
+                RSS_prop = prop_reg[i].ssr
+                RSS_compl = compl_reg[i].ssr
+                RSS_tot = total_reg[i].ssr
+                
+                F = ((RSS_tot - RSS_prop - RSS_compl)/k)/ ((RSS_prop + RSS_compl)/(df_stocks.shape[0] - 2*k))
+                
+                p_value = 1 - sp.stats.f.cdf(F, 2, df_stocks.shape[0] - 2*2)
+                
+                p_val_df.loc[prop_df.index[-1], prop_reg[i].model.endog_names] = p_value
+            
+            else:
+                print(&#34;PROBLEM&#34;)
+        
+        prop += 1
+    
+    return p_val_df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.Durbin_Watson_test"><code class="name flex">
+<span>def <span class="ident">Durbin_Watson_test</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+Test for autocorrelation in the residuals</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>l</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>list of CAPM</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>One colum: Test statistic for each CAPM</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Durbin_Watson_test(l):
+    &#34;&#34;&#34;_summary:_
+    Test for autocorrelation in the residuals
+    Args:
+        l (Pandas Dataframe): list of CAPM
+
+    Returns:
+        Pandas Dataframe: One colum: Test statistic for each CAPM
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#34;Test-statistic&#34;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        
+        residuals = l[i].resid.copy()
+        residuals = np.array(residuals)
+        
+        f = smt.durbin_watson(residuals)
+        l_val.append(f)
+        
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.GETS_ABIC"><code class="name flex">
+<span>def <span class="ident">GETS_ABIC</span></span>(<span>FF_summary, df_factors, df_stocks, param)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def GETS_ABIC(FF_summary, df_factors, df_stocks,param):
+    loc=None
+    str=None
+    match param:
+        case &#39;a&#39;:
+            loc=&#39;Mean&#39;
+            str=&#39;aic&#39;
+        case &#39;b&#39;:
+            loc=FF_summary.index[0]
+            str=&#39;bic&#39;
+        case &#39;c&#39;:
+            loc=&#39;Mean&#39;
+            str=&#39;bic&#39;
+
+    elim = []
+    
+    summary = FF_summary.copy()
+    df_fac = df_factors.copy()
+    
+    ic = summary.loc[loc, str]
+    ic_list = [ic]
+    
+    results = []
+    
+    while True:
+    
+        p_v = [i for i in list(summary.columns) if (&#39;p-value&#39; in i)] 
+        
+        del p_v[0:2] 
+        names = [j[-3:] for j in p_v ] 
+        
+        temp_df = pd.DataFrame(index = names, columns = [&#39;p-values&#39;])  
+        
+        p_values = []
+        
+        for i in p_v: 
+            
+            p_values.append(summary.loc[loc, i])
+        
+        if p_values:         
+            
+            temp_df.iloc[:,0] = p_values
+            temp_df = temp_df.sort_values(&#39;p-values&#39;, ascending = False)
+            
+            if temp_df.iloc[0,0] &gt; 0.05:
+               
+                elim.append(temp_df.index[0])
+                df_fac = df_fac.drop(elim[-1], axis = 1)
+                
+                summary, FF_list_2 = OLS(df_stocks,df_fac)
+                if param == &#39;a&#39; or param == &#34;c&#34;:
+                    summary.loc[loc] = summary.mean()
+                results.append(summary)
+                
+                if summary.loc[loc, str] &lt; ic:
+                    ic = summary.loc[loc,str]
+                    ic_list.append(ic)
+                    
+                else:
+                    ic = summary.loc[loc, str]
+                    ic_list.append(ic)
+                    results.pop()
+                    break
+                
+            else:
+                break
+        
+        else:
+            break
+        
+    return results[-1],ic_list</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.GETS_BIC_p"><code class="name flex">
+<span>def <span class="ident">GETS_BIC_p</span></span>(<span>FF_summary, df_factors, df_stocks)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def GETS_BIC_p(FF_summary, df_factors, df_stocks):
+
+    elim = []
+    
+    summary = FF_summary.copy()
+    df_fac = df_factors.copy()
+    
+    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+    bic_list = [bic]
+    
+    results = []
+    
+    while True:
+    
+        p_v = [i for i in list(summary.columns) if (&#39;p-value&#39; in i)] 
+        
+        del p_v[0] 
+        names = [j[-3:] for j in p_v[1:] ] 
+        &#34;&#34;&#34;
+        ----------------------------------------- HARD-CODED
+        &#34;&#34;&#34;    
+        names.insert(0, &#39;Market&#39;)
+        
+        temp_df = pd.DataFrame(index = names, columns = [&#39;p-values&#39;])  
+        
+        p_values = []
+        
+        for i in p_v: 
+            
+            p_values.append(summary.loc[summary.index[0], i])
+        
+        if p_values:         
+            
+            temp_df.iloc[:,0] = p_values
+            temp_df = temp_df.sort_values(&#39;p-values&#39;, ascending = False)
+            
+            if temp_df.iloc[0,0] &gt; 0.05:
+               
+                elim.append(temp_df.index[0])
+                df_fac = df_fac.drop(elim[-1], axis = 1)
+                
+                summary, FF_list_2 = OLS(df_stocks,df_fac, hac = True)
+
+                results.append(summary)
+                
+                if summary.loc[summary.index[0], &#39;bic&#39;] &lt; bic:
+                    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+                    bic_list.append(bic)
+                    
+                else:
+                    bic = summary.loc[summary.index[0], &#39;bic&#39;]
+                    bic_list.append(bic)
+                    results.pop()
+                    break
+                
+            else:
+                break
+        
+        else:
+            break
+        
+    return results[-1],bic_list</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.OLS"><code class="name flex">
+<span>def <span class="ident">OLS</span></span>(<span>y, *x, hac=False, conf_int=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+Function to setup and run OLS algoritm. Support diffent type of input</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>y</code></strong> :&ensp;<code>lists</code></dt>
+<dd>list for indipendence variables.</dd>
+<dt>*x (multiple_args):indipendent variables.</dt>
+<dt><strong><code>hac</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>enable it for searching heteroskedasticity and autocorrelation errors
+.Defaults to False.</dd>
+<dt><strong><code>conf_int</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>enable it for confidence interval Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="Regression_function.OLS" href="#Regression_function.OLS">OLS()</a> summary,<a title="Regression_function.OLS" href="#Regression_function.OLS">OLS()</a> list</code></dt>
+<dd>Dataframe of sm.OLS summary and a list of OLS results</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def OLS(y, *x, hac =False, conf_int = False):
+    &#34;&#34;&#34;_summary:_
+    Function to setup and run OLS algoritm. Support diffent type of input
+    Args:
+        y (lists): list for indipendence variables.
+        *x (multiple_args):indipendent variables.
+        hac (bool, optional): enable it for searching heteroskedasticity and autocorrelation errors  .Defaults to False.
+        conf_int (bool, optional): enable it for confidence interval Defaults to False.
+
+    Returns:
+        OLS summary,OLS list: Dataframe of sm.OLS summary and a list of OLS results 
+    &#34;&#34;&#34;
+
+    intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
+                              columns = [&#34;intercept&#34;],
+                              index = y.index)
+    
+    X = pd.concat([intercept,*x],axis = 1)
+
+    exog_names = list(X.columns)
+    
+    l = [&#39;Alpha&#39;, &#39;p-value_alpha&#39;]
+    
+    for i in range(1, len(exog_names)):
+        
+        l.append(&#34;beta: &#34; + exog_names[i])
+        l.append(&#34;p-value_beta: &#34;+ exog_names[i])
+    
+    l.append(&#34;R-Squared&#34;)
+    l.append(&#39;bic&#39;)
+    l.append(&#39;aic&#39;)
+    
+    if conf_int:
+        
+        l.append(&#39;LBound&#39;)
+        l.append(&#39;UBound&#39;)
+
+    endog_names = list(y.columns)
+    result = pd.DataFrame(index = endog_names, columns = l)
+        
+    reg = [] 
+    
+    for i in endog_names:
+        
+        Res1 = sm . OLS ( y[i] ,X). fit ()
+        Res1.summary()
+        
+        if hac == True:
+
+            #Checking for heteroskedasticity
+            residuals = Res1.resid
+            exogen = Res1.model.exog
+            het = smd.het_white(residuals, exogen)
+            ind = smd.acorr_breusch_godfrey(Res1, nlags = 1)
+            
+            if (het[3] &lt; 0.05) and (ind[3] &lt;0.05):
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HAC&#39;,cov_kwds= {&#39;maxlags&#39;:1})
+                #print(&#39;HAAAAAAAAAAAC: {}&#39;.format(i))
+                
+            elif het[3] &lt; 0.05:
+                
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HC3&#39;)
+                #print(&#39;HETEROOOOOOO: {}&#39;.format(i) )
+                
+            elif ind[3] &lt; 0.05:
+                Res1 = sm . OLS ( y[i] ,X). fit (cov_type =&#39;HAC&#39;,cov_kwds= {&#39;maxlags&#39;:1})
+                #print(&#39;SERIAL CORRELAAAAATION: {}&#39;.format(i))
+                
+    
+        r2 = Res1.rsquared
+        bic = Res1.bic
+        aic = Res1.aic
+        param = Res1.params
+        pval = Res1.pvalues
+        reg.append(Res1)
+        
+        if conf_int:
+            
+            intervals = Res1.conf_int(alpha = 0.05)
+            intervals = intervals.loc[&#39;Market&#39;, :]
+        
+        l_val = []
+    
+        for j in range(len(param)):
+            
+            l_val.extend([param[j],pval[j]])
+        
+        l_val.append(r2)
+        l_val.append(bic)
+        l_val.append(aic)
+        
+        if conf_int:
+            
+            l_val.append(intervals[0])
+            l_val.append(intervals[1])
+        
+        result.loc[i] = l_val    
+    
+    return result, reg</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.RESET_test"><code class="name flex">
+<span>def <span class="ident">RESET_test</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+test whether the relationship between the dependent variable and the independent variables should be linear or whether a non-linear form would be more appropriate</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>l</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>lists of CAPM</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>two-columms: F-Value, p-value. Filled with smd.linear_reset results</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def RESET_test(l):
+    &#34;&#34;&#34;_summary:_
+    test whether the relationship between the dependent variable and the independent variables should be linear or whether a non-linear form would be more appropriate
+    Args:
+        l (Pandas Dataframe): lists of CAPM
+
+    Returns:
+        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.linear_reset results
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    results = []
+    for i in range(len(l)):
+        l_val = []
+        x = l[i]
+        x.fittedvalues = np.array(x.fittedvalues)
+        f = smd.linear_reset(res = x , power = 3, test_type = &#34;fitted&#34;, use_f = True)
+        l_val.append(f.fvalue)
+        l_val.append(f.pvalue)
+        df.loc[l[i].model.endog_names,:] = l_val
+        results.append(f)
+    return df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.ad_hoc_GETS"><code class="name flex">
+<span>def <span class="ident">ad_hoc_GETS</span></span>(<span>FF_summary, df_factors, df_stocks)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ad_hoc_GETS(FF_summary, df_factors, df_stocks):
+    
+    df = pd.DataFrame(index = FF_summary.index, columns = FF_summary.columns)
+    final_models = []
+    
+    for i in df.index:
+        
+        if i == &#39;Mean&#39;:
+            
+            continue
+        
+        #Create an object to be compatible with the function GETS_BIC_p
+        df_2 = pd.DataFrame( columns = FF_summary.columns)
+        df_2.loc[len(df_2)] = FF_summary.loc[i,:].values
+        
+        df_3 = pd.DataFrame(index = df_stocks.index)
+        df_3[i] = df_stocks.loc[:,i].values
+        
+        res, bic = GETS_BIC_p(df_2, df_factors,df_3)
+        final_models.append(res)
+
+        
+    return final_models</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.break_dates_optimization"><code class="name flex">
+<span>def <span class="ident">break_dates_optimization</span></span>(<span>p_val_df_FF, FF_summary, df_stocks, df_factors)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em>
+we create a dataframe that, for each stock, assign the min_pval of the
+Chow test and the corresponding date that corresponds to that minimum value</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>p_val_df_FF</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of p value from fama french data</dd>
+<dt><strong><code>FF_summary</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of summary of OLS </dd>
+<dt><strong><code>df_stocks</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of stocks</dd>
+<dt><strong><code>df_factors</code></strong> :&ensp;<code>Pandas Dataframe</code></dt>
+<dd>Dataframe of factors</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas Dataframe</code></dt>
+<dd>two coloums: min_pval, date of breaks</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
+    &#34;&#34;&#34;_summary:_
+        we create a dataframe that, for each stock, assign the min_pval of the
+        Chow test and the corresponding date that corresponds to that minimum value
+    Args:
+        p_val_df_FF (Pandas Dataframe): Dataframe of p value from fama french data
+        FF_summary (Pandas Dataframe): Dataframe of summary of OLS 
+        df_stocks (Pandas Dataframe): Dataframe of stocks
+        df_factors (Pandas Dataframe): Dataframe of factors
+        
+    Returns:
+        Pandas Dataframe: two coloums: min_pval, date of breaks
+    &#34;&#34;&#34;
+    min_pval = []
+    index_min = []
+    
+    break_dates_df_FF = pd.DataFrame(index = p_val_df_FF.columns, columns = [&#39;min_pval&#39;, &#39;date&#39;])
+    
+    for i in p_val_df_FF.columns:
+        
+        min_pval = min(p_val_df_FF.loc[:,i])
+        index_min = p_val_df_FF.loc[:,i].idxmin()
+        break_dates_df_FF.loc[i,:] = [min_pval, index_min]
+    
+    
+    &#34;&#34;&#34;
+    -------------------------------------------------------------------------------
+    Estimating optimized models for which no structural break was detected
+    -------------------------------------------------------------------------------
+    &#34;&#34;&#34;
+    
+    &#34;&#34;&#34;
+    We create a dictionary in which we will store the results of the models 
+    estimated and optimized in each interval according to their break dates.
+    These results will be stored in dataframes.
+    If a stock doesn&#39;t have any break there will be a dataframe composed of a single
+    row.
+    If a stock show the presence of one or more breaks, it will have a number of rows
+    equal to the number of breaks detected plus one.
+    &#34;&#34;&#34;
+    d = {}
+    
+    l_col = []
+    l_col = l_col + list(FF_summary.columns) + [&#39;beg_date&#39;, &#39;end_date&#39;]
+    
+    for i in df_stocks.columns:
+        
+        d[i] = pd.DataFrame(columns = l_col)
+    
+    #Finding the stocks for which the FF model with all the factors didn&#39;t show breaks
+    list_to_GETS = break_dates_df_FF[break_dates_df_FF[&#39;min_pval&#39;] &gt; 0.05].index.to_list()
+    
+    &#34;&#34;&#34;
+    Removing those stocks from the dataframe in which we stored the date and p-value
+    of critical dates
+    &#34;&#34;&#34;
+    break_dates_df_FF = break_dates_df_FF[break_dates_df_FF[&#39;min_pval&#39;] &lt; 0.05]
+    
+    &#34;&#34;&#34;
+    Optimizing by removing irrelevant variables for the models of the stocks that 
+    didn&#39;t show any breaks
+    &#34;&#34;&#34;
+    final_res = ad_hoc_GETS(FF_summary.loc[list_to_GETS], 
+                            df_factors, df_stocks[list_to_GETS])
+    
+    
+    &#34;&#34;&#34;
+    Storing the results of these models in a dataframe 
+    &#34;&#34;&#34;
+    
+    final_res_df= pd.DataFrame( columns = l_col)
+    
+    for i in range(len(final_res)):
+        final_res_df = pd.concat([final_res_df, final_res[i]], axis = 0)
+        
+    final_res_df[&#39;beg_date&#39;] = df_stocks.index[0]
+    final_res_df[&#39;end_date&#39;] = df_stocks.index[-1]
+    
+    &#34;&#34;&#34;
+    Storing these dataframes in the dictionary
+    &#34;&#34;&#34;    
+    
+    for i in range(len(final_res)):   
+        
+        name = final_res[i].index[0]
+        d[name] = pd.concat([d[name],final_res_df.loc[name].to_frame().T], 
+                            ignore_index = True)
+        
+    &#34;&#34;&#34;
+    Stocks that have breaks
+    &#34;&#34;&#34;
+    
+    
+    for name in break_dates_df_FF.index: 
+        break_date = 1
+        
+        d[name] = pd.DataFrame(columns = l_col)
+        start_date = df_stocks.index[0]
+        
+        
+        
+    
+        break_date = break_dates_df_FF.loc[name, &#39;date&#39;]
+        
+        i=0 
+        
+        while break_date != 0:
+            reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                        df_factors[start_date:break_date], hac = True)
+            &#34;&#34;&#34;
+            Storing the model before the break after removing irrelevant variables
+            &#34;&#34;&#34;   
+            
+            final_res = ad_hoc_GETS(reg_summary, 
+                                    df_factors[start_date:break_date], 
+                                    df_stocks.loc[start_date:break_date, name].to_frame())
+            d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+            
+            d[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+            d[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+            
+            
+            
+            
+            
+            
+            &#34;&#34;&#34;
+            DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
+            &#34;&#34;&#34;
+            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[:break_date, name].to_frame(),
+                                        df_factors[:break_date])
+            
+            &#34;&#34;&#34;
+            Checking for further breaks
+            &#34;&#34;&#34;
+            
+            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[break_date:, name].to_frame(),
+                                        df_factors[break_date:])
+                
+            if p_val_df_2.empty:
+                
+                i = i + 1
+                reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors[break_date:], hac = True)
+                
+            
+            
+                final_res = ad_hoc_GETS(reg_summary, 
+                                        df_factors[break_date:], 
+                                        df_stocks.loc[break_date:, name].to_frame())
+                
+                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                
+                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                break_date = 0
+                
+            
+            elif (min(p_val_df_2[name]) &gt; 0.05) :
+            
+                i = i + 1
+                reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors[break_date:], hac = True)
+                
+            
+            
+                final_res = ad_hoc_GETS(reg_summary, 
+                                        df_factors[break_date:], 
+                                        df_stocks.loc[break_date:, name].to_frame())
+                
+                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                
+                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                break_date = 0
+                
+                
+            else:
+                start_date = break_date
+                break_date = p_val_df_2[name].idxmin()
+            
+            
+            i = i+1
+            
+    return d</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.f_test_retrieval"><code class="name flex">
+<span>def <span class="ident">f_test_retrieval</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em> determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>l</code></strong> :&ensp;<code>pandas dataframe</code></dt>
+<dd>dataframe with OLS summary organization </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas dataframe</code></dt>
+<dd>two colums: F-Test_Value F-Test_p-value</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def f_test_retrieval(l):
+    &#34;&#34;&#34;_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
+
+    Args:
+        l (pandas dataframe): dataframe with OLS summary organization 
+
+    Returns:
+        Pandas dataframe: two colums: F-Test_Value F-Test_p-value
+    &#34;&#34;&#34;
+    df = pd.DataFrame(columns = [&#39;F-Test_Value&#39;,&#39;F-Test_p-value&#39;])
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+        df.loc[name, &#39;F-Test_Value&#39;] = l[i].fvalue
+        df.loc[name, &#39;F-Test_p-value&#39;] = l[i].f_pvalue
+            
+    return df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.f_test_retrieval_2"><code class="name flex">
+<span>def <span class="ident">f_test_retrieval_2</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"><p><em>summary:</em> determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>l</code></strong> :&ensp;<code>pandas dataframe</code></dt>
+<dd>dataframe with OLS summary organization </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Pandas dataframe</code></dt>
+<dd>two colums: stocks name F-Test_Value</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def f_test_retrieval_2(l):
+    &#34;&#34;&#34;_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
+
+    Args:
+        l (pandas dataframe): dataframe with OLS summary organization 
+
+    Returns:
+        Pandas dataframe: two colums: stocks name F-Test_Value
+    &#34;&#34;&#34;
+    critical_alpha = l[l.iloc[:,1] &lt; 0.05].iloc[:,1]
+
+
+    df = pd.DataFrame(columns = [critical_alpha.name, &#39;F-Test_p-value&#39;],
+                      index = critical_alpha.index)
+    
+    df.loc[:,critical_alpha.name] = critical_alpha
+    r = list(critical_alpha.index)
+
+    for i in range(len(l)):
+        
+        name = l[i].model.endog_names
+
+        if name in r:
+            
+            df.loc[name, &#39;F-Test_p-value&#39;] = l[i].f_pvalue
+            
+    return df</code></pre>
+</details>
+</dd>
+<dt id="Regression_function.h_test"><code class="name flex">
+<span>def <span class="ident">h_test</span></span>(<span>l)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def h_test(l):
+    
+    df = pd.DataFrame(columns= [&#39;F-Value&#39;, &#39;p-value&#39;])
+    
+    for i in range(len(l)):
+        
+        l_val = []
+        residuals = l[i].resid
+        exogen = l[i].model.exog
+        f = smd.het_white(residuals, exogen)
+        l_val.append(f[2])
+        l_val.append(f[3])
+        df.loc[l[i].model.endog_names,:] = l_val
+        
+    return df</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1><a href="../index.html" target="_blank" >Back</a></h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="Regression_function.Breusch_Godfrey_test" href="#Regression_function.Breusch_Godfrey_test">Breusch_Godfrey_test</a></code></li>
+<li><code><a title="Regression_function.CAPM_break_dates" href="#Regression_function.CAPM_break_dates">CAPM_break_dates</a></code></li>
+<li><code><a title="Regression_function.CHOW_TEST" href="#Regression_function.CHOW_TEST">CHOW_TEST</a></code></li>
+<li><code><a title="Regression_function.CHOW_TEST_FF" href="#Regression_function.CHOW_TEST_FF">CHOW_TEST_FF</a></code></li>
+<li><code><a title="Regression_function.Durbin_Watson_test" href="#Regression_function.Durbin_Watson_test">Durbin_Watson_test</a></code></li>
+<li><code><a title="Regression_function.GETS_ABIC" href="#Regression_function.GETS_ABIC">GETS_ABIC</a></code></li>
+<li><code><a title="Regression_function.GETS_BIC_p" href="#Regression_function.GETS_BIC_p">GETS_BIC_p</a></code></li>
+<li><code><a title="Regression_function.OLS" href="#Regression_function.OLS">OLS</a></code></li>
+<li><code><a title="Regression_function.RESET_test" href="#Regression_function.RESET_test">RESET_test</a></code></li>
+<li><code><a title="Regression_function.ad_hoc_GETS" href="#Regression_function.ad_hoc_GETS">ad_hoc_GETS</a></code></li>
+<li><code><a title="Regression_function.break_dates_optimization" href="#Regression_function.break_dates_optimization">break_dates_optimization</a></code></li>
+<li><code><a title="Regression_function.f_test_retrieval" href="#Regression_function.f_test_retrieval">f_test_retrieval</a></code></li>
+<li><code><a title="Regression_function.f_test_retrieval_2" href="#Regression_function.f_test_retrieval_2">f_test_retrieval_2</a></code></li>
+<li><code><a title="Regression_function.h_test" href="#Regression_function.h_test">h_test</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

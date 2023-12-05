@@ -1,4 +1,4 @@
-from matplotlib.ticker import PercentFormatter
+from matplotlib.dates import date2num
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
@@ -220,10 +220,30 @@ class Plotting:
         plt.plot(time_series, df_portfolios.iloc[:,0], label = 'Portfolio')
         plt.legend()
         plt.show()
-        plt.close()
-    @controlla_permesso    
-    def shish(self,p_val_df):
+        plt.close()  
 
+    @controlla_permesso
+    def fama_french_plotting(self,df):
+        # Convert datetime objects to numerical values for plotting
+        x_values = date2num(df['Date'])
+
+        plt.figure()
+
+        # Set up the bar plot
+        plt.bar(x_values, height = 1, width = 25)
+
+
+        plt.xticks(df['Date'], df['Date'])
+        plt.xticks(rotation=90, ha='right')
+        plt.title('Break date distribution')
+
+        # Format the x-axis as dates
+
+
+        # Display the plot
+        plt.show()
+    @controlla_permesso
+    def chow_test_plotting(self,p_val_df):
         for i in p_val_df.columns:
         
             plt.figure()
@@ -232,18 +252,20 @@ class Plotting:
             plt.title(i)
 
             plt.show()
-            plt.close()
 
-    @controlla_permesso
-    def shish1(self,df):
-        for i in df.columns:
+
+        plt.figure()
+
+        for i in p_val_df.columns:
         
-            plt.plot(df.loc[:, i])
-            plt.show()
-            plt.close()
+            plt.plot(p_val_df.loc[:, i])
+
+        plt.show()
+        plt.close("all")
+
 
     @controlla_permesso    
-    def plotting_CAPM_7(self,list_to_plot,d3,df_bd_CAPM_2,l_conf):
+    def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
 
            
             for m in l_conf:

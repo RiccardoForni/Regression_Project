@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Regression_Plotting API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Regression_Plotting</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from matplotlib.dates import date2num
+import matplotlib.pyplot as plt
+import pandas as pd
+import os
+import numpy as np
+import warnings
+warnings.simplefilter(action=&#39;ignore&#39;, category=FutureWarning)
+
+global allow_clean
+allow_clean = False
+if &#39;SPY_PYTHONPATH&#39; in os.environ:
+    allow_clean = True
+    &#34;&#34;&#34;
+    Check Last line for clean variables
+    &#34;&#34;&#34;
+
+&#34;&#34;&#34;Pre_config END&#34;&#34;&#34;
+        
+def folder_definer(folder):
+        cwd = os.getcwd()
+        PATH = cwd + &#34;/&#34;+folder+&#34;/&#34;
+
+        if not os.path.exists(PATH):
+            os.mkdir(PATH)
+        
+        return PATH
+def controlla_permesso(f):
+    def wrapper(self, *args, **kwargs):
+        if self.allow_execution:
+            return f(self, *args, **kwargs)
+        else:
+            return None
+    return wrapper
+
+class Plotting:
+    def __init__(self, allow_execution):
+        self.allow_execution = allow_execution
+    @controlla_permesso
+    def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
+                ten_value = 0.1):
+        &#34;&#34;&#34;/3_p_value_plots/&#34;&#34;&#34;
+        variable = P.name
+        P = pd.DataFrame(data = P, columns = [variable])
+        mean = P.loc[&#39;Mean&#39;, variable]
+        P[&#39;stock_names&#39;] = P.index
+
+        def bar_highlight(value, one_value, 
+                        five_value,
+                        ten_value,
+                        mean):
+            if value &lt;= one_value:
+                return &#39;red&#39;
+            elif value &lt;= five_value:
+                return &#39;orange&#39;
+            elif value &lt;= ten_value:
+                return &#39;gold&#39;
+            if value == mean:
+                return &#39;black&#39;
+            else:
+                return &#39;grey&#39;
+        fig, ax = plt.subplots()   
+    
+        P[&#39;colors&#39;] = P[variable].apply(bar_highlight, args = (one_value, 
+                            five_value,
+                            ten_value,
+                            mean))
+
+        bars = plt.bar(P[&#39;stock_names&#39;], P[variable], color=P[&#39;colors&#39;])
+        x_pos = range(P[&#39;stock_names&#39;].shape[0])
+        plt.xticks(x_pos, P[&#39;stock_names&#39;], rotation=90)
+        
+        variable = variable.replace(&#34;:&#34;,&#34;_&#34;)
+        plt.savefig(folder_definer(SavePath)+&#34;/&#34;+variable+&#34;.png&#34;)
+        if allow_clean:
+            plt.show()
+        
+        plt.close()
+
+    @controlla_permesso
+    def plotCAPM(self,rStock,Market,stock_names,OLSRes,SavePath):
+        &#34;&#34;&#34;/2_testCAPM/&#34;&#34;&#34;
+        for e in stock_names:
+
+            plt.figure()
+            plt.plot(Market, OLSRes.loc[e, &#39;beta: Market&#39;]*Market+OLSRes.loc[e, &#39;Alpha&#39;])
+            plt.scatter(Market,rStock[e])
+            plt . xlabel (&#39;Eurostoxx&#39;)
+            plt . ylabel (e)
+            plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+SavePath[2]+&#34;.png&#34;)
+            plt.close()
+
+    &#34;&#34;&#34;
+    - setx = market return
+    - set y = stock returns
+    - title = title of the graph
+    - xlabel = name of the x-axis
+    - ylabel = name of the y-axis
+    - sigla = unique name (either ER for euribor or ERB for bunds) to differentiate
+            between plots of excess returns of stocks computed with Euribor
+            or with the bund yield.
+    - Subset = dataframe with the data of total index returns
+    - string_to_save = name of the folder in which the graph will be saved in the 
+                    working directory
+    &#34;&#34;&#34;
+    @controlla_permesso
+    def plotscatter(self,setx,sety,title,xlabel,ylabel,sigla,SavePath):  
+
+        l = pd.DataFrame(index = sety.columns, columns= [&#39;Plot&#39;])
+            
+        for e in sety.columns:
+            
+            ax1 = plt.figure().add_subplot()
+            
+            ax1.scatter(setx,sety[e])
+            plt.title(title)
+            plt . xlabel (xlabel)
+            plt . ylabel (e+ylabel)
+            plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+&#34;_&#34;+sigla+&#34;.png&#34;)
+            l.loc[e,&#39;Plot&#39;] = plt.figure()
+            plt.close(&#34;all&#34;)
+            
+        return l
+    @controlla_permesso
+    def comparison_scatter(self,df_stocks, df_portfolios, market,
+                        title,xlabel,ylabel,
+                        SavePath,CAPM_Port=None):
+        ax1 = plt.figure().add_subplot()
+        
+        for i in df_stocks.columns:
+            ax1.scatter(market, df_stocks.loc[:,i], 
+                        c = &#39;silver&#39;, alpha = 0.5)
+        plt.title(title)
+        plt . xlabel (xlabel)
+        plt . ylabel (ylabel)
+        
+        ax1.scatter(market, df_portfolios, c = &#39;black&#39;)
+
+        if CAPM_Port is not None:
+            ax1.plot(market, CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;beta: Market&#39;]*
+                    market+CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;Alpha&#39;])
+            
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+i+&#34;.png&#34;)
+        if allow_clean:
+            plt.show()
+        plt.close()
+
+    @controlla_permesso
+    def m_scatter(self,CAPM_summary, df_factors, df_stocks,
+                SavePath):
+        &#34;&#34;&#34;
+        /2_scatter_comparison/
+        &#34;&#34;&#34;
+        
+        x = list(CAPM_summary.index)
+        y = x[:3] + x[-1:-4:-1]
+
+        figure, axis = plt.subplots(2, 3) 
+
+        for i in range(3):
+
+            axis[0,i].scatter(df_factors[&#39;Market&#39;],
+                                    df_stocks.loc[:,y[i]])
+
+        for i in range(3,6):
+            axis[1,i-3].scatter(df_factors[&#39;Market&#39;],
+                                    df_stocks.loc[:,y[i]]) 
+        
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;.png&#34;)
+
+        if allow_clean:
+            plt.show()
+        plt.close()
+    @controlla_permesso  
+    def comparison_barplot(self,FF_summary, CAPM_summary):
+        index = 1
+        diction = {}
+        for e,i in zip(range(1,FF_summary.shape[1]+1),list(FF_summary.columns)):
+            diction.update({e: i})
+
+        print(&#39;The possible comparisons are: {}\n&#39;.format(diction.items()))
+        index = int(input(&#39;Which one would you like to compare?(0 to stop)\n&#39;))
+        if index == 0 or index&gt;(FF_summary.shape[1]+1):
+            print(&#34;ENDED&#34;)
+            return
+        name=diction[index]
+        
+        index = np.arange(FF_summary.index.shape[0])
+        bar_width = 0.35
+        
+        fig, ax = plt.subplots()
+        summer = ax.bar(index, FF_summary.loc[:,name], bar_width,
+                        label=&#34;Fama_French&#34;)
+        
+        winter = ax.bar(index + bar_width, CAPM_summary.loc[:,name], bar_width,
+                        label=&#34;CAPM&#34;)
+        
+        ax.set_xlabel(&#39;Company&#39;)
+        ax.set_ylabel(&#39;Value&#39;)
+        ax.set_title(&#39;Comparison between CAPM and Fama-French model: {}&#39;.format(name))
+        
+        x_pos = range(FF_summary.index.shape[0])
+        plt.xticks(x_pos, FF_summary.index, rotation=90)
+        
+        ax.set_xticklabels(FF_summary.index)
+        ax.legend()
+        
+        if allow_clean:
+            plt.show()
+        plt.close()
+    
+    @controlla_permesso
+    def plot_looking(self,time_series,df_factors,df_portfolios):
+        &#34;&#34;&#34;
+        Check why the only relevant variable appears to be the market
+        &#34;&#34;&#34;
+
+        plt.figure()
+
+        plt.plot(time_series, df_factors.loc[:, &#39;Market&#39;], label = &#39;Market&#39;)
+        plt.plot(time_series, df_portfolios.iloc[:,0], label = &#39;Portfolio&#39;)
+        plt.legend()
+        plt.show()
+        plt.close()  
+
+    @controlla_permesso
+    def fama_french_plotting(self,df):
+        # Convert datetime objects to numerical values for plotting
+        x_values = date2num(df[&#39;Date&#39;])
+
+        plt.figure()
+
+        # Set up the bar plot
+        plt.bar(x_values, height = 1, width = 25)
+
+
+        plt.xticks(df[&#39;Date&#39;], df[&#39;Date&#39;])
+        plt.xticks(rotation=90, ha=&#39;right&#39;)
+        plt.title(&#39;Break date distribution&#39;)
+
+        # Format the x-axis as dates
+
+
+        # Display the plot
+        plt.show()
+    @controlla_permesso
+    def chow_test_plotting(self,p_val_df):
+        for i in p_val_df.columns:
+        
+            plt.figure()
+            plt.plot(p_val_df.loc[:, i])
+            plt.axhline(y= 0.05, color = &#39;red&#39;)
+            plt.title(i)
+
+            plt.show()
+
+
+        plt.figure()
+
+        for i in p_val_df.columns:
+        
+            plt.plot(p_val_df.loc[:, i])
+
+        plt.show()
+        plt.close(&#34;all&#34;)
+
+
+    @controlla_permesso    
+    def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
+
+           
+            for m in l_conf:
+
+                for i in list_to_plot:
+                    
+                    l = df_bd_CAPM_2.loc[i]
+                
+                        
+                    plt.figure()
+                    
+                    plt.plot(d3[i].index, d3[i][m+ &#39;_UBound&#39;], label = &#39;Upper bound&#39;)
+                    
+                    if m != &#39;Alpha&#39;:
+                    
+                        plt.plot(d3[i].index, d3[i][&#39;beta: &#39; + m], label = &#39;Beta value&#39;)
+                        
+                    else:
+                        
+                        plt.plot(d3[i].index, d3[i][m], label = &#39;Alpha value&#39;)
+                    
+                    plt.plot(d3[i].index, d3[i][m+&#39;_LBound&#39;], label = &#39;Lower bound&#39;)
+                    
+                    if l.ndim &gt; 1:
+                        
+                        for j in l[&#39;Date&#39;]:
+                            
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                    
+                    else:
+                        
+                        for j in l:
+                
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                            
+                    if m != &#39;Alpha&#39;:        
+                        
+                        plt.title(i +&#34;: {}&#34;.format(&#39;Value of beta &#39;+ m))
+                        
+                    else:
+                        
+                        plt.title(i +&#34;: {}&#34;.format(&#39;Value of alpha&#39;))
+                    
+                    plt.legend()
+                    
+                    plt.show()
+
+            &#34;&#34;&#34;
+            Plot of values that do not have a confidence interval
+            &#34;&#34;&#34;
+
+            l_roll = [&#39;R-Squared&#39;, &#39;bic&#39;]
+
+            for m in l_roll:
+
+                for i in list_to_plot:
+                    
+                    l = df_bd_CAPM_2.loc[i]
+                
+                        
+                    plt.figure()
+                    
+                    plt.plot(d3[i].index, d3[i][m], label = m)
+                        
+                
+                    
+                    if l.ndim &gt; 1:
+                        
+                        for j in l[&#39;Date&#39;]:
+                            
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                    
+                    else:
+                        
+                        for j in l:
+                
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                            
+                        
+                    plt.title(i +&#34;: {}&#34;.format(&#39;Value of &#39;+m))
+                    
+                    plt.legend()
+                    
+                    plt.show()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="Regression_Plotting.controlla_permesso"><code class="name flex">
+<span>def <span class="ident">controlla_permesso</span></span>(<span>f)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def controlla_permesso(f):
+    def wrapper(self, *args, **kwargs):
+        if self.allow_execution:
+            return f(self, *args, **kwargs)
+        else:
+            return None
+    return wrapper</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.folder_definer"><code class="name flex">
+<span>def <span class="ident">folder_definer</span></span>(<span>folder)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def folder_definer(folder):
+        cwd = os.getcwd()
+        PATH = cwd + &#34;/&#34;+folder+&#34;/&#34;
+
+        if not os.path.exists(PATH):
+            os.mkdir(PATH)
+        
+        return PATH</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Regression_Plotting.Plotting"><code class="flex name class">
+<span>class <span class="ident">Plotting</span></span>
+<span>(</span><span>allow_execution)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Plotting:
+    def __init__(self, allow_execution):
+        self.allow_execution = allow_execution
+    @controlla_permesso
+    def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
+                ten_value = 0.1):
+        &#34;&#34;&#34;/3_p_value_plots/&#34;&#34;&#34;
+        variable = P.name
+        P = pd.DataFrame(data = P, columns = [variable])
+        mean = P.loc[&#39;Mean&#39;, variable]
+        P[&#39;stock_names&#39;] = P.index
+
+        def bar_highlight(value, one_value, 
+                        five_value,
+                        ten_value,
+                        mean):
+            if value &lt;= one_value:
+                return &#39;red&#39;
+            elif value &lt;= five_value:
+                return &#39;orange&#39;
+            elif value &lt;= ten_value:
+                return &#39;gold&#39;
+            if value == mean:
+                return &#39;black&#39;
+            else:
+                return &#39;grey&#39;
+        fig, ax = plt.subplots()   
+    
+        P[&#39;colors&#39;] = P[variable].apply(bar_highlight, args = (one_value, 
+                            five_value,
+                            ten_value,
+                            mean))
+
+        bars = plt.bar(P[&#39;stock_names&#39;], P[variable], color=P[&#39;colors&#39;])
+        x_pos = range(P[&#39;stock_names&#39;].shape[0])
+        plt.xticks(x_pos, P[&#39;stock_names&#39;], rotation=90)
+        
+        variable = variable.replace(&#34;:&#34;,&#34;_&#34;)
+        plt.savefig(folder_definer(SavePath)+&#34;/&#34;+variable+&#34;.png&#34;)
+        if allow_clean:
+            plt.show()
+        
+        plt.close()
+
+    @controlla_permesso
+    def plotCAPM(self,rStock,Market,stock_names,OLSRes,SavePath):
+        &#34;&#34;&#34;/2_testCAPM/&#34;&#34;&#34;
+        for e in stock_names:
+
+            plt.figure()
+            plt.plot(Market, OLSRes.loc[e, &#39;beta: Market&#39;]*Market+OLSRes.loc[e, &#39;Alpha&#39;])
+            plt.scatter(Market,rStock[e])
+            plt . xlabel (&#39;Eurostoxx&#39;)
+            plt . ylabel (e)
+            plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+SavePath[2]+&#34;.png&#34;)
+            plt.close()
+
+    &#34;&#34;&#34;
+    - setx = market return
+    - set y = stock returns
+    - title = title of the graph
+    - xlabel = name of the x-axis
+    - ylabel = name of the y-axis
+    - sigla = unique name (either ER for euribor or ERB for bunds) to differentiate
+            between plots of excess returns of stocks computed with Euribor
+            or with the bund yield.
+    - Subset = dataframe with the data of total index returns
+    - string_to_save = name of the folder in which the graph will be saved in the 
+                    working directory
+    &#34;&#34;&#34;
+    @controlla_permesso
+    def plotscatter(self,setx,sety,title,xlabel,ylabel,sigla,SavePath):  
+
+        l = pd.DataFrame(index = sety.columns, columns= [&#39;Plot&#39;])
+            
+        for e in sety.columns:
+            
+            ax1 = plt.figure().add_subplot()
+            
+            ax1.scatter(setx,sety[e])
+            plt.title(title)
+            plt . xlabel (xlabel)
+            plt . ylabel (e+ylabel)
+            plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+&#34;_&#34;+sigla+&#34;.png&#34;)
+            l.loc[e,&#39;Plot&#39;] = plt.figure()
+            plt.close(&#34;all&#34;)
+            
+        return l
+    @controlla_permesso
+    def comparison_scatter(self,df_stocks, df_portfolios, market,
+                        title,xlabel,ylabel,
+                        SavePath,CAPM_Port=None):
+        ax1 = plt.figure().add_subplot()
+        
+        for i in df_stocks.columns:
+            ax1.scatter(market, df_stocks.loc[:,i], 
+                        c = &#39;silver&#39;, alpha = 0.5)
+        plt.title(title)
+        plt . xlabel (xlabel)
+        plt . ylabel (ylabel)
+        
+        ax1.scatter(market, df_portfolios, c = &#39;black&#39;)
+
+        if CAPM_Port is not None:
+            ax1.plot(market, CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;beta: Market&#39;]*
+                    market+CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;Alpha&#39;])
+            
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+i+&#34;.png&#34;)
+        if allow_clean:
+            plt.show()
+        plt.close()
+
+    @controlla_permesso
+    def m_scatter(self,CAPM_summary, df_factors, df_stocks,
+                SavePath):
+        &#34;&#34;&#34;
+        /2_scatter_comparison/
+        &#34;&#34;&#34;
+        
+        x = list(CAPM_summary.index)
+        y = x[:3] + x[-1:-4:-1]
+
+        figure, axis = plt.subplots(2, 3) 
+
+        for i in range(3):
+
+            axis[0,i].scatter(df_factors[&#39;Market&#39;],
+                                    df_stocks.loc[:,y[i]])
+
+        for i in range(3,6):
+            axis[1,i-3].scatter(df_factors[&#39;Market&#39;],
+                                    df_stocks.loc[:,y[i]]) 
+        
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;.png&#34;)
+
+        if allow_clean:
+            plt.show()
+        plt.close()
+    @controlla_permesso  
+    def comparison_barplot(self,FF_summary, CAPM_summary):
+        index = 1
+        diction = {}
+        for e,i in zip(range(1,FF_summary.shape[1]+1),list(FF_summary.columns)):
+            diction.update({e: i})
+
+        print(&#39;The possible comparisons are: {}\n&#39;.format(diction.items()))
+        index = int(input(&#39;Which one would you like to compare?(0 to stop)\n&#39;))
+        if index == 0 or index&gt;(FF_summary.shape[1]+1):
+            print(&#34;ENDED&#34;)
+            return
+        name=diction[index]
+        
+        index = np.arange(FF_summary.index.shape[0])
+        bar_width = 0.35
+        
+        fig, ax = plt.subplots()
+        summer = ax.bar(index, FF_summary.loc[:,name], bar_width,
+                        label=&#34;Fama_French&#34;)
+        
+        winter = ax.bar(index + bar_width, CAPM_summary.loc[:,name], bar_width,
+                        label=&#34;CAPM&#34;)
+        
+        ax.set_xlabel(&#39;Company&#39;)
+        ax.set_ylabel(&#39;Value&#39;)
+        ax.set_title(&#39;Comparison between CAPM and Fama-French model: {}&#39;.format(name))
+        
+        x_pos = range(FF_summary.index.shape[0])
+        plt.xticks(x_pos, FF_summary.index, rotation=90)
+        
+        ax.set_xticklabels(FF_summary.index)
+        ax.legend()
+        
+        if allow_clean:
+            plt.show()
+        plt.close()
+    
+    @controlla_permesso
+    def plot_looking(self,time_series,df_factors,df_portfolios):
+        &#34;&#34;&#34;
+        Check why the only relevant variable appears to be the market
+        &#34;&#34;&#34;
+
+        plt.figure()
+
+        plt.plot(time_series, df_factors.loc[:, &#39;Market&#39;], label = &#39;Market&#39;)
+        plt.plot(time_series, df_portfolios.iloc[:,0], label = &#39;Portfolio&#39;)
+        plt.legend()
+        plt.show()
+        plt.close()  
+
+    @controlla_permesso
+    def fama_french_plotting(self,df):
+        # Convert datetime objects to numerical values for plotting
+        x_values = date2num(df[&#39;Date&#39;])
+
+        plt.figure()
+
+        # Set up the bar plot
+        plt.bar(x_values, height = 1, width = 25)
+
+
+        plt.xticks(df[&#39;Date&#39;], df[&#39;Date&#39;])
+        plt.xticks(rotation=90, ha=&#39;right&#39;)
+        plt.title(&#39;Break date distribution&#39;)
+
+        # Format the x-axis as dates
+
+
+        # Display the plot
+        plt.show()
+    @controlla_permesso
+    def chow_test_plotting(self,p_val_df):
+        for i in p_val_df.columns:
+        
+            plt.figure()
+            plt.plot(p_val_df.loc[:, i])
+            plt.axhline(y= 0.05, color = &#39;red&#39;)
+            plt.title(i)
+
+            plt.show()
+
+
+        plt.figure()
+
+        for i in p_val_df.columns:
+        
+            plt.plot(p_val_df.loc[:, i])
+
+        plt.show()
+        plt.close(&#34;all&#34;)
+
+
+    @controlla_permesso    
+    def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
+
+           
+            for m in l_conf:
+
+                for i in list_to_plot:
+                    
+                    l = df_bd_CAPM_2.loc[i]
+                
+                        
+                    plt.figure()
+                    
+                    plt.plot(d3[i].index, d3[i][m+ &#39;_UBound&#39;], label = &#39;Upper bound&#39;)
+                    
+                    if m != &#39;Alpha&#39;:
+                    
+                        plt.plot(d3[i].index, d3[i][&#39;beta: &#39; + m], label = &#39;Beta value&#39;)
+                        
+                    else:
+                        
+                        plt.plot(d3[i].index, d3[i][m], label = &#39;Alpha value&#39;)
+                    
+                    plt.plot(d3[i].index, d3[i][m+&#39;_LBound&#39;], label = &#39;Lower bound&#39;)
+                    
+                    if l.ndim &gt; 1:
+                        
+                        for j in l[&#39;Date&#39;]:
+                            
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                    
+                    else:
+                        
+                        for j in l:
+                
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                            
+                    if m != &#39;Alpha&#39;:        
+                        
+                        plt.title(i +&#34;: {}&#34;.format(&#39;Value of beta &#39;+ m))
+                        
+                    else:
+                        
+                        plt.title(i +&#34;: {}&#34;.format(&#39;Value of alpha&#39;))
+                    
+                    plt.legend()
+                    
+                    plt.show()
+
+            &#34;&#34;&#34;
+            Plot of values that do not have a confidence interval
+            &#34;&#34;&#34;
+
+            l_roll = [&#39;R-Squared&#39;, &#39;bic&#39;]
+
+            for m in l_roll:
+
+                for i in list_to_plot:
+                    
+                    l = df_bd_CAPM_2.loc[i]
+                
+                        
+                    plt.figure()
+                    
+                    plt.plot(d3[i].index, d3[i][m], label = m)
+                        
+                
+                    
+                    if l.ndim &gt; 1:
+                        
+                        for j in l[&#39;Date&#39;]:
+                            
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                    
+                    else:
+                        
+                        for j in l:
+                
+                            plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                        label = &#39;Break date&#39;)
+                            
+                        
+                    plt.title(i +&#34;: {}&#34;.format(&#39;Value of &#39;+m))
+                    
+                    plt.legend()
+                    
+                    plt.show()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="Regression_Plotting.Plotting.chow_test_plotting"><code class="name flex">
+<span>def <span class="ident">chow_test_plotting</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.comparison_barplot"><code class="name flex">
+<span>def <span class="ident">comparison_barplot</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.comparison_scatter"><code class="name flex">
+<span>def <span class="ident">comparison_scatter</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.fama_french_plotting"><code class="name flex">
+<span>def <span class="ident">fama_french_plotting</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.m_scatter"><code class="name flex">
+<span>def <span class="ident">m_scatter</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.plotCAPM"><code class="name flex">
+<span>def <span class="ident">plotCAPM</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.plot_looking"><code class="name flex">
+<span>def <span class="ident">plot_looking</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.plotbar"><code class="name flex">
+<span>def <span class="ident">plotbar</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.plotscatter"><code class="name flex">
+<span>def <span class="ident">plotscatter</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Regression_Plotting.Plotting.plotting_CAPM_7"><code class="name flex">
+<span>def <span class="ident">plotting_CAPM_7</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wrapper(self, *args, **kwargs):
+    if self.allow_execution:
+        return f(self, *args, **kwargs)
+    else:
+        return None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1><a href="../index.html" target="_blank" >Back</a></h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="Regression_Plotting.controlla_permesso" href="#Regression_Plotting.controlla_permesso">controlla_permesso</a></code></li>
+<li><code><a title="Regression_Plotting.folder_definer" href="#Regression_Plotting.folder_definer">folder_definer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Regression_Plotting.Plotting" href="#Regression_Plotting.Plotting">Plotting</a></code></h4>
+<ul class="">
+<li><code><a title="Regression_Plotting.Plotting.chow_test_plotting" href="#Regression_Plotting.Plotting.chow_test_plotting">chow_test_plotting</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.comparison_barplot" href="#Regression_Plotting.Plotting.comparison_barplot">comparison_barplot</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.comparison_scatter" href="#Regression_Plotting.Plotting.comparison_scatter">comparison_scatter</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.fama_french_plotting" href="#Regression_Plotting.Plotting.fama_french_plotting">fama_french_plotting</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.m_scatter" href="#Regression_Plotting.Plotting.m_scatter">m_scatter</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.plotCAPM" href="#Regression_Plotting.Plotting.plotCAPM">plotCAPM</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.plot_looking" href="#Regression_Plotting.Plotting.plot_looking">plot_looking</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.plotbar" href="#Regression_Plotting.Plotting.plotbar">plotbar</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.plotscatter" href="#Regression_Plotting.Plotting.plotscatter">plotscatter</a></code></li>
+<li><code><a title="Regression_Plotting.Plotting.plotting_CAPM_7" href="#Regression_Plotting.Plotting.plotting_CAPM_7">plotting_CAPM_7</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
