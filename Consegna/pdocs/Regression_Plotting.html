@@ -63,7 +63,7 @@ def controlla_permesso(f):
 class Plotting:
     def __init__(self, allow_execution):
         self.allow_execution = allow_execution
-    @controlla_permesso
+     
     def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
                 ten_value = 0.1):
         &#34;&#34;&#34;/3_p_value_plots/&#34;&#34;&#34;
@@ -104,7 +104,7 @@ class Plotting:
         
         plt.close()
 
-    @controlla_permesso
+     
     def plotCAPM(self,rStock,Market,stock_names,OLSRes,SavePath):
         &#34;&#34;&#34;/2_testCAPM/&#34;&#34;&#34;
         for e in stock_names:
@@ -130,7 +130,7 @@ class Plotting:
     - string_to_save = name of the folder in which the graph will be saved in the 
                     working directory
     &#34;&#34;&#34;
-    @controlla_permesso
+     
     def plotscatter(self,setx,sety,title,xlabel,ylabel,sigla,SavePath):  
 
         l = pd.DataFrame(index = sety.columns, columns= [&#39;Plot&#39;])
@@ -148,7 +148,7 @@ class Plotting:
             plt.close(&#34;all&#34;)
             
         return l
-    @controlla_permesso
+     
     def comparison_scatter(self,df_stocks, df_portfolios, market,
                         title,xlabel,ylabel,
                         SavePath,CAPM_Port=None):
@@ -172,7 +172,7 @@ class Plotting:
             plt.show()
         plt.close()
 
-    @controlla_permesso
+     
     def m_scatter(self,CAPM_summary, df_factors, df_stocks,
                 SavePath):
         &#34;&#34;&#34;
@@ -198,7 +198,7 @@ class Plotting:
         if allow_clean:
             plt.show()
         plt.close()
-    @controlla_permesso  
+       
     def comparison_barplot(self,FF_summary, CAPM_summary):
         index = 1
         diction = {}
@@ -236,7 +236,7 @@ class Plotting:
             plt.show()
         plt.close()
     
-    @controlla_permesso
+     
     def plot_looking(self,time_series,df_factors,df_portfolios):
         &#34;&#34;&#34;
         Check why the only relevant variable appears to be the market
@@ -250,7 +250,7 @@ class Plotting:
         plt.show()
         plt.close()  
 
-    @controlla_permesso
+     
     def fama_french_plotting(self,df):
         # Convert datetime objects to numerical values for plotting
         x_values = date2num(df[&#39;Date&#39;])
@@ -270,7 +270,7 @@ class Plotting:
 
         # Display the plot
         plt.show()
-    @controlla_permesso
+     
     def chow_test_plotting(self,p_val_df):
         for i in p_val_df.columns:
         
@@ -292,7 +292,7 @@ class Plotting:
         plt.close(&#34;all&#34;)
 
 
-    @controlla_permesso    
+         
     def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
 
            
@@ -446,7 +446,7 @@ class Plotting:
 <pre><code class="python">class Plotting:
     def __init__(self, allow_execution):
         self.allow_execution = allow_execution
-    @controlla_permesso
+     
     def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
                 ten_value = 0.1):
         &#34;&#34;&#34;/3_p_value_plots/&#34;&#34;&#34;
@@ -487,7 +487,7 @@ class Plotting:
         
         plt.close()
 
-    @controlla_permesso
+     
     def plotCAPM(self,rStock,Market,stock_names,OLSRes,SavePath):
         &#34;&#34;&#34;/2_testCAPM/&#34;&#34;&#34;
         for e in stock_names:
@@ -513,7 +513,7 @@ class Plotting:
     - string_to_save = name of the folder in which the graph will be saved in the 
                     working directory
     &#34;&#34;&#34;
-    @controlla_permesso
+     
     def plotscatter(self,setx,sety,title,xlabel,ylabel,sigla,SavePath):  
 
         l = pd.DataFrame(index = sety.columns, columns= [&#39;Plot&#39;])
@@ -531,7 +531,7 @@ class Plotting:
             plt.close(&#34;all&#34;)
             
         return l
-    @controlla_permesso
+     
     def comparison_scatter(self,df_stocks, df_portfolios, market,
                         title,xlabel,ylabel,
                         SavePath,CAPM_Port=None):
@@ -555,7 +555,7 @@ class Plotting:
             plt.show()
         plt.close()
 
-    @controlla_permesso
+     
     def m_scatter(self,CAPM_summary, df_factors, df_stocks,
                 SavePath):
         &#34;&#34;&#34;
@@ -581,7 +581,7 @@ class Plotting:
         if allow_clean:
             plt.show()
         plt.close()
-    @controlla_permesso  
+       
     def comparison_barplot(self,FF_summary, CAPM_summary):
         index = 1
         diction = {}
@@ -619,7 +619,7 @@ class Plotting:
             plt.show()
         plt.close()
     
-    @controlla_permesso
+     
     def plot_looking(self,time_series,df_factors,df_portfolios):
         &#34;&#34;&#34;
         Check why the only relevant variable appears to be the market
@@ -633,7 +633,7 @@ class Plotting:
         plt.show()
         plt.close()  
 
-    @controlla_permesso
+     
     def fama_french_plotting(self,df):
         # Convert datetime objects to numerical values for plotting
         x_values = date2num(df[&#39;Date&#39;])
@@ -653,7 +653,7 @@ class Plotting:
 
         # Display the plot
         plt.show()
-    @controlla_permesso
+     
     def chow_test_plotting(self,p_val_df):
         for i in p_val_df.columns:
         
@@ -675,7 +675,7 @@ class Plotting:
         plt.close(&#34;all&#34;)
 
 
-    @controlla_permesso    
+         
     def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
 
            
@@ -769,7 +769,7 @@ class Plotting:
 <h3>Methods</h3>
 <dl>
 <dt id="Regression_Plotting.Plotting.chow_test_plotting"><code class="name flex">
-<span>def <span class="ident">chow_test_plotting</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">chow_test_plotting</span></span>(<span>self, p_val_df)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -777,15 +777,29 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def chow_test_plotting(self,p_val_df):
+    for i in p_val_df.columns:
+    
+        plt.figure()
+        plt.plot(p_val_df.loc[:, i])
+        plt.axhline(y= 0.05, color = &#39;red&#39;)
+        plt.title(i)
+
+        plt.show()
+
+
+    plt.figure()
+
+    for i in p_val_df.columns:
+    
+        plt.plot(p_val_df.loc[:, i])
+
+    plt.show()
+    plt.close(&#34;all&#34;)</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.comparison_barplot"><code class="name flex">
-<span>def <span class="ident">comparison_barplot</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">comparison_barplot</span></span>(<span>self, FF_summary, CAPM_summary)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -793,15 +807,46 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def comparison_barplot(self,FF_summary, CAPM_summary):
+    index = 1
+    diction = {}
+    for e,i in zip(range(1,FF_summary.shape[1]+1),list(FF_summary.columns)):
+        diction.update({e: i})
+
+    print(&#39;The possible comparisons are: {}\n&#39;.format(diction.items()))
+    index = int(input(&#39;Which one would you like to compare?(0 to stop)\n&#39;))
+    if index == 0 or index&gt;(FF_summary.shape[1]+1):
+        print(&#34;ENDED&#34;)
+        return
+    name=diction[index]
+    
+    index = np.arange(FF_summary.index.shape[0])
+    bar_width = 0.35
+    
+    fig, ax = plt.subplots()
+    summer = ax.bar(index, FF_summary.loc[:,name], bar_width,
+                    label=&#34;Fama_French&#34;)
+    
+    winter = ax.bar(index + bar_width, CAPM_summary.loc[:,name], bar_width,
+                    label=&#34;CAPM&#34;)
+    
+    ax.set_xlabel(&#39;Company&#39;)
+    ax.set_ylabel(&#39;Value&#39;)
+    ax.set_title(&#39;Comparison between CAPM and Fama-French model: {}&#39;.format(name))
+    
+    x_pos = range(FF_summary.index.shape[0])
+    plt.xticks(x_pos, FF_summary.index, rotation=90)
+    
+    ax.set_xticklabels(FF_summary.index)
+    ax.legend()
+    
+    if allow_clean:
+        plt.show()
+    plt.close()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.comparison_scatter"><code class="name flex">
-<span>def <span class="ident">comparison_scatter</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">comparison_scatter</span></span>(<span>self, df_stocks, df_portfolios, market, title, xlabel, ylabel, SavePath, CAPM_Port=None)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -809,15 +854,32 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def comparison_scatter(self,df_stocks, df_portfolios, market,
+                    title,xlabel,ylabel,
+                    SavePath,CAPM_Port=None):
+    ax1 = plt.figure().add_subplot()
+    
+    for i in df_stocks.columns:
+        ax1.scatter(market, df_stocks.loc[:,i], 
+                    c = &#39;silver&#39;, alpha = 0.5)
+    plt.title(title)
+    plt . xlabel (xlabel)
+    plt . ylabel (ylabel)
+    
+    ax1.scatter(market, df_portfolios, c = &#39;black&#39;)
+
+    if CAPM_Port is not None:
+        ax1.plot(market, CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;beta: Market&#39;]*
+                market+CAPM_Port.loc[&#39;Portfolio - EW&#39;,&#39;Alpha&#39;])
+        
+    plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+i+&#34;.png&#34;)
+    if allow_clean:
+        plt.show()
+    plt.close()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.fama_french_plotting"><code class="name flex">
-<span>def <span class="ident">fama_french_plotting</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">fama_french_plotting</span></span>(<span>self, df)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -825,79 +887,160 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def fama_french_plotting(self,df):
+    # Convert datetime objects to numerical values for plotting
+    x_values = date2num(df[&#39;Date&#39;])
+
+    plt.figure()
+
+    # Set up the bar plot
+    plt.bar(x_values, height = 1, width = 25)
+
+
+    plt.xticks(df[&#39;Date&#39;], df[&#39;Date&#39;])
+    plt.xticks(rotation=90, ha=&#39;right&#39;)
+    plt.title(&#39;Break date distribution&#39;)
+
+    # Format the x-axis as dates
+
+
+    # Display the plot
+    plt.show()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.m_scatter"><code class="name flex">
-<span>def <span class="ident">m_scatter</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">m_scatter</span></span>(<span>self, CAPM_summary, df_factors, df_stocks, SavePath)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>/2_scatter_comparison/</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def m_scatter(self,CAPM_summary, df_factors, df_stocks,
+            SavePath):
+    &#34;&#34;&#34;
+    /2_scatter_comparison/
+    &#34;&#34;&#34;
+    
+    x = list(CAPM_summary.index)
+    y = x[:3] + x[-1:-4:-1]
+
+    figure, axis = plt.subplots(2, 3) 
+
+    for i in range(3):
+
+        axis[0,i].scatter(df_factors[&#39;Market&#39;],
+                                df_stocks.loc[:,y[i]])
+
+    for i in range(3,6):
+        axis[1,i-3].scatter(df_factors[&#39;Market&#39;],
+                                df_stocks.loc[:,y[i]]) 
+    
+    plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;.png&#34;)
+
+    if allow_clean:
+        plt.show()
+    plt.close()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.plotCAPM"><code class="name flex">
-<span>def <span class="ident">plotCAPM</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">plotCAPM</span></span>(<span>self, rStock, Market, stock_names, OLSRes, SavePath)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>/2_testCAPM/</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def plotCAPM(self,rStock,Market,stock_names,OLSRes,SavePath):
+    &#34;&#34;&#34;/2_testCAPM/&#34;&#34;&#34;
+    for e in stock_names:
+
+        plt.figure()
+        plt.plot(Market, OLSRes.loc[e, &#39;beta: Market&#39;]*Market+OLSRes.loc[e, &#39;Alpha&#39;])
+        plt.scatter(Market,rStock[e])
+        plt . xlabel (&#39;Eurostoxx&#39;)
+        plt . ylabel (e)
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+SavePath[2]+&#34;.png&#34;)
+        plt.close()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.plot_looking"><code class="name flex">
-<span>def <span class="ident">plot_looking</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">plot_looking</span></span>(<span>self, time_series, df_factors, df_portfolios)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Check why the only relevant variable appears to be the market</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def plot_looking(self,time_series,df_factors,df_portfolios):
+    &#34;&#34;&#34;
+    Check why the only relevant variable appears to be the market
+    &#34;&#34;&#34;
+
+    plt.figure()
+
+    plt.plot(time_series, df_factors.loc[:, &#39;Market&#39;], label = &#39;Market&#39;)
+    plt.plot(time_series, df_portfolios.iloc[:,0], label = &#39;Portfolio&#39;)
+    plt.legend()
+    plt.show()
+    plt.close()  </code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.plotbar"><code class="name flex">
-<span>def <span class="ident">plotbar</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">plotbar</span></span>(<span>self, P, SavePath, one_value=0.01, five_value=0.05, ten_value=0.1)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>/3_p_value_plots/</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
+            ten_value = 0.1):
+    &#34;&#34;&#34;/3_p_value_plots/&#34;&#34;&#34;
+    variable = P.name
+    P = pd.DataFrame(data = P, columns = [variable])
+    mean = P.loc[&#39;Mean&#39;, variable]
+    P[&#39;stock_names&#39;] = P.index
+
+    def bar_highlight(value, one_value, 
+                    five_value,
+                    ten_value,
+                    mean):
+        if value &lt;= one_value:
+            return &#39;red&#39;
+        elif value &lt;= five_value:
+            return &#39;orange&#39;
+        elif value &lt;= ten_value:
+            return &#39;gold&#39;
+        if value == mean:
+            return &#39;black&#39;
+        else:
+            return &#39;grey&#39;
+    fig, ax = plt.subplots()   
+
+    P[&#39;colors&#39;] = P[variable].apply(bar_highlight, args = (one_value, 
+                        five_value,
+                        ten_value,
+                        mean))
+
+    bars = plt.bar(P[&#39;stock_names&#39;], P[variable], color=P[&#39;colors&#39;])
+    x_pos = range(P[&#39;stock_names&#39;].shape[0])
+    plt.xticks(x_pos, P[&#39;stock_names&#39;], rotation=90)
+    
+    variable = variable.replace(&#34;:&#34;,&#34;_&#34;)
+    plt.savefig(folder_definer(SavePath)+&#34;/&#34;+variable+&#34;.png&#34;)
+    if allow_clean:
+        plt.show()
+    
+    plt.close()</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.plotscatter"><code class="name flex">
-<span>def <span class="ident">plotscatter</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">plotscatter</span></span>(<span>self, setx, sety, title, xlabel, ylabel, sigla, SavePath)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -905,15 +1048,27 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def plotscatter(self,setx,sety,title,xlabel,ylabel,sigla,SavePath):  
+
+    l = pd.DataFrame(index = sety.columns, columns= [&#39;Plot&#39;])
+        
+    for e in sety.columns:
+        
+        ax1 = plt.figure().add_subplot()
+        
+        ax1.scatter(setx,sety[e])
+        plt.title(title)
+        plt . xlabel (xlabel)
+        plt . ylabel (e+ylabel)
+        plt.savefig(folder_definer(SavePath[0])+&#34;/&#34;+SavePath[1]+&#34;-&#34;+e+&#34;_&#34;+sigla+&#34;.png&#34;)
+        l.loc[e,&#39;Plot&#39;] = plt.figure()
+        plt.close(&#34;all&#34;)
+        
+    return l</code></pre>
 </details>
 </dd>
 <dt id="Regression_Plotting.Plotting.plotting_CAPM_7"><code class="name flex">
-<span>def <span class="ident">plotting_CAPM_7</span></span>(<span>self, *args, **kwargs)</span>
+<span>def <span class="ident">plotting_CAPM_7</span></span>(<span>list_to_plot, d3, df_bd_CAPM_2, l_conf)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -921,11 +1076,95 @@ class Plotting:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wrapper(self, *args, **kwargs):
-    if self.allow_execution:
-        return f(self, *args, **kwargs)
-    else:
-        return None</code></pre>
+<pre><code class="python">def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
+
+       
+        for m in l_conf:
+
+            for i in list_to_plot:
+                
+                l = df_bd_CAPM_2.loc[i]
+            
+                    
+                plt.figure()
+                
+                plt.plot(d3[i].index, d3[i][m+ &#39;_UBound&#39;], label = &#39;Upper bound&#39;)
+                
+                if m != &#39;Alpha&#39;:
+                
+                    plt.plot(d3[i].index, d3[i][&#39;beta: &#39; + m], label = &#39;Beta value&#39;)
+                    
+                else:
+                    
+                    plt.plot(d3[i].index, d3[i][m], label = &#39;Alpha value&#39;)
+                
+                plt.plot(d3[i].index, d3[i][m+&#39;_LBound&#39;], label = &#39;Lower bound&#39;)
+                
+                if l.ndim &gt; 1:
+                    
+                    for j in l[&#39;Date&#39;]:
+                        
+                        plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                    label = &#39;Break date&#39;)
+                
+                else:
+                    
+                    for j in l:
+            
+                        plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                    label = &#39;Break date&#39;)
+                        
+                if m != &#39;Alpha&#39;:        
+                    
+                    plt.title(i +&#34;: {}&#34;.format(&#39;Value of beta &#39;+ m))
+                    
+                else:
+                    
+                    plt.title(i +&#34;: {}&#34;.format(&#39;Value of alpha&#39;))
+                
+                plt.legend()
+                
+                plt.show()
+
+        &#34;&#34;&#34;
+        Plot of values that do not have a confidence interval
+        &#34;&#34;&#34;
+
+        l_roll = [&#39;R-Squared&#39;, &#39;bic&#39;]
+
+        for m in l_roll:
+
+            for i in list_to_plot:
+                
+                l = df_bd_CAPM_2.loc[i]
+            
+                    
+                plt.figure()
+                
+                plt.plot(d3[i].index, d3[i][m], label = m)
+                    
+            
+                
+                if l.ndim &gt; 1:
+                    
+                    for j in l[&#39;Date&#39;]:
+                        
+                        plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                    label = &#39;Break date&#39;)
+                
+                else:
+                    
+                    for j in l:
+            
+                        plt.axvline(j, color = &#39;red&#39;, linestyle = &#39;--&#39;,
+                                    label = &#39;Break date&#39;)
+                        
+                    
+                plt.title(i +&#34;: {}&#34;.format(&#39;Value of &#39;+m))
+                
+                plt.legend()
+                
+                plt.show()</code></pre>
 </details>
 </dd>
 </dl>
