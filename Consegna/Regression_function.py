@@ -41,7 +41,7 @@ def f_test_retrieval_2(l):
     return df
 
 
-def OLS(y, *x, hac =False, conf_int = False):
+def OLS(y, *x, hac =False, conf_int = [False]):
 
     intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
                               columns = ["intercept"],
@@ -62,10 +62,10 @@ def OLS(y, *x, hac =False, conf_int = False):
     l.append('bic')
     l.append('aic')
     
-    if conf_int:
-        
-        l.append('LBound')
-        l.append('UBound')
+    if conf_int[0] == True:
+        for i in conf_int[1]:        
+            l.append(i+ '_LBound')
+            l.append(i +'_UBound')
 
     endog_names = list(y.columns)
     result = pd.DataFrame(index = endog_names, columns = l)
@@ -106,10 +106,9 @@ def OLS(y, *x, hac =False, conf_int = False):
         pval = Res1.pvalues
         reg.append(Res1)
         
-        if conf_int:
+        if conf_int[0] == True:
             
             intervals = Res1.conf_int(alpha = 0.05)
-            intervals = intervals.loc['Market', :]
         
         l_val = []
     
@@ -121,10 +120,12 @@ def OLS(y, *x, hac =False, conf_int = False):
         l_val.append(bic)
         l_val.append(aic)
         
-        if conf_int:
+        if conf_int[0] == True:
             
-            l_val.append(intervals[0])
-            l_val.append(intervals[1])
+            for j in range(intervals.shape[0]):
+            
+                l_val.append(intervals.iloc[j,0])
+                l_val.append(intervals.iloc[j,1])
         
         result.loc[i] = l_val    
     
