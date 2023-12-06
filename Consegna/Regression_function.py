@@ -7,14 +7,8 @@ import scipy as sp
 
 
 def f_test_retrieval(l):
-    """_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
+    
 
-    Args:
-        l (pandas dataframe): dataframe with OLS summary organization 
-
-    Returns:
-        Pandas dataframe: two colums: F-Test_Value F-Test_p-value
-    """
     df = pd.DataFrame(columns = ['F-Test_Value','F-Test_p-value'])
 
     for i in range(len(l)):
@@ -26,14 +20,7 @@ def f_test_retrieval(l):
     return df
 
 def f_test_retrieval_2(l):
-    """_summary:_ determine whether the explanatory variables (independent variables) in the model are jointly significant in explaining the variability in the dependent variable
-
-    Args:
-        l (pandas dataframe): dataframe with OLS summary organization 
-
-    Returns:
-        Pandas dataframe: two colums: stocks name F-Test_Value
-    """
+    
     critical_alpha = l[l.iloc[:,1] < 0.05].iloc[:,1]
 
 
@@ -55,17 +42,6 @@ def f_test_retrieval_2(l):
 
 
 def OLS(y, *x, hac =False, conf_int = False):
-    """_summary:_
-    Function to setup and run OLS algoritm. Support diffent type of input
-    Args:
-        y (lists): list for indipendence variables.
-        *x (multiple_args):indipendent variables.
-        hac (bool, optional): enable it for searching heteroskedasticity and autocorrelation errors  .Defaults to False.
-        conf_int (bool, optional): enable it for confidence interval Defaults to False.
-
-    Returns:
-        OLS summary,OLS list: Dataframe of sm.OLS summary and a list of OLS results 
-    """
 
     intercept = pd.DataFrame(data = np.ones(y.shape[0] ), 
                               columns = ["intercept"],
@@ -156,14 +132,6 @@ def OLS(y, *x, hac =False, conf_int = False):
 
 
 def RESET_test(l):
-    """_summary:_
-    test whether the relationship between the dependent variable and the independent variables should be linear or whether a non-linear form would be more appropriate
-    Args:
-        l (Pandas Dataframe): lists of CAPM
-
-    Returns:
-        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.linear_reset results
-    """
     df = pd.DataFrame(columns= ['F-Value', 'p-value'])
     results = []
     for i in range(len(l)):
@@ -194,14 +162,7 @@ def h_test(l):
     return df
 
 def Durbin_Watson_test(l):
-    """_summary:_
-    Test for autocorrelation in the residuals
-    Args:
-        l (Pandas Dataframe): list of CAPM
-
-    Returns:
-        Pandas Dataframe: One colum: Test statistic for each CAPM
-    """
+    
     df = pd.DataFrame(columns= ["Test-statistic"])
     
     for i in range(len(l)):
@@ -219,15 +180,7 @@ def Durbin_Watson_test(l):
     return df
 
 def Breusch_Godfrey_test(l):
-    """_Summary:_
-    Test to search autocorrelation in the errors in a Regression Model
-
-    Args:
-        l (Pandas Dataframe): Dataframe of CAPM results
-
-    Returns:
-        Pandas Dataframe: two-columms: F-Value, p-value. Filled with smd.acorr_breusch_godfrey results
-    """
+    
     df = pd.DataFrame(columns= ['F-Value', 'p-value'])
     
     for i in range(len(l)):
@@ -408,17 +361,6 @@ def ad_hoc_GETS(FF_summary, df_factors, df_stocks):
         
 
 def CHOW_TEST(df_stocks, df_factors):
-    """_summary:_
-       The Chow test is a statistical test used to determine whether there are significant differences between the regression coefficients estimated in two subgroups of data. In other words, the Chow test is used to check whether there are structural changes in the data that justify splitting a sample into two or more subsets.
-
-    Args:
-        df_stocks (Pandas Dataframe): Dataframe of stocks
-        df_factors (Pandas Dataframe): Dataframe of factors
-
-    Returns:
-        Pandas Dataframe: Dataframe of p value from Chow test
-    """
-
     sub = 0.2
     prop = int(sub*df_stocks.shape[0])
     
@@ -488,9 +430,6 @@ def CHOW_TEST(df_stocks, df_factors):
 
 
 def CHOW_TEST_FF(df_stocks, df_factors):
-    """
-    Same us CHOW_TEST function()
-    """
     sub = 0.2
     prop = int(sub*df_stocks.shape[0])
     
@@ -553,19 +492,8 @@ def CHOW_TEST_FF(df_stocks, df_factors):
     return p_val_df
 
 
-def CAPM_break_dates(p_val_df, CAPM_summary,df_stocks, df_factors):
-    """_summary:_
-        we create a dataframe that, for each stock, assign the min_pval of the
-        Chow test and the corresponding date that corresponds to that minimum value
-    Args:
-        p_val_df (Pandas Dataframe): Dataframe of p value
-        CAPM_summary (Pandas Dataframe): Dataframe of summary of OLS 
-        df_stocks (Pandas Dataframe): Dataframe of stocks
-        df_factors (Pandas Dataframe): Dataframe of factors
-        
-    Returns:
-        Pandas Dataframe: two coloums: min_pval, date of breaks
-    """
+def CAPM_break_dates(p_val_df, CAPM_summary,
+                     df_stocks, df_factors):
     min_pval = []
     index_min = []
     
@@ -578,276 +506,92 @@ def CAPM_break_dates(p_val_df, CAPM_summary,df_stocks, df_factors):
         break_dates_df.loc[i,:] = [min_pval, index_min]
         
         
-        d2 = {}
-        
-        l_col = []
-        l_col = l_col + list(CAPM_summary.columns) + ['beg_date', 'end_date']
-        
-        for i in df_stocks.columns:
-            
-            d2[i] = pd.DataFrame(columns = l_col)
-            
-        
-        no_break_stocks = []
-        
-        no_break_stocks = break_dates_df[break_dates_df['min_pval'] > 0.05].index.to_list()
-        
-        break_dates_df = break_dates_df[break_dates_df['min_pval'] < 0.05]
-        
-        
-        
-        for i in no_break_stocks:
-            
-            d2[i] = pd.concat([d2[i],CAPM_summary.loc[i].to_frame().T], 
-                                ignore_index = True)
-            d2[i]['beg_date'] = df_stocks.index[0]
-            d2[i]['end_date'] = df_stocks.index[-1]
-        
-        
-        for name in break_dates_df.index: 
-            break_date = 1
-            
-            d2[name] = pd.DataFrame(columns = l_col)
-            start_date = df_stocks.index[0]
-            
-            
-            
-        
-            break_date = break_dates_df.loc[name, 'date']
-            
-            i=0 
-            
-            while break_date != 0:
-                reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
-                                            df_factors.loc[start_date:break_date, 'Market'], 
-                                            hac = True)
-                """
-                Storing the model before the break 
-                """   
-                
-                final_res = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
-                                        df_factors.loc[start_date:break_date, 'Market'])
-                
-                
-                d2[name] = pd.concat([d2[name], final_res[0]], ignore_index = True)
-                
-                d2[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
-                d2[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
-                
-                """
-                DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
-                """
-                #p_val_df_2 = CHOW_TEST(df_stocks.loc[:break_date, name].to_frame(),
-                                            #df_factors.loc[:break_date, 'Market'])
-                
-                """
-                ----------------------------------------------------------------------------------------
-                ----------------------------------------------------------------------------------------
-                """
-        
-                
-                """
-                Checking for further breaks
-                """
-                
-                p_val_df_2 = CHOW_TEST(df_stocks.loc[break_date:, name].to_frame(),
-                                            df_factors.loc[break_date:, 'Market'])
-                    
-                if p_val_df_2.empty:
-                    
-                    i = i + 1
-                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                                df_factors.loc[break_date:, 'Market'])
-                    
-        
-                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
-                    
-                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
-                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
-                    break_date = 0
-                    
-                
-                elif (min(p_val_df_2[name]) > 0.05) :
-                
-                    i = i + 1
-                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                                df_factors.loc[break_date:, 'Market'])
-                    
-                
-                
-                    
-                    
-                    d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
-                    
-                    d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
-                    d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
-                    break_date = 0
-                    
-                    
-                else:
-                    start_date = break_date
-                    break_date = p_val_df_2[name].idxmin()
-                
-                
-                i = i+1
-        
-        return d2
-
-def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
-    """_summary:_
-        we create a dataframe that, for each stock, assign the min_pval of the
-        Chow test and the corresponding date that corresponds to that minimum value
-    Args:
-        p_val_df_FF (Pandas Dataframe): Dataframe of p value from fama french data
-        FF_summary (Pandas Dataframe): Dataframe of summary of OLS 
-        df_stocks (Pandas Dataframe): Dataframe of stocks
-        df_factors (Pandas Dataframe): Dataframe of factors
-        
-    Returns:
-        Pandas Dataframe: two coloums: min_pval, date of breaks
-    """
-    min_pval = []
-    index_min = []
-    
-    break_dates_df_FF = pd.DataFrame(index = p_val_df_FF.columns, columns = ['min_pval', 'date'])
-    
-    for i in p_val_df_FF.columns:
-        
-        min_pval = min(p_val_df_FF.loc[:,i])
-        index_min = p_val_df_FF.loc[:,i].idxmin()
-        break_dates_df_FF.loc[i,:] = [min_pval, index_min]
-    
-    
-    """
-    -------------------------------------------------------------------------------
-    Estimating optimized models for which no structural break was detected
-    -------------------------------------------------------------------------------
-    """
-    
-    """
-    We create a dictionary in which we will store the results of the models 
-    estimated and optimized in each interval according to their break dates.
-    These results will be stored in dataframes.
-    If a stock doesn't have any break there will be a dataframe composed of a single
-    row.
-    If a stock show the presence of one or more breaks, it will have a number of rows
-    equal to the number of breaks detected plus one.
-    """
-    d = {}
+    d2 = {}
     
     l_col = []
-    l_col = l_col + list(FF_summary.columns) + ['beg_date', 'end_date']
+    l_col = l_col + list(CAPM_summary.columns) + ['beg_date', 'end_date']
     
     for i in df_stocks.columns:
         
-        d[i] = pd.DataFrame(columns = l_col)
-    
-    #Finding the stocks for which the FF model with all the factors didn't show breaks
-    list_to_GETS = break_dates_df_FF[break_dates_df_FF['min_pval'] > 0.05].index.to_list()
-    
-    """
-    Removing those stocks from the dataframe in which we stored the date and p-value
-    of critical dates
-    """
-    break_dates_df_FF = break_dates_df_FF[break_dates_df_FF['min_pval'] < 0.05]
-    
-    """
-    Optimizing by removing irrelevant variables for the models of the stocks that 
-    didn't show any breaks
-    """
-    final_res = ad_hoc_GETS(FF_summary.loc[list_to_GETS], 
-                            df_factors, df_stocks[list_to_GETS])
-    
-    
-    """
-    Storing the results of these models in a dataframe 
-    """
-    
-    final_res_df= pd.DataFrame( columns = l_col)
-    
-    for i in range(len(final_res)):
-        final_res_df = pd.concat([final_res_df, final_res[i]], axis = 0)
+        d2[i] = pd.DataFrame(columns = l_col)
         
-    final_res_df['beg_date'] = df_stocks.index[0]
-    final_res_df['end_date'] = df_stocks.index[-1]
     
-    """
-    Storing these dataframes in the dictionary
-    """    
+    no_break_stocks = []
     
-    for i in range(len(final_res)):   
+    no_break_stocks = break_dates_df[break_dates_df['min_pval'] > 0.05].index.to_list()
+    
+    break_dates_df = break_dates_df[break_dates_df['min_pval'] < 0.05]
+    
+    
+    
+    for i in no_break_stocks:
         
-        name = final_res[i].index[0]
-        d[name] = pd.concat([d[name],final_res_df.loc[name].to_frame().T], 
+        d2[i] = pd.concat([d2[i],CAPM_summary.loc[i].to_frame().T], 
                             ignore_index = True)
-        
-    """
-    Stocks that have breaks
-    """
+        d2[i]['beg_date'] = df_stocks.index[0]
+        d2[i]['end_date'] = df_stocks.index[-1]
     
     
-    for name in break_dates_df_FF.index: 
+    for name in break_dates_df.index: 
         break_date = 1
         
-        d[name] = pd.DataFrame(columns = l_col)
+        d2[name] = pd.DataFrame(columns = l_col)
         start_date = df_stocks.index[0]
         
         
         
     
-        break_date = break_dates_df_FF.loc[name, 'date']
+        break_date = break_dates_df.loc[name, 'date']
         
         i=0 
         
         while break_date != 0:
             reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
-                                        df_factors[start_date:break_date], hac = True)
+                                           df_factors.loc[start_date:break_date, 'Market'], 
+                                           hac = True)
             """
-            Storing the model before the break after removing irrelevant variables
+            Storing the model before the break 
             """   
             
-            final_res = ad_hoc_GETS(reg_summary, 
-                                    df_factors[start_date:break_date], 
-                                    df_stocks.loc[start_date:break_date, name].to_frame())
-            d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
-            
-            d[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
-            d[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+            final_res = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                       df_factors.loc[start_date:break_date, 'Market'])
             
             
+            d2[name] = pd.concat([d2[name], final_res[0]], ignore_index = True)
             
-            
-            
+            d2[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+            d2[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
             
             """
             DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
             """
-            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[:break_date, name].to_frame(),
-                                        df_factors[:break_date])
+            #p_val_df_2 = CHOW_TEST(df_stocks.loc[:break_date, name].to_frame(),
+                                         #df_factors.loc[:break_date, 'Market'])
+            
+            """
+            ----------------------------------------------------------------------------------------
+            ----------------------------------------------------------------------------------------
+            """
+    
             
             """
             Checking for further breaks
             """
             
-            p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[break_date:, name].to_frame(),
-                                        df_factors[break_date:])
+            p_val_df_2 = CHOW_TEST(df_stocks.loc[break_date:, name].to_frame(),
+                                         df_factors.loc[break_date:, 'Market'])
                 
             if p_val_df_2.empty:
                 
                 i = i + 1
                 reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                            df_factors[break_date:], hac = True)
+                                               df_factors.loc[break_date:, 'Market'])
                 
-            
-            
-                final_res = ad_hoc_GETS(reg_summary, 
-                                        df_factors[break_date:], 
-                                        df_stocks.loc[break_date:, name].to_frame())
+    
+                d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
                 
-                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
-                
-                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
-                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
                 break_date = 0
                 
             
@@ -855,18 +599,16 @@ def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
             
                 i = i + 1
                 reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                            df_factors[break_date:], hac = True)
+                                               df_factors.loc[break_date:, 'Market'])
                 
             
             
-                final_res = ad_hoc_GETS(reg_summary, 
-                                        df_factors[break_date:], 
-                                        df_stocks.loc[break_date:, name].to_frame())
                 
-                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
                 
-                d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
-                d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
+                
+                d2[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                d2[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
                 break_date = 0
                 
                 
@@ -876,5 +618,191 @@ def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
             
             
             i = i+1
+    
+    return d2
+
+
+def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
+        """
+        PROCEDURE TO FIND BREAK DATES
+        """
+        
+        """
+        First we create a dataframe that, for each stock, assign the min_pval of the
+        Chow test and the corresponding date that corresponds to that minimum value
+        """
+        
+
+
+        min_pval = []
+        index_min = []
+        
+        break_dates_df_FF = pd.DataFrame(index = p_val_df_FF.columns, columns = ['min_pval', 'date'])
+        
+        for i in p_val_df_FF.columns:
             
-    return d
+            min_pval = min(p_val_df_FF.loc[:,i])
+            index_min = p_val_df_FF.loc[:,i].idxmin()
+            break_dates_df_FF.loc[i,:] = [min_pval, index_min]
+        
+        
+        """
+        -------------------------------------------------------------------------------
+        Estimating optimized models for which no structural break was detected
+        -------------------------------------------------------------------------------
+        """
+        
+        """
+        We create a dictionary in which we will store the results of the models 
+        estimated and optimized in each interval according to their break dates.
+        These results will be stored in dataframes.
+        If a stock doesn't have any break there will be a dataframe composed of a single
+        row.
+        If a stock show the presence of one or more breaks, it will have a number of rows
+        equal to the number of breaks detected plus one.
+        """
+        d = {}
+        
+        l_col = []
+        l_col = l_col + list(FF_summary.columns) + ['beg_date', 'end_date']
+        
+        for i in df_stocks.columns:
+            
+            d[i] = pd.DataFrame(columns = l_col)
+        
+        #Finding the stocks for which the FF model with all the factors didn't show breaks
+        list_to_GETS = break_dates_df_FF[break_dates_df_FF['min_pval'] > 0.05].index.to_list()
+        
+        """
+        Removing those stocks from the dataframe in which we stored the date and p-value
+        of critical dates
+        """
+        break_dates_df_FF = break_dates_df_FF[break_dates_df_FF['min_pval'] < 0.05]
+        
+        """
+        Optimizing by removing irrelevant variables for the models of the stocks that 
+        didn't show any breaks
+        """
+        final_res = ad_hoc_GETS(FF_summary.loc[list_to_GETS], 
+                                df_factors, df_stocks[list_to_GETS])
+        
+        
+        """
+        Storing the results of these models in a dataframe 
+        """
+        
+        final_res_df= pd.DataFrame( columns = l_col)
+        
+        for i in range(len(final_res)):
+            final_res_df = pd.concat([final_res_df, final_res[i]], axis = 0)
+            
+        final_res_df['beg_date'] = df_stocks.index[0]
+        final_res_df['end_date'] = df_stocks.index[-1]
+        
+        """
+        Storing these dataframes in the dictionary
+        """    
+        
+        for i in range(len(final_res)):   
+            
+            name = final_res[i].index[0]
+            d[name] = pd.concat([d[name],final_res_df.loc[name].to_frame().T], 
+                                ignore_index = True)
+            
+        """
+        Stocks that have breaks
+        """
+        
+        
+        for name in break_dates_df_FF.index: 
+            break_date = 1
+            
+            d[name] = pd.DataFrame(columns = l_col)
+            start_date = df_stocks.index[0]
+            
+            
+            
+        
+            break_date = break_dates_df_FF.loc[name, 'date']
+            
+            i=0 
+            
+            while break_date != 0:
+                reg_summary, reg_list = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
+                                            df_factors[start_date:break_date], hac = True)
+                """
+                Storing the model before the break after removing irrelevant variables
+                """   
+                
+                final_res = ad_hoc_GETS(reg_summary, 
+                                        df_factors[start_date:break_date], 
+                                        df_stocks.loc[start_date:break_date, name].to_frame())
+                d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                
+                d[name].iloc[i,-2] = df_stocks.loc[start_date:break_date].index[0]
+                d[name].iloc[i,-1] = df_stocks.loc[start_date:break_date].index[-1]
+                
+                
+                
+                
+                
+                
+                """
+                DO WE HAVE TO CHECK FOR BREAKS EVEN BEFORE THE BREAK???????????????????????????
+                """
+                p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[:break_date, name].to_frame(),
+                                            df_factors[:break_date])
+                
+                """
+                Checking for further breaks
+                """
+                
+                p_val_df_2 = CHOW_TEST_FF(df_stocks.loc[break_date:, name].to_frame(),
+                                            df_factors[break_date:])
+                    
+                if p_val_df_2.empty:
+                    
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors[break_date:], hac = True)
+                    
+                
+                
+                    final_res = ad_hoc_GETS(reg_summary, 
+                                            df_factors[break_date:], 
+                                            df_stocks.loc[break_date:, name].to_frame())
+                    
+                    d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                    
+                    d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                
+                elif (min(p_val_df_2[name]) > 0.05) :
+                
+                    i = i + 1
+                    reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
+                                                df_factors[break_date:], hac = True)
+                    
+                
+                
+                    final_res = ad_hoc_GETS(reg_summary, 
+                                            df_factors[break_date:], 
+                                            df_stocks.loc[break_date:, name].to_frame())
+                    
+                    d[name] = pd.concat([d[name], final_res[0]], ignore_index = True)
+                    
+                    d[name].iloc[i,-2] = df_stocks.loc[break_date:].index[0]
+                    d[name].iloc[i, -1] = df_stocks.loc[break_date:].index[-1]
+                    break_date = 0
+                    
+                    
+                else:
+                    start_date = break_date
+                    break_date = p_val_df_2[name].idxmin()
+                
+                
+                i = i+1
+                
+        return d
