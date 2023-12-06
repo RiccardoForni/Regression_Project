@@ -349,7 +349,7 @@ for sheet,col in sheets.items():
 
     rp.comparison_barplot(df, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
-    # %% CHOW test               
+           
         
     """
     -----------------------------------------------------------------------------------------
