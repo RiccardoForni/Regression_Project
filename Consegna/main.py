@@ -283,7 +283,7 @@ for sheet,col in sheets.items():
     """
     Comparison with barplot
     """
-
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors\n")
     rp.comparison_barplot(FF_summary, CAPM_summary)
 
     """
@@ -299,6 +299,9 @@ for sheet,col in sheets.items():
     GETS_summary, bic_list = rf.GETS_ABIC(FF_summary, df_factors, df_stocks,'c')
 
     GETS_summary = GETS_summary.sort_index()
+
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between average value of BIC")
     rp.comparison_barplot(GETS_summary, CAPM_summary)
 
     """
@@ -315,13 +318,21 @@ for sheet,col in sheets.items():
     GETS_summary2, bic_list2 = rf.GETS_ABIC(FF_summary_2, df_factors_2, df_stocks,'b')
 
     GETS_summary2 = GETS_summary2.sort_index()
-    #rp.comparison_barplot(GETS_summary2, CAPM_summary)
+
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
+    print("\nFirst we remove highly correlated covariates\n")
+    print("\nIrrelevant variables removed by comparison between average value of BIC")   
+    rp.comparison_barplot(GETS_summary2, CAPM_summary)
 
     """
     GETS PROCEDURE USING THE AIC AS A CRITERION TO DISCRIMINATE BETWEEN MODELS
     """
 
     GETS_summary_aic, aic_list = rf.GETS_ABIC(FF_summary, df_factors, df_stocks,'a')
+    
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between average value of AIC")
+    rp.comparison_barplot(GETS_summary_port, CAPM_summary)
 
     """
     Running the fama-french model on the equally-weighted portfolio
@@ -331,6 +342,8 @@ for sheet,col in sheets.items():
     GETS_summary_port, bic_list = rf.GETS_ABIC(FF_summary_port, df_factors, df_portfolios,'b')
     GETS_summary_port = GETS_summary_port.sort_index()
 
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors for the equally-weighted portfolio")
+    print("\nIrrelevant variables removed by comparison between average value of BIC")
     rp.comparison_barplot(GETS_summary_port, CAPM_summary)
 
     """
@@ -347,6 +360,8 @@ for sheet,col in sheets.items():
     for i in range(len(res)):
         df = pd.concat([df, res[i]], axis = 0)
 
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between value of BIC for each stock")
     rp.comparison_barplot(df, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
            
@@ -449,7 +464,10 @@ for sheet,col in sheets.items():
     df_final.sort_index(inplace=True)
     CAPM_summary.sort_index(inplace = True)
 
-            
+    print("\nComparison between the CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between value of BIC for each stock")
+    print("\nThis is done for each of intervals determined by the breaks in the parameters' values")
+    print("\nSelect R-SQUARED to have the comparison with the average value of the R-SQUARED for each stock")
     rp.comparison_barplot(df_final, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
     """
@@ -465,7 +483,10 @@ for sheet,col in sheets.items():
     df_final2.sort_index(inplace=True)
     CAPM_summary.sort_index(inplace = True)
 
-
+    print("\nComparison between the CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between value of BIC for each stock")
+    print("\nThis is done for each of intervals determined by the breaks in the parameters' values")
+    print("\nSelect R-SQUARED to have the comparison with the maximum value of the R-SQUARED for each stock")
     rp.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
     """
@@ -480,7 +501,11 @@ for sheet,col in sheets.items():
     df_final2.sort_index(inplace=True)
     CAPM_summary.sort_index(inplace = True)
 
-
+    print("\nComparison between the CAPM and FAMA-FRENCH with 5 factors")
+    print("\nIrrelevant variables removed by comparison between value of BIC for each stock")
+    print("\nThis is done for each of intervals determined by the breaks in the parameters' values")
+    print("\nSelect p-value of the Alpha to have the comparison with the average value of the p-value of the alpha parameter for each stock")
+    
     rp.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
 
