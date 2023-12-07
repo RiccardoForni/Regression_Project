@@ -265,7 +265,7 @@ class Plotting:
 
 
     @controlla_permesso    
-    def plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf):
+    def plotting_CAPM_7(self, list_to_plot,d3,df_bd_CAPM_2,l_conf):
 
            
             for m in l_conf:
