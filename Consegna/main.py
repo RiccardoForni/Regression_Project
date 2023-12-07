@@ -23,7 +23,7 @@ Subset_Stock_Selected.columns = Subset_Stock_Selected.columns.str.replace(" - TO
 
 
 
-sheets={"EURIBOR_3_M":"BD INTEREST RATES - EURIBOR RATE - 3 MONTH NADJ"}
+sheets={"EURIBOR_3_M":"BD INTEREST RATES - EURIBOR RATE - 3 MONTH NADJ", "BUND":"RF GERMANY GVT BMK BID YLD 3M - RED. YIELD"}
 for sheet,col in sheets.items():  
     print("eseguo:" +sheet)
 
@@ -246,8 +246,9 @@ for sheet,col in sheets.items():
 
     CAPM_summary_stder = CAPM_summary_stder.sort_index()
     CAPM_summary = CAPM_summary.sort_index()
-
-    rf.comparison_barplot(CAPM_summary_stder, CAPM_summary)
+    print('\nComparison between the significance of parameters between the CAPM and'+
+          'Fama-French model')
+    rp.comparison_barplot(CAPM_summary_stder, CAPM_summary)
 
     """
     FAMA-FRENCH download and cleaning
@@ -294,7 +295,7 @@ for sheet,col in sheets.items():
     """
     Comparison with barplot
     """
-    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors\n")
+    print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
     rp.comparison_barplot(FF_summary, CAPM_summary)
 
     """
@@ -355,7 +356,7 @@ for sheet,col in sheets.items():
     GETS_summary_port = GETS_summary_port.sort_index()
 
     print("\nComparison between CAPM and FAMA-FRENCH with 5 factors for the equally-weighted portfolio")
-    print("\nIrrelevant variables removed by comparison between average value of BIC")
+    print("\nIrrelevant variables removed by comparison between average value of BIC\n")
     rp.comparison_barplot(GETS_summary_port, CAPM_summary)
 
     """
@@ -374,7 +375,7 @@ for sheet,col in sheets.items():
 
 
     print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
-    print("\nIrrelevant variables removed by comparison between value of BIC for each stock")
+    print("\nIrrelevant variables removed by comparison between value of BIC for each stock\n")
     rp.comparison_barplot(df, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
                
@@ -392,6 +393,8 @@ for sheet,col in sheets.items():
     """
 
     p_val_df = rf.CHOW_TEST(df_stocks, df_factors)
+    
+    rp.chow_test_plotting(p_val_df)
 
     """    
     Plots
@@ -427,7 +430,6 @@ for sheet,col in sheets.items():
         
                 l.append((dates_CAPM.values[i][j], dates_CAPM.columns[j]))
 
-    from matplotlib.dates import date2num
 
     df_bd_CAPM = pd.DataFrame(l, columns=['Date', 'Name'])
     df_bd_CAPM = df_bd_CAPM.sort_values('Date')
@@ -435,6 +437,7 @@ for sheet,col in sheets.items():
 
 
     dates_CAPM, names = zip(*l)
+    
     """
     Plots
     """
@@ -452,7 +455,7 @@ for sheet,col in sheets.items():
     """    
     Plots
     """
-    rp.chow_test_plotting(p_val_df)
+    rp.chow_test_plotting(p_val_df_FF)
 
     
     """
@@ -622,7 +625,7 @@ for sheet,col in sheets.items():
                             ignore_index= True)
             d3[i].iloc[j,-1] = roll_df_stocks.index[-1]
             
-            
+
         beg += 1
         end += 1   
         j += 1      
@@ -654,3 +657,97 @@ for sheet,col in sheets.items():
     list_to_plot = list(set(df_bd_CAPM_2.index))
     
     rp.plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf)
+
+# %%
+"""
+Correlation among residuals for the CAPM model
+"""
+
+
+m = CAPM_list[0].resid
+
+
+l_autocorr = ['lag1', 'lag2', 'lag3', 'lag4', 'Resid']
+
+resid_autocorr_CAPM = pd.DataFrame(columns = l_autocorr, index = df_stocks.columns)
+
+
+for i in range(len(CAPM_list)):
+    
+    residuals = list(CAPM_list[i].resid)
+    name = CAPM_list[i].model.endog_names
+    
+    resid_autocorr_CAPM.loc[name,'Resid'] = residuals
+
+import statsmodels.tsa.stattools as smtime
+
+for i in range(resid_autocorr_CAPM.shape[0]):
+    
+    u = smtime.pacf(resid_autocorr_CAPM.iloc[i,-1], nlags = 4, method = 'OLS', alpha = 0.05)    
+    
+    #Check whether the correlation coefficients are statistically significant from zero
+    k = 0
+    for j in u[1]:
+        
+        if (j[0] < 0 and j[1] < 0) or (j[0] > 0 and j[1] >0):
+            
+            u[0][k] = 0
+            
+        k += 1
+        
+    u = list(u[0][1:])
+    
+    resid_autocorr_CAPM.iloc[i,:-1] = u
+
+"""
+Correlation among residuals for the Fama-French model with 6 factors
+"""
+
+l_autocorr = ['lag1', 'lag2', 'lag3', 'lag4', 'Resid']
+
+resid_autocorr_FF = pd.DataFrame(columns = l_autocorr, index = df_stocks.columns)
+
+for i in range(len(FF_list)):
+    
+    residuals = list(FF_list[i].resid)
+    name = FF_list[i].model.endog_names
+    
+    resid_autocorr_FF.loc[name,'Resid'] = residuals
+
+
+for i in range(resid_autocorr_CAPM.shape[0]):
+    
+    u = smtime.pacf(resid_autocorr_FF.iloc[i,-1], nlags = 4, method = 'OLS', alpha = 0.05)    
+
+    #Check whether the correlation coefficients are statistically significant from zero
+    k = 0
+    for j in u[1]:
+        
+        if (j[0] < 0 and j[1] < 0) or (j[0] > 0 and j[1] >0):
+            
+            u[0][k] = 0
+            
+        k += 1
+    
+    u = list(u[0][1:])
+    
+    resid_autocorr_FF.iloc[i,:-1] = u
+
+rp.comparison_barplot(resid_autocorr_FF, resid_autocorr_CAPM)
+# %%
+n = 50
+
+import matplotlib.pyplot as plt
+for i in range(resid_autocorr_CAPM.shape[0]):
+
+    plt.figure()
+    
+    plt.hist(resid_autocorr_FF.iloc[i,-1], label = 'Fama-French', bins = n, alpha = 0.5)
+    
+    plt.hist(resid_autocorr_CAPM.iloc[i,-1], label = 'CAPM', bins = n, alpha = 0.5)
+    plt.legend()
+    plt.title('Comparison between the distribution of the residuals: {}'.format(resid_autocorr_CAPM.index[i]))
+    
+    plt.show()
+
+
