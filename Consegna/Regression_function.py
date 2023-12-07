@@ -180,7 +180,7 @@ def Durbin_Watson_test(l):
         
     return df
 
-def Breusch_Godfrey_test(l):
+def Breusch_Godfrey_test(l, n=1):
     
     df = pd.DataFrame(columns= ['F-Value', 'p-value'])
     
@@ -188,7 +188,7 @@ def Breusch_Godfrey_test(l):
         
         l_val = []
 
-        f = smd.acorr_breusch_godfrey(l[i], nlags = 3)
+        f = smd.acorr_breusch_godfrey(l[i], nlags = n)
         
         l_val.append(f[2])
         l_val.append(f[3])
@@ -555,7 +555,7 @@ def CAPM_break_dates(p_val_df, CAPM_summary,
             """   
             
             final_res = OLS(df_stocks.loc[start_date:break_date, name].to_frame(),
-                                       df_factors.loc[start_date:break_date, 'Market'])
+                                       df_factors.loc[start_date:break_date, 'Market'],hac = True)
             
             
             d2[name] = pd.concat([d2[name], final_res[0]], ignore_index = True)
@@ -586,7 +586,7 @@ def CAPM_break_dates(p_val_df, CAPM_summary,
                 
                 i = i + 1
                 reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                               df_factors.loc[break_date:, 'Market'])
+                                               df_factors.loc[break_date:, 'Market'], hac = True)
                 
     
                 d2[name] = pd.concat([d2[name], reg_summary], ignore_index = True)
@@ -600,7 +600,7 @@ def CAPM_break_dates(p_val_df, CAPM_summary,
             
                 i = i + 1
                 reg_summary, reg_list = OLS(df_stocks.loc[break_date:, name].to_frame(),
-                                               df_factors.loc[break_date:, 'Market'])
+                                               df_factors.loc[break_date:, 'Market'], hac = True)
                 
             
             

@@ -37,7 +37,7 @@ class Plotting:
         self.allow_execution = allow_execution
     @controlla_permesso
     def plotbar(self,P,SavePath, one_value = 0.01, five_value = 0.05, 
-                ten_value = 0.1):
+                ten_value = 0.1, obj = ''):
         """/3_p_value_plots/"""
         variable = P.name
         P = pd.DataFrame(data = P, columns = [variable])
@@ -68,6 +68,7 @@ class Plotting:
         bars = plt.bar(P['stock_names'], P[variable], color=P['colors'])
         x_pos = range(P['stock_names'].shape[0])
         plt.xticks(x_pos, P['stock_names'], rotation=90)
+        plt.title(obj)
         
         variable = variable.replace(":","_")
         plt.savefig(folder_definer(SavePath)+"/"+variable+".png")
@@ -223,7 +224,7 @@ class Plotting:
         plt.close()  
 
     @controlla_permesso
-    def fama_french_plotting(self,df):
+    def fama_french_plotting(self,df, model):
         # Convert datetime objects to numerical values for plotting
         x_values = date2num(df['Date'])
 
@@ -235,7 +236,7 @@ class Plotting:
 
         plt.xticks(df['Date'], df['Date'])
         plt.xticks(rotation=90, ha='right')
-        plt.title('Break date distribution')
+        plt.title('Break date distribution ({})'.format(model))
 
         # Format the x-axis as dates
 
@@ -243,29 +244,21 @@ class Plotting:
         # Display the plot
         plt.show()
     @controlla_permesso
-    def chow_test_plotting(self,p_val_df):
+    def chow_test_plotting(self,p_val_df, model):
         for i in p_val_df.columns:
         
             plt.figure()
             plt.plot(p_val_df.loc[:, i])
             plt.axhline(y= 0.05, color = 'red')
-            plt.title(i)
+            plt.title(i+ " ({})".format(model))
 
             plt.show()
 
 
-        plt.figure()
-
-        for i in p_val_df.columns:
-        
-            plt.plot(p_val_df.loc[:, i])
-
-        plt.show()
-        plt.close("all")
 
 
     @controlla_permesso    
-    def plotting_CAPM_7(self, list_to_plot,d3,df_bd_CAPM_2,l_conf):
+    def plotting_CAPM_7(self, list_to_plot,d3,df_bd_CAPM_2,l_conf, end):
 
            
             for m in l_conf:
@@ -305,11 +298,11 @@ class Plotting:
                             
                     if m != 'Alpha':        
                         
-                        plt.title(i +": {}".format('Value of beta '+ m))
+                        plt.title(i +": {par} ({mo} months rolling window)".format(par = 'Value of beta '+ m, mo = end + 1))
                         
                     else:
                         
-                        plt.title(i +": {}".format('Value of alpha'))
+                        plt.title(i +": {par} ({mo} months rolling window)".format(par = 'Value of alpha', mo = end + 1))
                     
                     plt.legend()
                     
@@ -319,7 +312,7 @@ class Plotting:
             Plot of values that do not have a confidence interval
             """
 
-            l_roll = ['R-Squared', 'bic']
+            l_roll = ['R-Squared']
 
             for m in l_roll:
 
@@ -349,7 +342,7 @@ class Plotting:
                                         label = 'Break date')
                             
                         
-                    plt.title(i +": {}".format('Value of '+m))
+                    plt.title(i +": {par} ({mo} months rolling window)".format(par = 'Value of '+m, mo =  end + 1))
                     
                     plt.legend()
                     
