@@ -816,8 +816,8 @@ def CAPM_in_rolling_windows(df_stocks,df_factors,df_bd_CAPM,CAPM_summary):
     """
     df_bd_CAPM_2 = df_bd_CAPM.set_index('Name') 
     list_to_plot = list(set(df_bd_CAPM_2.index)) 
-    to_print_dict = {}
-    conta=0
+    to_print_dict = []
+    
     """
     Plotting
     """
@@ -899,8 +899,7 @@ def CAPM_in_rolling_windows(df_stocks,df_factors,df_bd_CAPM,CAPM_summary):
         PLOT OF PARAMETERS THAT ADMIT CONFIDENCE INTERVALS
         """
         
-
-        to_print_dict.update({conta,(list_to_plot,d3,df_bd_CAPM_2,l_conf,o)})
+        to_print_dict.append((list_to_plot,d3,df_bd_CAPM_2,l_conf,o))
     return to_print_dict
 
 
