@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import Regression_function as rf
 import Regression_Plotting as rz
-
+import matplotlib.pyplot as plt
 
 rp = rz.Plotting(True)
 """
@@ -608,16 +608,18 @@ for sheet,col in sheets.items():
     
     rp.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
-    import matplotlib.pyplot as plt
+    """
+    Analysis of the stocks for which there was no improvement of the R-Squared
+    """
         
-        #Getting the ones for which there is no improvement
+    #Getting the ones for which there is no improvement
     l_no_improvement = []
     for i in df_final2.index:
         if df_final2.loc[i, 'R-Squared'] == CAPM_summary.loc[i, 'R-Squared']:
             l_no_improvement.append(i)
             
     df_to_plot = pd.DataFrame(columns = d[l_no_improvement[0]].columns, index = l_no_improvement)
-    """
+    
     #Plotting the number of models
     n_models = pd.DataFrame(index = d.keys(), columns = ['N_models'])
     for i in d.keys():
@@ -638,9 +640,19 @@ for sheet,col in sheets.items():
         
         
     rp.factor_plot(df_to_plot, df_factors)
+    
+    """
+    Analysis of AIXTRON (XET)
     """
 
-
+    for i in df_factors.columns:
+        plt.figure()
+        
+        plt.plot(time_series, df_stocks['AIXTRON (XET)'], label = 'AIXTRON')
+        plt.plot(time_series, df_factors[i], label = i)
+        plt.legend()
+        plt.title(i)
+        plt.show()
 
     """
     COMPARING THE BREAK DATES FOR THE FAMA FRENCH MODEL
