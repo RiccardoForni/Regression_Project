@@ -608,6 +608,37 @@ for sheet,col in sheets.items():
     
     rp.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
+    import matplotlib.pyplot as plt
+    
+    #Getting the ones for which there is no improvement
+    l_no_improvement = []
+    for i in df_final2.index:
+        
+        if df_final2.loc[i, 'R-Squared'] == CAPM_summary.loc[i, 'R-Squared']:
+            l_no_improvement.append(i)
+        
+    df_to_plot = pd.DataFrame(columns = d[l_no_improvement[0]].columns, index = l_no_improvement)
+    
+    #Plotting the number of models
+    n_models = pd.DataFrame(index = d.keys(), columns = ['N_models'])
+    for i in d.keys():
+        n_models.loc[i,:] = int(d[i].shape[0])
+        
+    plt.plot()
+    
+    plt.bar(n_models.index, n_models['N_models'])
+    plt.xticks(rotation=90)
+    plt.title('Number of models')
+    
+    plt.show()
+       
+    #Show the factors for those models
+    for i in l_no_improvement:
+        
+        df_to_plot.loc[i,:] = d[i].values
+        
+        
+    rp.factor_plot(df_to_plot, df_factors)
 
     """
     COMPARING THE BREAK DATES FOR THE FAMA FRENCH MODEL
