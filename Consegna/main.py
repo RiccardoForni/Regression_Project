@@ -676,7 +676,19 @@ for sheet,col in sheets.items():
 
     rp.fama_french_plotting(df, model = 'Fama-French')
 
+    """
+    Analysis of the AIXTRON stock
+    """
 
+    for i in df_factors.columns:
+        plt.figure()
+        
+        plt.plot(time_series, df_stocks['AIXTRON (XET)'], label = 'AIXTRON')
+        plt.plot(time_series, df_factors[i], label = i)
+        plt.legend()
+        plt.title(i)
+        plt.show()
+    
     """
     -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------
