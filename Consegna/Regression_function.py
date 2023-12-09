@@ -1,6 +1,7 @@
 import statsmodels . api as sm
 import statsmodels.stats.diagnostic as smd
 import statsmodels.stats.stattools as smt
+import statsmodels.tsa.stattools as smtime
 import pandas as pd
 import numpy as np
 import scipy as sp
@@ -246,7 +247,7 @@ def GETS_ABIC(FF_summary, df_factors, df_stocks,param):
                 elim.append(temp_df.index[0])
                 df_fac = df_fac.drop(elim[-1], axis = 1)
                 
-                summary, FF_list_2 = OLS(df_stocks,df_fac)
+                summary, FF_list_2 = OLS(df_stocks,df_fac, hac = True)
                 if param == 'a' or param == "c":
                     summary.loc[loc] = summary.mean()
                 results.append(summary)
@@ -807,3 +808,161 @@ def break_dates_optimization(p_val_df_FF, FF_summary, df_stocks, df_factors):
                 i = i+1
                 
         return d
+def CAPM_in_rolling_windows(df_stocks,df_factors,df_bd_CAPM,CAPM_summary):
+    end_list = [21, 59]
+
+    """
+    Plotting
+    """
+    df_bd_CAPM_2 = df_bd_CAPM.set_index('Name') 
+    list_to_plot = list(set(df_bd_CAPM_2.index)) 
+    to_print_dict = {}
+    conta=0
+    """
+    Plotting
+    """
+    for o in end_list:
+
+        beg = int(0)
+        end = o
+    
+        stop = df_stocks.shape[0]
+    
+        d3 = {}
+    
+        l_col = []
+        l_col = l_col + list(CAPM_summary.columns) 
+    
+        """
+        CREATING THE LIST OF PARAMETERS FOR WHICH WE WANT THE PLOT WITH CONFIDENCE INTERVAL
+        """
+    
+        l_conf = ['Alpha','Market']
+    
+        for i in l_conf:
+    
+            l_col = l_col+ [i+ '_LBound', i+ '_UBound'] 
+    
+        l_col = l_col + ['end_date']
+    
+        for i in df_stocks.columns:
+            
+            d3[i] = pd.DataFrame(columns = l_col)
+    
+        """
+        ESTIMATING THE CAPM MODELS FOR EACH STOCK WITH A ROLLING WINDOW OF 5 YEARS
+        """
+    
+        j = 0
+            
+        while end <= stop:
+    
+            roll_df_stocks = df_stocks.iloc[beg:end, :]
+            
+            roll_df_factors = df_factors.iloc[beg:end, :]
+            
+            
+            roll_CAPM_summary, roll_CAPM_list = OLS(roll_df_stocks,roll_df_factors['Market'], 
+                                                    hac = True,
+                                                    conf_int = [True, l_conf])
+            
+            for i in d3.keys():
+                
+                d3[i] = pd.concat([d3[i],roll_CAPM_summary.loc[i,:].to_frame().T],
+                                ignore_index= True)
+                d3[i].iloc[j,-1] = roll_df_stocks.index[-1]
+                
+    
+            beg += 1
+            end += 1   
+            j += 1      
+    
+        for i in d3.keys():
+            
+            d3[i] = d3[i].set_index('end_date')
+    
+        """
+        CHECK TO SEE THAT THE CONFIDENCE INTERVALS ARE SYMMETRIC
+        """    
+            
+        for i in d3.keys():
+            
+            for j in l_conf: 
+                t = (d3[i]['beta: Market'] - d3[i][j+ '_LBound']) + (d3[i]['beta: Market'] - d3[i][j+'_UBound'])
+                check = sum(t)
+                if i == 'ASML HOLDING':
+                    check_2 = t
+                
+                
+            
+        """
+        PLOT OF PARAMETERS THAT ADMIT CONFIDENCE INTERVALS
+        """
+        
+
+        to_print_dict.update({conta,(list_to_plot,d3,df_bd_CAPM_2,l_conf,o)})
+    return to_print_dict
+
+
+def ad_hoc_fun(GETS_ad_hoc_summary,df_factors):
+    l = [i for i in GETS_ad_hoc_summary.columns if i[0:4] == 'beta']
+
+    df_to_plot = pd.DataFrame(columns = l, index = GETS_ad_hoc_summary.index)
+
+    for i in l:
+        
+        k = np.array(GETS_ad_hoc_summary[i])
+        
+        for j in range(len(k)):
+
+            if np.isnan(k[j]):
+                
+                a = 0 
+                #a = np.dtype('int64').type(a)
+                k[j] = a
+            
+            else:
+                
+                a = 1
+                #a = np.dtype('int64').type(a)
+                k[j] = a
+                
+        df_to_plot[i] = k
+
+    df_to_plot = df_to_plot.astype(int)
+    df_to_plot.columns = df_factors.columns
+    return df_to_plot
+    
+def resid_autocorr_calculator(df_stocks,Model_list):
+    l_autocorr = ['lag1', 'lag2', 'lag3', 'lag4', 'Resid']
+    resid_autocorr = pd.DataFrame(columns = l_autocorr, index = df_stocks.columns)
+    for i in range(len(Model_list)):
+        
+        residuals = list(Model_list[i].resid)
+        name = Model_list[i].model.endog_names
+        
+        resid_autocorr.loc[name,'Resid'] = residuals
+
+
+
+
+    for i in range(resid_autocorr.shape[0]):
+        
+        u = smtime.pacf(resid_autocorr.iloc[i,-1], nlags = 4, method = 'OLS', alpha = 0.05)    
+        
+        #Check whether the correlation coefficients are statistically significant from zero
+        k = 0
+        for j in u[1]:
+            
+            if (j[0] < 0 and j[1] > 0):
+                
+                u[0][k] = 0
+                
+            k += 1
+            
+        u = list(u[0][1:])
+        
+        resid_autocorr.iloc[i,:-1] = u
+
+    return resid_autocorr
+

@@ -3,16 +3,8 @@ import pandas as pd
 import Regression_function as rf
 import Regression_Plotting as rz
 
+
 rp = rz.Plotting(True)
-
-"""
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
-2. DATA UPLOAD AND MANIPULATION
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
-"""
-
 """
 Retrieve Subset equity
 """
@@ -29,9 +21,10 @@ EuroStoxx = EuroStoxx.iloc[: , 1:]
 Subset_Stock_Selected = Subset_Stock_Selected.iloc[: , 1:]
 Subset_Stock_Selected.columns = Subset_Stock_Selected.columns.str.replace(" - TOT RETURN IND","")
 
-#, "BUND":"RF GERMANY GVT BMK BID YLD 3M - RED. YIELD"
+
 
 sheets={"EURIBOR_3_M":"BD INTEREST RATES - EURIBOR RATE - 3 MONTH NADJ"}
+#, "BUND":"RF GERMANY GVT BMK BID YLD 3M - RED. YIELD"
 for sheet,col in sheets.items():  
     print("eseguo:" +sheet)
 
@@ -158,7 +151,7 @@ for sheet,col in sheets.items():
 
 
     """
-    Runs a CAPM using as independent variable the excess return of said portfolio
+    Runs a CAPM using as independent variable the excess return of the above portfolio
     """
 
     CAPM_EW_Portfolio_Summary, CAPM_EW_Portfolio = rf.OLS(
@@ -248,9 +241,35 @@ for sheet,col in sheets.items():
     diag_CAPM_serialcor_DW = diag_CAPM_serialcor_DW.sort_values('Test-statistic')
 
     diag_CAPM_serialcor_DW.to_excel("4_DW_test.xlsx")
-    rp.plotbar(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
-            ten_value = 1.8,
-            obj = 'p-value of the Durbin-Watson test')
+    
+    """
+    Plots where the null hypothesis is positive autocorrelation
+        -The values for LBound and UBound are the critical values obtained by 
+         tables for samples with 100 observations and one regressor.
+    """
+    rp.plotbar_DW(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
+            Lbound = 1.522, Ubound = 1.562,
+            obj = 'p-value of the Durbin-Watson test',conf = 0.01)
+
+    rp.plotbar_DW(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
+            Lbound = 1.654, Ubound = 1.694,
+            obj = 'p-value of the Durbin-Watson test',conf = 0.05)
+    
+    
+    """
+    Plots where the null hypothesis is negative autocorrelation
+    """
+    
+    rp.plotbar_DW(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
+            Lbound = 1.522, Ubound = 1.562,
+            obj = 'p-value of the Durbin-Watson test',conf = 0.01, 
+            pos_autocorr= False)
+
+    rp.plotbar_DW(diag_CAPM_serialcor_DW['Test-statistic'],"4_p_value_DW",
+            Lbound = 1.654, Ubound = 1.694,
+            obj = 'p-value of the Durbin-Watson test',conf = 0.05,
+            pos_autocorr = False)
+
 
     """
     BREUSCH-GODFREY TEST
@@ -286,7 +305,9 @@ for sheet,col in sheets.items():
           ' using robust standard errors vs non-robust standard errors\n')
     print(separator)
     
-    rp.comparison_barplot(CAPM_summary_stder, CAPM_summary)
+    rp.comparison_barplot(CAPM_summary_stder, CAPM_summary, label1 = 'Non-robust standard erorrs',
+                          label2 = 'Robust standard erorrs')
+
 
     """
     -----------------------------------------------------------------------------------------
@@ -299,6 +320,7 @@ for sheet,col in sheets.items():
     """
     FAMA-FRENCH download and cleaning
     """
+
 
     FF = pd . read_excel('fama_french.xlsx',sheet_name="four")
     FF.columns = FF.iloc[0,:]
@@ -351,6 +373,7 @@ for sheet,col in sheets.items():
     factor_corr_matrix = df_factors.corr()
 
 
+
     """
     Running the fama-french model on the equally-weighted portfolio
     """
@@ -369,26 +392,46 @@ for sheet,col in sheets.items():
     """
     Ad-hoc GETS
     """
+    
     """
     GETS_ad_hoc_summary = rf.ad_hoc_GETS(FF_summary, df_factors, df_stocks)
     """
         
     res = rf.ad_hoc_GETS(FF_summary, df_factors, df_stocks)
 
-    df = pd.DataFrame( columns = FF_summary.columns)
+    GETS_ad_hoc_summary= pd.DataFrame( columns = FF_summary.columns)
 
     for i in range(len(res)):
-        df = pd.concat([df, res[i]], axis = 0)
+        GETS_ad_hoc_summary= pd.concat([GETS_ad_hoc_summary, res[i]], axis = 0)
 
     print(separator)
     print("\nComparison between CAPM and FAMA-FRENCH with 5 factors")
     print("\nIrrelevant variables removed by comparison between value of BIC for each stock\n")
     print(separator)
     
-    rp.comparison_barplot(df, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
-
-               
+    rp.comparison_barplot(GETS_ad_hoc_summary, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
+  
+    
+    """
+    Plot to show which factors are relevant for each stock
+    """
+    
+    rp.factor_plot(GETS_ad_hoc_summary, df_factors)
+         
         
+    """
+    Comparison between General Fama-French and Specific Fama-French
+    """    
+    
+    print(separator)
+    print("\nComparison between the 6 factors Fama-French and Fama-French resulting from GETS procedure")
+    print(separator)
+    
+    rp.comparison_barplot(GETS_ad_hoc_summary, FF_summary.loc[FF_summary.index != 'Mean',:], 
+                          label1 = 'Specific Fama-French',
+                          label2 = 'General Fama-French',
+                          legend_pos= 'lower center')
+    
     """
     -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------
@@ -616,188 +659,37 @@ for sheet,col in sheets.items():
     """
     CAPM
     """
-    end_list = [21, 59]
-    
-    for o in end_list:
-
-        beg = int(0)
-        end = o
-    
-        stop = df_stocks.shape[0]
-    
-        d3 = {}
-    
-        l_col = []
-        l_col = l_col + list(CAPM_summary.columns) 
-    
-        """
-        CREATING THE LIST OF PARAMETERS FOR WHICH WE WANT THE PLOT WITH CONFIDENCE INTERVAL
-        """
-    
-        l_conf = ['Alpha','Market']
-    
-        for i in l_conf:
-    
-            l_col = l_col+ [i+ '_LBound', i+ '_UBound'] 
-    
-        l_col = l_col + ['end_date']
-    
-        for i in df_stocks.columns:
-            
-            d3[i] = pd.DataFrame(columns = l_col)
-    
-        """
-        ESTIMATING THE CAPM MODELS FOR EACH STOCK WITH A ROLLING WINDOW OF 5 YEARS
-        """
-    
-        j = 0
-            
-        while end <= stop:
-    
-            roll_df_stocks = df_stocks.iloc[beg:end, :]
-            
-            roll_df_factors = df_factors.iloc[beg:end, :]
-            
-            
-            roll_CAPM_summary, roll_CAPM_list = rf.OLS(roll_df_stocks,roll_df_factors['Market'], 
-                                                    hac = True,
-                                                    conf_int = [True, l_conf])
-            
-            for i in d3.keys():
-                
-                d3[i] = pd.concat([d3[i],roll_CAPM_summary.loc[i,:].to_frame().T],
-                                ignore_index= True)
-                d3[i].iloc[j,-1] = roll_df_stocks.index[-1]
-                
-    
-            beg += 1
-            end += 1   
-            j += 1      
-    
-        for i in d3.keys():
-            
-            d3[i] = d3[i].set_index('end_date')
-    
-        """
-        CHECK TO SEE THAT THE CONFIDENCE INTERVALS ARE SYMMETRIC
-        """    
-            
-        for i in d3.keys():
-            
-            for j in l_conf: 
-                t = (d3[i]['beta: Market'] - d3[i][j+ '_LBound']) + (d3[i]['beta: Market'] - d3[i][j+'_UBound'])
-                check = sum(t)
-                if i == 'ASML HOLDING':
-                    check_2 = t
-                
-                
-            
-        """
-        PLOT OF PARAMETERS THAT ADMIT CONFIDENCE INTERVALS
-        """
-    
-        df_bd_CAPM_2 = df_bd_CAPM.set_index('Name')
-        
-        list_to_plot = list(set(df_bd_CAPM_2.index))
-        
-        rp.plotting_CAPM_7(list_to_plot,d3,df_bd_CAPM_2,l_conf, o)
-
-# %%
-"""
-Correlation among residuals for the CAPM model
-"""
-
-m = CAPM_list[0].resid
+    dictCapmRolling= rf.CAPM_in_rolling_windows(df_stocks,df_factors,df_bd_CAPM,CAPM_summary)
+    for elem in dictCapmRolling:
+        rp.plotting_CAPM_7(dictCapmRolling[elem[0]],dictCapmRolling[elem[1]],
+                           dictCapmRolling[elem[2]],dictCapmRolling[elem[3]], dictCapmRolling[elem[4]])
 
 
-l_autocorr = ['lag1', 'lag2', 'lag3', 'lag4', 'Resid']
+    rp.plotEstimator(rf.ad_hoc_fun(GETS_ad_hoc_summary,df_factors))
 
-resid_autocorr_CAPM = pd.DataFrame(columns = l_autocorr, index = df_stocks.columns)
+    """
+    -------------------------------------------------------------------------------------
+    COMPARISON OF RESIDUALS CAPM VS FF
+    -------------------------------------------------------------------------------------
+    """
 
+    """
+    Correlation among residuals for the CAPM model
+    """
+    resid_autocorr_CAPM=rf.resid_autocorr_calculator(df_stocks,CAPM_list)
 
-for i in range(len(CAPM_list)):
+    """
+    Correlation among residuals for the Fama-French model with 6 factors
+    """
+    resid_autocorr_FF=rf.resid_autocorr_calculator(df_stocks,FF_list)
     
-    residuals = list(CAPM_list[i].resid)
-    name = CAPM_list[i].model.endog_names
+
+
+    print(separator)
+    print("""\nComparison between the correlation among the residuals and their\n
+        lagged values between the CAPM model and the Fama-French model\n""")
+    print(separator)
+
+    rp.comparison_barplot(resid_autocorr_FF, resid_autocorr_CAPM)
     
-    resid_autocorr_CAPM.loc[name,'Resid'] = residuals
-
-import statsmodels.tsa.stattools as smtime
-
-
-
-for i in range(resid_autocorr_CAPM.shape[0]):
-    
-    u = smtime.pacf(resid_autocorr_CAPM.iloc[i,-1], nlags = 4, method = 'OLS', alpha = 0.05)    
-    
-    #Check whether the correlation coefficients are statistically significant from zero
-    k = 0
-    for j in u[1]:
-        
-        if (j[0] < 0 and j[1] > 0):
-            
-            u[0][k] = 0
-            
-        k += 1
-        
-    u = list(u[0][1:])
-    
-    resid_autocorr_CAPM.iloc[i,:-1] = u
-
-"""
-Correlation among residuals for the Fama-French model with 6 factors
-"""
-
-l_autocorr = ['lag1', 'lag2', 'lag3', 'lag4', 'Resid']
-
-resid_autocorr_FF = pd.DataFrame(columns = l_autocorr, index = df_stocks.columns)
-
-for i in range(len(FF_list)):
-    
-    residuals = list(FF_list[i].resid)
-    name = FF_list[i].model.endog_names
-    
-    resid_autocorr_FF.loc[name,'Resid'] = residuals
-
-
-for i in range(resid_autocorr_CAPM.shape[0]):
-    
-    u = smtime.pacf(resid_autocorr_FF.iloc[i,-1], nlags = 4, method = 'OLS', alpha = 0.05)    
-
-    #Check whether the correlation coefficients are statistically significant from zero
-    k = 0
-    for j in u[1]:
-        
-        if (j[0] < 0 and j[1] > 0):
-            
-            u[0][k] = 0
-            
-        k += 1
-    
-    u = list(u[0][1:])
-    
-    resid_autocorr_FF.iloc[i,:-1] = u
-
-print(separator)
-print("""\nComparison between the correlation among the residuals and their\n
-      lagged values between the CAPM model and the Fama-French model\n""")
-print(separator)
-
-rp.comparison_barplot(resid_autocorr_FF, resid_autocorr_CAPM)
-# %%
-n = 50
-
-import matplotlib.pyplot as plt
-for i in range(resid_autocorr_CAPM.shape[0]):
-
-    plt.figure()
-    
-    plt.hist(resid_autocorr_FF.iloc[i,-1], label = 'Fama-French', bins = n, alpha = 0.5)
-    
-    plt.hist(resid_autocorr_CAPM.iloc[i,-1], label = 'CAPM', bins = n, alpha = 0.5)
-    plt.legend()
-    plt.title('Comparison between the distribution of the residuals: {}'.format(resid_autocorr_CAPM.index[i]))
-    
-    plt.show()
-
-
+    rp.histoplotting(resid_autocorr_CAPM,resid_autocorr_FF,n=50)
