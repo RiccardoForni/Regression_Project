@@ -431,6 +431,32 @@ for sheet,col in sheets.items():
                           label1 = 'Specific Fama-French',
                           label2 = 'General Fama-French',
                           legend_pos= 'lower center')
+
+
+    """
+    COMPARISON OF RESIDUALS CAPM VS FF
+    """
+
+    """
+    Correlation among residuals for the CAPM model
+    """
+    resid_autocorr_CAPM=rf.resid_autocorr_calculator(df_stocks,CAPM_list)
+
+    """
+    Correlation among residuals for the Fama-French model with 6 factors
+    """
+    resid_autocorr_FF=rf.resid_autocorr_calculator(df_stocks,FF_list)
+    
+
+
+    print(separator)
+    print("""\nComparison between the correlation among the residuals and their\n
+        lagged values between the CAPM model and the Fama-French model\n""")
+    print(separator)
+
+    rp.comparison_barplot(resid_autocorr_FF, resid_autocorr_CAPM)
+    
+    rp.histoplotting(resid_autocorr_CAPM,resid_autocorr_FF,n=50)
     
     """
     -----------------------------------------------------------------------------------------
@@ -710,31 +736,4 @@ for sheet,col in sheets.items():
                            elem[2],elem[3],elem[4])
 
 
-    rp.plotEstimator(rf.ad_hoc_fun(GETS_ad_hoc_summary,df_factors))
-
-    """
-    -------------------------------------------------------------------------------------
-    COMPARISON OF RESIDUALS CAPM VS FF
-    -------------------------------------------------------------------------------------
-    """
-
-    """
-    Correlation among residuals for the CAPM model
-    """
-    resid_autocorr_CAPM=rf.resid_autocorr_calculator(df_stocks,CAPM_list)
-
-    """
-    Correlation among residuals for the Fama-French model with 6 factors
-    """
-    resid_autocorr_FF=rf.resid_autocorr_calculator(df_stocks,FF_list)
     
-
-
-    print(separator)
-    print("""\nComparison between the correlation among the residuals and their\n
-        lagged values between the CAPM model and the Fama-French model\n""")
-    print(separator)
-
-    rp.comparison_barplot(resid_autocorr_FF, resid_autocorr_CAPM)
-    
-    rp.histoplotting(resid_autocorr_CAPM,resid_autocorr_FF,n=50)
