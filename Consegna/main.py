@@ -282,7 +282,7 @@ for sheet,col in sheets.items():
         diag_CAPM_serialcor_BG.loc['Mean'] = diag_CAPM_serialcor_BG.mean()
         diag_CAPM_serialcor_BG = diag_CAPM_serialcor_BG.sort_values('p-value')
     
-        diag_CAPM_serialcor_BG.to_excel("4_DW_test.xlsx")
+        diag_CAPM_serialcor_BG.to_excel("4_BG_test.xlsx")
         rp.plotbar(diag_CAPM_serialcor_BG['p-value'],"4_p_value_BG",
                    obj = 'p-value of the Bresuch-Godfrey test for {} lags'.format(i + 1))
         
