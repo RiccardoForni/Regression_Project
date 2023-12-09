@@ -5,6 +5,7 @@ import os
 import numpy as np
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+import seaborn as sns
 
 global allow_clean
 allow_clean = False
@@ -48,6 +49,7 @@ class Plotting:
                         five_value,
                         ten_value,
                         mean):
+            
             if value <= one_value:
                 return 'red'
             elif value <= five_value:
@@ -69,6 +71,69 @@ class Plotting:
         x_pos = range(P['stock_names'].shape[0])
         plt.xticks(x_pos, P['stock_names'], rotation=90)
         plt.title(obj)
+        
+        variable = variable.replace(":","_")
+        plt.savefig(folder_definer(SavePath)+"/"+variable+".png")
+        if allow_clean:
+            plt.show()
+        
+        plt.close()
+        
+    @controlla_permesso
+    def plotbar_DW(self,P,SavePath, Lbound = 0.01, Ubound= 0.05, 
+                   obj = '', conf = 0.05,
+                   pos_autocorr = True):
+        """/3_p_value_plots/"""
+        variable = P.name
+        P = pd.DataFrame(data = P, columns = [variable])
+        mean = P.loc['Mean', variable]
+        P['stock_names'] = P.index
+
+        def bar_highlight(value, Lbound, Ubound, mean):
+            
+            if pos_autocorr:
+                #there is statistical evidence that the error terms are positively autocorrelated
+                if value <= Lbound:
+                    return 'red'
+                #there is no statistical evidence that the error terms are positively autocorrelated
+                elif value >= Ubound:
+                    return 'grey'
+    
+                if value == mean:
+                    return 'black'
+                #the test is inconclusive
+                else:
+                    return 'blue'
+                
+            else: 
+                
+                #there is statistical evidence that the error terms are negatively autocorrelated
+                if (4 - value) <= Lbound:
+                    return 'red'
+                #there is no statistical evidence that the error terms are negatively autocorrelated
+                elif (4-value) >= Ubound:
+                    return 'grey'
+                
+                if value == mean:
+                    return 'black'
+                #the test is inconclusive
+                else:
+                    return 'blue'
+                
+        fig, ax = plt.subplots()   
+    
+        P['colors'] = P[variable].apply(bar_highlight, args = (Lbound, Ubound, mean))
+
+        bars = plt.bar(P['stock_names'], P[variable], color=P['colors'])
+        x_pos = range(P['stock_names'].shape[0])
+        plt.xticks(x_pos, P['stock_names'], rotation=90)
+        if pos_autocorr:
+            plt.title("{name}: H0 = Absence of positive autocorrelation, confidence level = {cf}".format(
+                name = obj, cf = conf))
+            
+        else:
+            plt.title("{name}: H0 = Absence of negative autocorrelation, confidence level = {cf}".format(
+                name = obj, cf = conf))
         
         variable = variable.replace(":","_")
         plt.savefig(folder_definer(SavePath)+"/"+variable+".png")
@@ -172,7 +237,10 @@ class Plotting:
             plt.show()
         plt.close()
     @controlla_permesso  
-    def comparison_barplot(self,FF_summary, CAPM_summary):
+    def comparison_barplot(self,FF_summary, CAPM_summary,
+                           label1 = 'CAPM',
+                           label2 = 'Fama-French',
+                           legend_pos = 'best'):
         index = 1
         diction = {}
         for e,i in zip(range(1,FF_summary.shape[1]+1),list(FF_summary.columns)):
@@ -190,24 +258,68 @@ class Plotting:
         
         fig, ax = plt.subplots()
         summer = ax.bar(index, FF_summary.loc[:,name], bar_width,
-                        label="Fama_French")
+                        label= label2)
         
         winter = ax.bar(index + bar_width, CAPM_summary.loc[:,name], bar_width,
-                        label="CAPM")
+                        label = label1)
         
         ax.set_xlabel('Company')
         ax.set_ylabel('Value')
-        ax.set_title('Comparison between CAPM and Fama-French model: {}'.format(name))
+        ax.set_title('Comparison between {CAPM} and {FF}: {n}'.format(n = name, CAPM = label1,
+                                                                                  FF = label2))
         
         x_pos = range(FF_summary.index.shape[0])
         plt.xticks(x_pos, FF_summary.index, rotation=90)
         
         ax.set_xticklabels(FF_summary.index)
-        ax.legend()
+        ax.legend(loc = legend_pos)
         
         if allow_clean:
             plt.show()
         plt.close()
+        
+    @controlla_permesso
+    def factor_plot(self,GETS_ad_hoc_summary,df_factors):
+        
+        l = [i for i in GETS_ad_hoc_summary.columns if i[0:4] == 'beta']
+        
+        df_to_plot = pd.DataFrame(columns = l, index = GETS_ad_hoc_summary.index)
+        
+        for i in l:
+            
+            k = np.array(GETS_ad_hoc_summary[i])
+            
+            for j in range(len(k)):
+        
+                if np.isnan(k[j]):
+                    
+                    a = 0 
+                    #a = np.dtype('int64').type(a)
+                    k[j] = a
+                
+                else:
+                    
+                    a = 1
+                    #a = np.dtype('int64').type(a)
+                    k[j] = a
+                    
+            df_to_plot[i] = k
+        
+        df_to_plot = df_to_plot.astype(int)
+        df_to_plot.columns = df_factors.columns
+        
+
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(df_to_plot, cmap='Blues', fmt='d', cbar=False,
+                    linewidths=0.5, linecolor='black')
+        
+        plt.xlabel('Factors')
+        plt.ylabel('Stocks')
+        
+        plt.show()
+        
+        
+        
     
     @controlla_permesso
     def plot_looking(self,time_series,df_factors,df_portfolios):
