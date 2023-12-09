@@ -282,7 +282,7 @@ for sheet,col in sheets.items():
         diag_CAPM_serialcor_BG.loc['Mean'] = diag_CAPM_serialcor_BG.mean()
         diag_CAPM_serialcor_BG = diag_CAPM_serialcor_BG.sort_values('p-value')
     
-        diag_CAPM_serialcor_BG.to_excel("4_BG_test.xlsx")
+        diag_CAPM_serialcor_BG.to_excel("4_DW_test.xlsx")
         rp.plotbar(diag_CAPM_serialcor_BG['p-value'],"4_p_value_BG",
                    obj = 'p-value of the Bresuch-Godfrey test for {} lags'.format(i + 1))
         
@@ -609,21 +609,20 @@ for sheet,col in sheets.items():
     rp.comparison_barplot(df_final2, CAPM_summary.loc[CAPM_summary.index != 'Mean', :])
 
     import matplotlib.pyplot as plt
-    
-    #Getting the ones for which there is no improvement
+        
+        #Getting the ones for which there is no improvement
     l_no_improvement = []
     for i in df_final2.index:
-        
         if df_final2.loc[i, 'R-Squared'] == CAPM_summary.loc[i, 'R-Squared']:
             l_no_improvement.append(i)
-        
+            
     df_to_plot = pd.DataFrame(columns = d[l_no_improvement[0]].columns, index = l_no_improvement)
-    
+    """
     #Plotting the number of models
     n_models = pd.DataFrame(index = d.keys(), columns = ['N_models'])
     for i in d.keys():
         n_models.loc[i,:] = int(d[i].shape[0])
-        
+
     plt.plot()
     
     plt.bar(n_models.index, n_models['N_models'])
@@ -631,7 +630,7 @@ for sheet,col in sheets.items():
     plt.title('Number of models')
     
     plt.show()
-       
+    
     #Show the factors for those models
     for i in l_no_improvement:
         
@@ -639,6 +638,9 @@ for sheet,col in sheets.items():
         
         
     rp.factor_plot(df_to_plot, df_factors)
+    """
+
+
 
     """
     COMPARING THE BREAK DATES FOR THE FAMA FRENCH MODEL
@@ -676,19 +678,7 @@ for sheet,col in sheets.items():
 
     rp.fama_french_plotting(df, model = 'Fama-French')
 
-    """
-    Analysis of the AIXTRON stock
-    """
 
-    for i in df_factors.columns:
-        plt.figure()
-        
-        plt.plot(time_series, df_stocks['AIXTRON (XET)'], label = 'AIXTRON')
-        plt.plot(time_series, df_factors[i], label = i)
-        plt.legend()
-        plt.title(i)
-        plt.show()
-    
     """
     -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------
@@ -704,8 +694,8 @@ for sheet,col in sheets.items():
     """
     dictCapmRolling= rf.CAPM_in_rolling_windows(df_stocks,df_factors,df_bd_CAPM,CAPM_summary)
     for elem in dictCapmRolling:
-        rp.plotting_CAPM_7(dictCapmRolling[elem[0]],dictCapmRolling[elem[1]],
-                           dictCapmRolling[elem[2]],dictCapmRolling[elem[3]], dictCapmRolling[elem[4]])
+        rp.plotting_CAPM_7(elem[0],elem[1],
+                           elem[2],elem[3],elem[4])
 
 
     rp.plotEstimator(rf.ad_hoc_fun(GETS_ad_hoc_summary,df_factors))
